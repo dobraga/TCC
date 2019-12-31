@@ -204,34 +204,10 @@
 \setlength{\parskip}{0pt}
 
 % Added by CII
-  %\setlength{\parskip}{\baselineskip}
-  \usepackage[parfill]{parskip}
 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-\Acknowledgements{
-
-}
-
-\Dedication{
-
-}
-
-\Preface{
-
-}
-
-\Abstract{
-This document provides an introduction to R Markdown, argues for
-its\ldots{}
-}
-
-% End of CII addition
-%%
-%% End Preamble
-%%
-%
 
 \begin{document}
 
@@ -241,27 +217,102 @@ its\ldots{}
 % Retira espaço extra obsoleto entre as frases.
 \frenchspacing 
 
-% Everything below added by CII
-  \maketitle
 
-\frontmatter % this stuff will be roman-numbered
-\pagestyle{empty} % this removes page numbers from the frontmatter
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual
+
+% ---
+% Capa
+% ---
+\imprimircapa
+% ---
+
+% ---
+% Folha de rosto
+% (o * indica que haverá a ficha bibliográfica)
+% ---
+\imprimirfolhaderosto*
+
+% ---
+% Agradecimentos
+% ---
+\begin{agradecimentos}
+  O agradecimento principal é direcionado a Youssef Cherem, autor do
+  \nameref{formulado-identificacao}
+  (\autopageref{formulado-identificacao}).
+  
+  Os agradecimentos especiais são direcionados ao Centro de Pesquisa em
+  Arquitetura da Informação\footnote{\url{http://www.cpai.unb.br/}} da
+  Universidade de Brasília (CPAI), ao grupo de usuários
+  \emph{latex-br}\footnote{\url{http://groups.google.com/group/latex-br}}
+  e aos novos voluntários do grupo
+  \emph{\abnTeX}\footnote{\url{http://groups.google.com/group/abntex2} e
+  \url{http://www.abntex.net.br/}}\textasciitilde{}que contribuíram e que
+  ainda contribuirão para a evolução do abn\TeX.
+\end{agradecimentos}
+% ---
+
+% ---
+% RESUMO
+% ---
+
+% resumo na língua vernácula (obrigatório)
+\setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
+\begin{resumo}
+ Segundo a \citeonline{} \citeonline[3.1-3.2]{NBR6028:2003}, o resumo
+ deve ressaltar o objetivo, o método, os resultados e as conclusões do
+ documento. A ordem e a extensão destes itens dependem do tipo de resumo
+ (informativo ou indicativo) e do tratamento que cada item recebe no
+ documento original. O resumo deve ser precedido da referência do
+ documento, com exceção do resumo inserido no próprio documento. (\ldots)
+ As palavras-chave devem figurar logo abaixo do resumo, antecedidas da
+ expressão Palavras-chave:, separadas entre si por ponto e finalizadas
+ também por ponto.
+ \noindent
+ \textbf{Palavras-chaves}: latex. abntex. editoração de texto.
+\end{resumo}
+% ---
+
+% ---
+% inserir lista de ilustrações
+% ---
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de tabelas
+% ---
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de abreviaturas e siglas
+% ---
+%\begin{siglas}
+%  \item[ABNT] Associação Brasileira de Normas Técnicas
+%  \item[abnTeX] ABsurdas Normas para TeX
+%\end{siglas}
+% ---
+
+% ---
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
 
 
-
-  \hypersetup{linkcolor=black}
-  \setcounter{tocdepth}{2}
-  \tableofcontents
-
-  \listoftables
-
-  \listoffigures
-
-  \begin{abstract}
-    This document provides an introduction to R Markdown, argues for
-    its\ldots{}
-  \end{abstract}
-
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
 
 \mainmatter % here the regular arabic numbering starts
 \pagestyle{fancyplain} % turns page numbering back on
@@ -335,7 +386,7 @@ P(f|D_{1:t}) \propto P(D_{1:t}|f)P(f)
 
 \begin{figure}
 \centering
-\includegraphics[width=0.2\textwidth,height=\textheight]{images/bo.png}
+\includegraphics[width=\textwidth,height=0.5\textheight]{images/bo.png}
 \caption{Um exemplo do uso da otimização bayesiana em um problema de
 design de brinquedo 1D. As figuras mostram uma aproximação do processo
 Gaussiano (GP) da função objetivo sobre quatro iterações dos valores
@@ -383,7 +434,7 @@ apresentado um exemplo.\\
 
 \begin{figure}
 \centering
-\includegraphics[width=0.3\textwidth,height=\textheight]{images/gp.png}
+\includegraphics[width=\textwidth,height=0.5\textheight]{images/gp.png}
 \caption{\href{https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1ce0e402cf7d8/docs/demoOutput/bookDemos/(15)-Gaussian_processes/gprDemoNoiseFree_02.png}{Retirada
 do livro de Kevin Murphy}}
 \end{figure}

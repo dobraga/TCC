@@ -218,30 +218,6 @@ $endif$
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-\Acknowledgements{
-$acknowledgements$
-}
-
-\Dedication{
-$dedication$
-}
-
-\Preface{
-$preface$
-}
-
-\Abstract{
-$abstract$
-}
-
-$for(header-includes)$
-	$header-includes$
-$endfor$
-% End of CII addition
-%%
-%% End Preamble
-%%
-%
 
 \begin{document}
 
@@ -251,51 +227,83 @@ $endfor$
 % Retira espaço extra obsoleto entre as frases.
 \frenchspacing 
 
-% Everything below added by CII
-$if(title)$
-  \maketitle
-$endif$
 
-\frontmatter % this stuff will be roman-numbered
-\pagestyle{empty} % this removes page numbers from the frontmatter
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual
 
-$if(acknowledgements)$
-  \begin{acknowledgements}
-    $acknowledgements$
-  \end{acknowledgements}
-$endif$
+% ---
+% Capa
+% ---
+\imprimircapa
+% ---
 
-$if(preface)$
-  \begin{preface}
-    $preface$
-  \end{preface}
-$endif$
+% ---
+% Folha de rosto
+% (o * indica que haverá a ficha bibliográfica)
+% ---
+\imprimirfolhaderosto*
 
-$if(toc)$
-  \hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
-  \setcounter{tocdepth}{$toc-depth$}
-  \tableofcontents
-$endif$
+% ---
+% Agradecimentos
+% ---
+\begin{agradecimentos}
+  $agradecimento$
+\end{agradecimentos}
+% ---
 
-$if(lot)$
-  \listoftables
-$endif$
+% ---
+% RESUMO
+% ---
 
-$if(lof)$
-  \listoffigures
-$endif$
+% resumo na língua vernácula (obrigatório)
+\setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
+\begin{resumo}
+ $resumo$
+ \noindent
+ \textbf{Palavras-chaves}: $chave$
+\end{resumo}
+% ---
 
-$if(abstract)$
-  \begin{abstract}
-    $abstract$
-  \end{abstract}
-$endif$
+% ---
+% inserir lista de ilustrações
+% ---
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+% ---
 
-$if(dedication)$
-  \begin{dedication}
-    $dedication$
-  \end{dedication}
-$endif$
+% ---
+% inserir lista de tabelas
+% ---
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de abreviaturas e siglas
+% ---
+%\begin{siglas}
+%  \item[ABNT] Associação Brasileira de Normas Técnicas
+%  \item[abnTeX] ABsurdas Normas para TeX
+%\end{siglas}
+% ---
+
+% ---
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
 
 \mainmatter % here the regular arabic numbering starts
 \pagestyle{fancyplain} % turns page numbering back on

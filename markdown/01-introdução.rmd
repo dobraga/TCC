@@ -31,7 +31,7 @@ $$
 
 ![Um exemplo do uso da otimização bayesiana em um problema de design de brinquedo 1D. As figuras mostram uma aproximação do processo Gaussiano (GP) da função objetivo sobre quatro iterações dos valores amostrados da função objetivo. A figura também mostra o função de aquisição nas parcelas sombreadas mais baixas. A aquisição é alta onde o GP
 prevê um objetivo elevado (exploração) e onde a incerteza de previsão é alta (exploração) - áreas com os dois atributos são amostradas primeiro. Note que a área no extrema esquerda permanece sem amostragem, como enquanto ele tem alta incerteza, é (corretamente) previsto
-para oferecer pouca melhoria sobre a mais alta observação.](images/bo.png){width=20%}  
+para oferecer pouca melhoria sobre a mais alta observação.](images/bo.png){height=50%}  
 
 A posteriori captura a apriori atualizada da função objetivo. Para que uma amostra eficiente seja obtida é utilizado uma função de aquisição para determinar o próximo ponto $x_{t+1} \in A$.  A decisão representa um trade-off automático entre exploração (onde a função objetivo é muito incerta) e exploração (tentando valores de $x$ onde a função objetivo deve ser alta). A optimização bayesiana tem como objetivo minimizar a quantidade de interações nescessárias para localizar o ponto máximo e também se comporte bem em funções com múltiplos pontos de máximo.\
 \
