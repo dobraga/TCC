@@ -4,18 +4,23 @@ output:
     number_sections: yes
     toc: yes
     keep_tex: true
-    template: teste.tex
+    template: template.tex
   word_document:
     toc: yes
     #reference_docx: 'modelo.docx'
+    
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+author: |
+  Douglas Braga\\
+  Felipe Sales
 title: "Optimização Bayesiana"
 subtitle: |
   Uma aplicação para otimização de hiperparâmetros de modelos de machine learning.
 supervisor: "Orientador"
-university: "Escola Nacional de Ciências Estatísticas"
+institution: |
+  Escola Nacional de Ciências Estatísticas\\
+  Bacharelado em Estatística
 degree: "Bacharelado em Estatística"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-author: Douglas Braga \\\ Felipe Sales
 
 abstract: "This document provides an introduction to R Markdown, argues for its..."
 keywords: "pandoc, r markdown, knitr"
@@ -52,15 +57,9 @@ fontsize: 11pt
 bibliography: bibliography.bibtex
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.pos = 'H')
 ```
-
-```{r}
-plot(iris)
-```
-
 
 \newpage 
 
