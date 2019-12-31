@@ -23,10 +23,10 @@ lof: true
 fontsize: 11pt
 bibliography: bibliography.bibtex
 space_between_paragraphs: yes
-header-includes:
-  \renewcommand{\contentsname}{Tabela de Conteúdo}
-  \renewcommand{\listfigurename}{Lista de Imagens}
-  \renewcommand{\listtablename}{Lista de Tabelas}
+#header-includes:
+#  \renewcommand{\contentsname}{Tabela de Conteúdo}
+#  \renewcommand{\listfigurename}{Lista de Imagens}
+#  \renewcommand{\listtablename}{Lista de Tabelas}
 ---
 
 

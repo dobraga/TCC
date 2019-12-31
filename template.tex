@@ -40,7 +40,7 @@
 	french,				% idioma adicional para hifenização
 	spanish,			% idioma adicional para hifenização
 	brazil,				% o último idioma é o principal do documento
-]{reedthesis}
+]{abntex2}
 % Packages are extensions to the basic LaTeX functions. Whatever you
 % want to typeset, there is probably a package out there for it.
 % Chemistry (chemtex), screenplays, you name it.
@@ -129,6 +129,32 @@ $endif$
 	\fi}%
 % ---
 
+% ---
+% Configurações de aparência do PDF final
+
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		  pdftitle={$title$, 
+		  pdfauthor={$author$},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		  pdfkeywords={abnt}{latex}{abntex}{abntex2}{relatório técnico}, 
+		  colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      	% color of file links
+		  urlcolor=blue,
+		  bookmarksdepth=4
+}
+\makeatother
+% --- 
+
 
 % --- 
 % Espaçamentos entre linhas e parágrafos 
@@ -140,25 +166,23 @@ $endif$
 % Controle do espaçamento entre um parágrafo e outro:
 \setlength{\parskip}{0.2cm}  % tente também \onelineskip
 
-
 % To pass between YAML and LaTeX the dollar signs are added by CII
-\title{$title$}
-\author{$author$}
+\titulo{$title$}
+\autor{$author$}
 % The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
-\date{$date$}
-\division{$division$}
-\advisor{$advisor$}
-\institution{$institution$}
+\local{Brasil}
+\data{$date$}
+\instituicao{$institution$}
 \degree{$degree$}
 %If you have two advisors for some reason, you can use the following
 % Uncommented out by CII
 $if(altadvisor)$
-\altadvisor{$altadvisor$}
+\preambulo{$altadvisor$}
 $endif$
 % End of CII addition
 
 %%% Remember to use the correct department!
-\department{$department$}
+%\department{$department$}
 % if you're writing a thesis in an interdisciplinary major,
 % uncomment the line below and change the text as appropriate.
 % check the Senior Handbook if unsure.
@@ -181,7 +205,6 @@ $endif$
 }
 \makeatother
 
-\renewcommand{\contentsname}{Table of Contents}
 % End of CII addition
 
 \setlength{\parskip}{0pt}

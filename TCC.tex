@@ -40,7 +40,7 @@
 	french,				% idioma adicional para hifenização
 	spanish,			% idioma adicional para hifenização
 	brazil,				% o último idioma é o principal do documento
-]{reedthesis}
+]{abntex2}
 % Packages are extensions to the basic LaTeX functions. Whatever you
 % want to typeset, there is probably a package out there for it.
 % Chemistry (chemtex), screenplays, you name it.
@@ -126,6 +126,32 @@
 	\fi}%
 % ---
 
+% ---
+% Configurações de aparência do PDF final
+
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		  pdftitle={Optimização Bayesiana, 
+		  pdfauthor={Douglas Braga \textbackslash{} Felipe Sales},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		  pdfkeywords={abnt}{latex}{abntex}{abntex2}{relatório técnico}, 
+		  colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      	% color of file links
+		  urlcolor=blue,
+		  bookmarksdepth=4
+}
+\makeatother
+% --- 
+
 
 % --- 
 % Espaçamentos entre linhas e parágrafos 
@@ -137,22 +163,20 @@
 % Controle do espaçamento entre um parágrafo e outro:
 \setlength{\parskip}{0.2cm}  % tente também \onelineskip
 
-
 % To pass between YAML and LaTeX the dollar signs are added by CII
-\title{Optimização Bayesiana}
-\author{Douglas Braga \textbackslash{} Felipe Sales}
+\titulo{Optimização Bayesiana}
+\autor{Douglas Braga \textbackslash{} Felipe Sales}
 % The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
-\date{31 dezembro, 2019}
-\division{}
-\advisor{}
-\institution{}
+\local{Brasil}
+\data{31 dezembro, 2019}
+\instituicao{}
 \degree{Bacharelado em Estatística}
 %If you have two advisors for some reason, you can use the following
 % Uncommented out by CII
 % End of CII addition
 
 %%% Remember to use the correct department!
-\department{}
+%\department{}
 % if you're writing a thesis in an interdisciplinary major,
 % uncomment the line below and change the text as appropriate.
 % check the Senior Handbook if unsure.
@@ -175,7 +199,6 @@
 }
 \makeatother
 
-\renewcommand{\contentsname}{Table of Contents}
 % End of CII addition
 
 \setlength{\parskip}{0pt}
@@ -204,7 +227,6 @@ This document provides an introduction to R Markdown, argues for
 its\ldots{}
 }
 
-	\renewcommand{\contentsname}{Tabela de Conteúdo} \renewcommand{\listfigurename}{Lista de Imagens} \renewcommand{\listtablename}{Lista de Tabelas}
 % End of CII addition
 %%
 %% End Preamble
