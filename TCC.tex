@@ -273,6 +273,12 @@ A optimização bayesiana é um método para encontrar o ponto máximo de
 funções, esta técnica utiliza-se de suposições a priori da função em
 análise e combina com evidências dos dados para obter a posteriori. ~
 
+\hypertarget{metodologia}{%
+\chapter{Metodologia}\label{metodologia}}
+
+\hypertarget{otimizauxe7uxe3o}{%
+\section{Otimização}\label{otimizauxe7uxe3o}}
+
 No campo da optimização tem-se como objetivo:
 
 \[
@@ -323,19 +329,23 @@ P(f|D_{1:t}) \propto P(D_{1:t}|f)P(f)
 \]
 
 \begin{figure}
+\hypertarget{fig:bo}{%
 \centering
-\includegraphics[width=\textwidth,height=0.5\textheight]{images/bo.png}
+\includegraphics{images/bo.png}
 \caption{Um exemplo do uso da otimização bayesiana em um problema de
-design de brinquedo 1D. As figuras mostram uma aproximação do processo
-Gaussiano (GP) da função objetivo sobre quatro iterações dos valores
-amostrados da função objetivo. A figura também mostra o função de
-aquisição nas parcelas sombreadas mais baixas. A aquisição é alta onde o
-GP prevê um objetivo elevado (exploração) e onde a incerteza de previsão
-é alta (exploração) - áreas com os dois atributos são amostradas
-primeiro. Note que a área no extrema esquerda permanece sem amostragem,
-como enquanto ele tem alta incerteza, é (corretamente) previsto para
-oferecer pouca melhoria sobre a mais alta observação.}
+design de brinquedo 1D.}\label{fig:bo}
+}
 \end{figure}
+
+A imagem @\#fig:bo mostram uma aproximação do processo Gaussiano (GP) da
+função objetivo sobre quatro iterações dos valores amostrados da função
+objetivo. A figura também mostra o função de aquisição nas parcelas
+sombreadas mais baixas. A aquisição é alta onde o GP prevê um objetivo
+elevado (exploração) e onde a incerteza de previsão é alta (exploração)
+- áreas com os dois atributos são amostradas primeiro. Note que a área
+no extrema esquerda permanece sem amostragem, como enquanto ele tem alta
+incerteza, é (corretamente) previsto para oferecer pouca melhoria sobre
+a mais alta observação.
 
 A posteriori captura a apriori atualizada da função objetivo. Para que
 uma amostra eficiente seja obtida é utilizado uma função de aquisição
@@ -355,11 +365,6 @@ posteriori calculada para os pontos e a variância da previsão. E então é
 amostrado o \(\operatorname{argmax}\) da função da função de aquisição,
 o processo gaussiano é atualizado e o processo é repetido para os
 próximos passos.\\
-~\\
-~\\
-
-\hypertarget{metodologia}{%
-\chapter{Metodologia}\label{metodologia}}
 
 \hypertarget{processos-gaussianos}{%
 \section{Processos Gaussianos}\label{processos-gaussianos}}
@@ -416,7 +421,7 @@ K(x_1,x_2) = \sigma^2 e^{-\frac{1}{2l^2}(x_1-x_2)^2}
 \]
 
 \hypertarget{funuxe7uxe3o-de-aquisiuxe7uxe3o}{%
-\section{Função de Aquisição}\label{funuxe7uxe3o-de-aquisiuxe7uxe3o}}
+\subsection{Função de Aquisição}\label{funuxe7uxe3o-de-aquisiuxe7uxe3o}}
 
 Será assumido que a função \(f(x)\) é uma observação de um processo
 gaussiano e que as observações, \((x_n,y_n)_{n=1}^N\), onde

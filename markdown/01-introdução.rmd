@@ -1,39 +1,3 @@
 Os algoritmos de Machine Learning raramente não possuem parãmetros, como por exemplo, a taxa de aprendizado. Muitas vezes esses parâmetros são considerados nuances.
 
 A optimização bayesiana é um método para encontrar o ponto máximo de funções, esta técnica utiliza-se de suposições a priori da função em análise e combina com evidências dos dados para obter a posteriori. \ 
-
-
-No campo da optimização tem-se como objetivo:
-
-$$
-\max\limits_{{x \in A \subset \mathbb{R}^d}} f(x)
-$$
-
-Normalmente, pressupõe-se que a função objetivo tem uma representação matemática conhecida, é convexa ou é pelo menos barata para avaliar. No campo de Machine Learning, uma parte das funções de custo estudadas não seguem essas suposições. Muitas vezes, a avaliação da função custo é muito cara(demorada) ou até mesmo impossível, e as propriedas da função custo são desconhecidas.\
-
-A optimização bayesiana é útil quando a avaliação da função tem custo alto, quando não é conhecido as derivadas da função em análise, quando a função não é convexa ou até mesmo desconhecida.\
-
-As técnicas de otimização bayesiana são algumas das abordagens mais eficientes em termos do número de avaliações de funções necessárias. É conhecida com este nome por ter como base o teorema de Bayes que diz que a posteriori de um modelo(M) dada evidência dos dados(E) é proporcional à verossimilhança de E dado M vezes a priori do modelo(M):
-
-$$
-P(M|E) \propto P(E|M)P(M)
-$$
-
-Na optimização bayesiana, a priori que é definida está ligada ao espaço que acredita-se que a função de custo possa variar. Mesmo que esta função seja desconhecida, é razoavel supor que exista conhecimento prévio sobre alguma de suas propriedades, como a suavidade, isto torna algumas funções objetivas mais prováveis que outras.\
-
-Define-se $x_i$ sendo a i-ésima amostra, e $f(x_i)$ a observação da função objetiva em $x_i$. Serão acumulados as observações $D_{i:t}=\left\{ x_{i:t},f(x_{1:t}) \right\}$, a distribuição apriori será combinada com a verossimilhança $P(D_{i:t}|f)$, que para facilitar, pode-se pensar que a verossimilhança é a proprabilidade do que vimos ocorrer dado que o que achamos sobre a função é a realidade. Se a nossa crença anterior é que a função objetiva é muito suave e isenta de erros, os dados com alta variância ou oscilações devem ser considerados menos prováveis do que os dados que mal se desviam da média. Agora, podemos combiná-los para obter nossa distribuição aposteriori:
-
-$$
-P(f|D_{1:t}) \propto P(D_{1:t}|f)P(f)
-$$
-
-![Um exemplo do uso da otimização bayesiana em um problema de design de brinquedo 1D. As figuras mostram uma aproximação do processo Gaussiano (GP) da função objetivo sobre quatro iterações dos valores amostrados da função objetivo. A figura também mostra o função de aquisição nas parcelas sombreadas mais baixas. A aquisição é alta onde o GP
-prevê um objetivo elevado (exploração) e onde a incerteza de previsão é alta (exploração) - áreas com os dois atributos são amostradas primeiro. Note que a área no extrema esquerda permanece sem amostragem, como enquanto ele tem alta incerteza, é (corretamente) previsto
-para oferecer pouca melhoria sobre a mais alta observação.](images/bo.png){height=50%}  
-
-A posteriori captura a apriori atualizada da função objetivo. Para que uma amostra eficiente seja obtida é utilizado uma função de aquisição para determinar o próximo ponto $x_{t+1} \in A$.  A decisão representa um trade-off automático entre exploração (onde a função objetivo é muito incerta) e exploração (tentando valores de $x$ onde a função objetivo deve ser alta). A optimização bayesiana tem como objetivo minimizar a quantidade de interações nescessárias para localizar o ponto máximo e também se comporte bem em funções com múltiplos pontos de máximo.\
-\
-
-A figura 1 representa um uma optimização de uma dimensão, onde é iniciado com dois ponto aleatórios. A cada iteração, a função de aquisição é maximizada para determinar o pŕoximo ponto para a amostra da função objetivo. A função de aquisição leva em consideração a média a posteriori calculada para os pontos e a variância da previsão. E então é amostrado o $\operatorname{argmax}$ da função da função de aquisição, o processo gaussiano é atualizado e o processo é repetido para os próximos passos.\
-\
-\
