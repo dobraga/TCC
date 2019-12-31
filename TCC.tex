@@ -138,7 +138,7 @@
 \hypersetup{
      	%pagebackref=true,
 		  pdftitle={Optimização Bayesiana}, 
-		  pdfauthor={Douglas Braga \textbackslash{} Felipe Sales},
+		  pdfauthor={Douglas Braga \textbackslash{}~Felipe Sales},
     	pdfsubject={\imprimirpreambulo},
 	    pdfcreator={LaTeX with abnTeX2},
 		  pdfkeywords={abnt}{latex}{abntex}{abntex2}{relatório técnico}, 
@@ -152,7 +152,6 @@
 \makeatother
 % --- 
 
-
 % --- 
 % Espaçamentos entre linhas e parágrafos 
 % --- 
@@ -165,7 +164,7 @@
 
 % To pass between YAML and LaTeX the dollar signs are added by CII
 \titulo{Optimização Bayesiana}
-\autor{Douglas Braga \textbackslash{} Felipe Sales}
+\autor{Douglas Braga \textbackslash{}~Felipe Sales}
 % The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
 \local{Brasil}
 \data{31 dezembro, 2019}
@@ -174,40 +173,6 @@
 %If you have two advisors for some reason, you can use the following
 % Uncommented out by CII
 % End of CII addition
-
-%%% Remember to use the correct department!
-%\department{}
-% if you're writing a thesis in an interdisciplinary major,
-% uncomment the line below and change the text as appropriate.
-% check the Senior Handbook if unsure.
-%\thedivisionof{The Established Interdisciplinary Committee for}
-% if you want the approval page to say "Approved for the Committee",
-% uncomment the next line
-%\approvedforthe{Committee}
-
-% Added by CII
-%%% Copied from knitr
-%% maxwidth is the original width if it's less than linewidth
-%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
-\makeatletter
-\def\maxwidth{ %
-  \ifdim\Gin@nat@width>\linewidth
-    \linewidth
-  \else
-    \Gin@nat@width
-  \fi
-}
-\makeatother
-
-% End of CII addition
-
-\setlength{\parskip}{0pt}
-
-% Added by CII
-
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-
 
 \begin{document}
 
@@ -424,7 +389,7 @@ próximos passos.\\
 \section{Metodologia}\label{metodologia}}
 
 \hypertarget{processos-gaussianos}{%
-\subsection{Processos Gaussianos}\label{processos-gaussianos}}
+\section{Processos Gaussianos}\label{processos-gaussianos}}
 
 Os processos gaussianos comunmente são utilizados como para interpolação
 de pontos não linear, sendo assim, o objetivo é prever pontos no espaço
@@ -478,7 +443,7 @@ K(x_1,x_2) = \sigma^2 e^{-\frac{1}{2l^2}(x_1-x_2)^2}
 \]
 
 \hypertarget{funuxe7uxe3o-de-aquisiuxe7uxe3o}{%
-\subsection{Função de aquisição}\label{funuxe7uxe3o-de-aquisiuxe7uxe3o}}
+\section{Função de aquisição}\label{funuxe7uxe3o-de-aquisiuxe7uxe3o}}
 
 Será assumido que a função \(f(x)\) é uma observação de um processo
 gaussiano e que as observações, \((x_n,y_n)_{n=1}^N\), onde
