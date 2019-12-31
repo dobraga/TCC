@@ -9,29 +9,23 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: |
   | Douglas Braga
   | Felipe Sales
+  
 title: "Optimização Bayesiana"
-subtitle: |
-  Uma aplicação para otimização de hiperparâmetros de modelos de machine learning.
-supervisor: "Orientador"
 institution: |
-  Escola Nacional de Ciências Estatísticas
-degree: "Bacharelado em Estatística"
+  | Escola Nacional de Ciências Estatísticas
+  | Bacharelado em Estatística
 
-abstract: "This document provides an introduction to R Markdown, argues for its..."
-keywords: "pandoc, r markdown, knitr"
 resumo: |
-  Segundo a \citeonline{} \citeonline[3.1-3.2]{NBR6028:2003}, o resumo deve ressaltar o
-  objetivo, o método, os resultados e as conclusões do documento. A ordem e a extensão
-  destes itens dependem do tipo de resumo (informativo ou indicativo) e do
-  tratamento que cada item recebe no documento original. O resumo deve ser
+  O resumo deve ressaltar o objetivo, o método, os resultados e as conclusões do documento. 
+  A ordem e a extensão destes itens dependem do tipo de resumo (informativo ou indicativo) 
+  e do tratamento que cada item recebe no documento original. O resumo deve ser
   precedido da referência do documento, com exceção do resumo inserido no
   próprio documento. (\ldots) As palavras-chave devem figurar logo abaixo do
   resumo, antecedidas da expressão Palavras-chave:, separadas entre si por
   ponto e finalizadas também por ponto.
 chave: latex. abntex. editoração de texto.
 agradecimento: |
-  O agradecimento principal é direcionado a Youssef Cherem, autor do
-  \nameref{formulado-identificacao} (\autopageref{formulado-identificacao}).
+  O agradecimento principal é direcionado a Youssef Cherem.
 
   Os agradecimentos especiais são direcionados ao Centro de Pesquisa em
   Arquitetura da Informação\footnote{\url{http://www.cpai.unb.br/}} da Universidade de
@@ -46,9 +40,6 @@ preambulo: |
   Modelo canônico de Relatório Técnico e/ou Científico em conformidade
   com as normas ABNT apresentado à comunidade de usuários \LaTeX.
 
-lot: false
-lof: true
-fontsize: 11pt
 bibliography: bibliography.bibtex
 ---
 
