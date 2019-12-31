@@ -1,33 +1,36 @@
-% This is the Reed College LaTeX thesis template. Most of the work
-% for the document class was done by Sam Noble (SN), as well as this
-% template. Later comments etc. by Ben Salzberg (BTS). Additional
-% restructuring and APA support by Jess Youngberg (JY).
-% Your comments and suggestions are more than welcome; please email
-% them to cus@reed.edu
-%
-% See http://web.reed.edu/cis/help/latex.html for help. There are a
-% great bunch of help pages there, with notes on
-% getting started, bibtex, etc. Go there and read it if you're not
-% already familiar with LaTeX.
-%
-% Any line that starts with a percent symbol is a comment.
-% They won't show up in the document, and are useful for notes
-% to yourself and explaining commands.
-% Commenting also removes a line from the document;
-% very handy for troubleshooting problems. -BTS
-
-% As far as I know, this follows the requirements laid out in
-% the 2002-2003 Senior Handbook. Ask a librarian to check the
-% document before binding. -SN
-
+%% abtex2-modelo-relatorio-tecnico.tex, v<VERSION> laurocesar
+%% Copyright 2012-<COPYRIGHT_YEAR> by abnTeX2 group at http://www.abntex.net.br/ 
 %%
-%% Preamble
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
 %%
-% \documentclass{<something>} must begin each LaTeX document
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://www.abntex.net.br/
+%%
+%% This work consists of the files abntex2-modelo-relatorio-tecnico.tex,
+%% abntex2-modelo-include-comandos and abntex2-modelo-references.bib
+%%
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Relatório Técnico/Acadêmico em conformidade com 
+% ABNT NBR 10719:2015 Informação e documentação - Relatório técnico e/ou
+% científico - Apresentação
+% ------------------------------------------------------------------------ 
+% ------------------------------------------------------------------------
+
 \documentclass[
 	% -- opções da classe memoir --
-	12pt,				  % tamanho da fonte
-	openright,		% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	12pt,				% tamanho da fonte
+	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
 	twoside,			% para impressão em recto e verso. Oposto a oneside
 	a4paper,			% tamanho do papel. 
 	% -- opções da classe abntex2 --
@@ -41,11 +44,15 @@
 	spanish,			% idioma adicional para hifenização
 	brazil,				% o último idioma é o principal do documento
 ]{abntex2}
-% Packages are extensions to the basic LaTeX functions. Whatever you
-% want to typeset, there is probably a package out there for it.
-% Chemistry (chemtex), screenplays, you name it.
-% Check out CTAN to see: http://www.ctan.org/
-%%
+
+
+% ---
+% PACOTES
+% ---
+
+% ---
+% Pacotes fundamentais 
+% ---
 \usepackage{lmodern}			% Usa a fonte Latin Modern
 \usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
 \usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
@@ -53,18 +60,7 @@
 \usepackage{color}				% Controle das cores
 \usepackage{graphicx}			% Inclusão de gráficos
 \usepackage{microtype} 			% para melhorias de justificação
-\usepackage{graphicx,latexsym}
-\usepackage{amsmath}
-\usepackage{amssymb,amsthm}
-\usepackage{longtable,booktabs,setspace}
-\usepackage{chemarr} %% Useful for one reaction arrow, useless if you're not a chem major
-\usepackage[hyphens]{url}
-% Added by CII
-\usepackage{hyperref}
-\usepackage{float}
-\floatplacement{figure}{H}
-% End of CII addition
-\usepackage{rotating}
+% ---
 
 % ---
 % Pacotes adicionais, usados no anexo do modelo de folha de identificação
@@ -72,41 +68,18 @@
 \usepackage{multicol}
 \usepackage{multirow}
 % ---
+	
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}				% para geração de dummy text
+% ---
 
 % ---
 % Pacotes de citações
 % ---
 \usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
 \usepackage[alf]{abntex2cite}	% Citações padrão ABNT
-
-% Next line commented out by CII
-%%% \usepackage{natbib}
-% Comment out the natbib line above and uncomment the following two lines to use the new
-% biblatex-chicago style, for Chicago A. Also make some changes at the end where the
-% bibliography is included.
-%\usepackage{biblatex-chicago}
-%\bibliography{thesis}
-
-
-% Added by CII (Thanks, Hadley!)
-% Use ref for internal links
-\renewcommand{\hyperref}[2][???]{\autoref{#1}}
-\def\chapterautorefname{Chapter}
-\def\sectionautorefname{Section}
-\def\subsectionautorefname{Subsection}
-% End of CII addition
-
-% Added by CII
-\usepackage{caption}
-\captionsetup{width=5in}
-% End of CII addition
-
-% \usepackage{times} % other fonts are available like times, bookman, charter, palatino
-
-% Syntax highlighting #22
-$if(highlighting-macros)$
-  $highlighting-macros$
-$endif$
 
 % --- 
 % CONFIGURAÇÕES DE PACOTES
@@ -130,11 +103,44 @@ $endif$
 % ---
 
 % ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{$title$}
+\autor{$author$}
+\local{Brasil}
+\data{$date$}
+\instituicao{$institution$}
+\tipotrabalho{Relatório técnico}
+% O preambulo deve conter o tipo do trabalho, o objetivo, 
+% o nome da instituição e a área de concentração 
+\preambulo{$preambulo$}
+% ---
+
+% ---
 % Configurações de aparência do PDF final
 
 
 % alterando o aspecto da cor azul
 \definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		  pdftitle={\@title}, 
+		  pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		  pdfkeywords={abnt}{latex}{abntex}{abntex2}{relatório técnico}, 
+		  colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		  urlcolor=blue,
+		  bookmarksdepth=4
+}
+\makeatother
+% --- 
 
 % --- 
 % Espaçamentos entre linhas e parágrafos 
@@ -146,26 +152,23 @@ $endif$
 % Controle do espaçamento entre um parágrafo e outro:
 \setlength{\parskip}{0.2cm}  % tente também \onelineskip
 
-% To pass between YAML and LaTeX the dollar signs are added by CII
-\titulo{$title$}
-\autor{$author$}
-\local{Brasil}
-\data{$date$}
-\instituicao{$institution$}
-\degree{$degree$}
-$if(altadvisor)$
-\preambulo{$altadvisor$}
-$endif$
-% End of CII addition
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
 
+% ----
+% Início do documento
+% ----
 \begin{document}
+
 
 % Seleciona o idioma do documento (conforme pacotes do babel)
 \selectlanguage{brazil}
 
 % Retira espaço extra obsoleto entre as frases.
 \frenchspacing 
-
 
 % ----------------------------------------------------------
 % ELEMENTOS PRÉ-TEXTUAIS
@@ -201,7 +204,7 @@ $endif$
 \begin{resumo}
  $resumo$
  \noindent
- \textbf{Palavras-chaves}: $chave$
+ \textbf{Palavras-chaves}: latex. abntex. editoração de texto.
 \end{resumo}
 % ---
 
@@ -222,15 +225,6 @@ $endif$
 % ---
 
 % ---
-% inserir lista de abreviaturas e siglas
-% ---
-%\begin{siglas}
-%  \item[ABNT] Associação Brasileira de Normas Técnicas
-%  \item[abnTeX] ABsurdas Normas para TeX
-%\end{siglas}
-% ---
-
-% ---
 % inserir o sumario
 % ---
 \pdfbookmark[0]{\contentsname}{toc}
@@ -238,13 +232,24 @@ $endif$
 \cleardoublepage
 % ---
 
-
 % ----------------------------------------------------------
 % ELEMENTOS TEXTUAIS
 % ----------------------------------------------------------
 \textual
-
-
 $body$
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{bibliography.bibtex}
+
+\phantompart
+
+\printindex
 
 \end{document}

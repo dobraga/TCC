@@ -4,7 +4,7 @@ output:
     number_sections: yes
     toc: yes
     keep_tex: true
-    template: template.tex
+    template: teste.tex
   word_document:
     toc: yes
     #reference_docx: 'modelo.docx'
@@ -41,6 +41,10 @@ agradecimento: |
   \emph{\abnTeX}\footnote{\url{http://groups.google.com/group/abntex2} e
   \url{http://www.abntex.net.br/}}~que contribuíram e que ainda
   contribuirão para a evolução do abn\TeX.
+  
+preambulo: |
+  Modelo canônico de Relatório Técnico e/ou Científico em conformidade
+  com as normas ABNT apresentado à comunidade de usuários \LaTeX.
 
 lot: true
 lof: true
