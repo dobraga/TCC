@@ -11,14 +11,14 @@ output:
     
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: |
-  Douglas Braga\\
+  Douglas Braga \\
   Felipe Sales
 title: "Optimização Bayesiana"
 subtitle: |
   Uma aplicação para otimização de hiperparâmetros de modelos de machine learning.
 supervisor: "Orientador"
 institution: |
-  Escola Nacional de Ciências Estatísticas\\
+  Escola Nacional de Ciências Estatísticas \\
   Bacharelado em Estatística
 degree: "Bacharelado em Estatística"
 
@@ -75,12 +75,12 @@ download.file("https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1
 
 Este texto tem como base: [@brochu2010tutorial], [@snoek2012practical] e [@ebden2015gaussian]
 
-# Introdução
+## Introdução
 
 ```{r child='markdown/01-introdução.rmd'}
 ```
 
-# Metodologia
+## Metodologia
 
 ```{r child='markdown/02-metodologia.rmd'}
 ```
