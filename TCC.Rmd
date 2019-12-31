@@ -71,6 +71,8 @@ download.file("https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1
 
 Este texto tem como base: [@brochu2010tutorial], [@snoek2012practical] e [@ebden2015gaussian]
 
+# Introdução
+
 ```{r child='markdown/01-introdução.rmd'}
 ```
 
