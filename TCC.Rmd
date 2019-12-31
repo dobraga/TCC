@@ -9,17 +9,18 @@ output:
     toc: yes
     #reference_docx: 'modelo.docx'
     
+pandoc_args: --top-level-division=chapter
+    
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: |
-  Douglas Braga \\
-  Felipe Sales
+  | Douglas Braga
+  | Felipe Sales
 title: "Optimização Bayesiana"
 subtitle: |
   Uma aplicação para otimização de hiperparâmetros de modelos de machine learning.
 supervisor: "Orientador"
 institution: |
-  Escola Nacional de Ciências Estatísticas \\
-  Bacharelado em Estatística
+  Escola Nacional de Ciências Estatísticas
 degree: "Bacharelado em Estatística"
 
 abstract: "This document provides an introduction to R Markdown, argues for its..."
