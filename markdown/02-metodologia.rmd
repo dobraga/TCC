@@ -1,4 +1,6 @@
-# Processos Gaussianos
+# Metodologia
+
+## Processos Gaussianos
 
 Os processos gaussianos comunmente são utilizados como para interpolação de pontos não linear, sendo assim, o objetivo é prever pontos no espaço não observados, levando em conta que pontos próximos aos observados não devem mudar bruscamente o valor da variável de interesse. Abaixo será apresentado um exemplo.\
 
@@ -29,6 +31,6 @@ $$
 K(x_1,x_2) = \sigma^2 e^{-\frac{1}{2l^2}(x_1-x_2)^2}
 $$
 
-# Função de aquisição
+## Função de aquisição
 Será assumido que a função $f(x)$ é uma observação de um processo gaussiano e que as observações, $(x_n,y_n)_{n=1}^N$, onde $y_n \mbox{~} N(f(x_n),\nu)$ e $\nu$ é a variância dos ruídos introduzidos na função de observação. Utilizando a regra de bayes para combinar a proiri com os dados para gerar a posteriori que determina qual ponto de $\chi$ 
 
