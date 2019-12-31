@@ -11,14 +11,14 @@ output:
     
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: |
-  Douglas Braga \\
+  Douglas Braga \newline
   Felipe Sales
 title: "Optimização Bayesiana"
 subtitle: |
   Uma aplicação para otimização de hiperparâmetros de modelos de machine learning.
 supervisor: "Orientador"
 institution: |
-  Escola Nacional de Ciências Estatísticas \\
+  Escola Nacional de Ciências Estatísticas \newline
   Bacharelado em Estatística
 degree: "Bacharelado em Estatística"
 
