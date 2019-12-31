@@ -26,9 +26,9 @@ $$
 P(f|D_{1:t}) \propto P(D_{1:t}|f)P(f)
 $$
 
-![Um exemplo do uso da otimização bayesiana em um problema de design de brinquedo 1D.](images/bo.png){height=50%, #fig:bo}
+![Um exemplo do uso da otimização bayesiana em um problema de design de brinquedo 1D.\label{bo}](images/bo.png){height=50%}
 
-A imagem @#fig:bo mostram uma aproximação do processo Gaussiano (GP) da função objetivo sobre quatro iterações dos valores amostrados da função objetivo. A figura também mostra o função de aquisição nas parcelas sombreadas mais baixas. A aquisição é alta onde o GP
+A imagem \ref{bo} mostram uma aproximação do processo Gaussiano (GP) da função objetivo sobre quatro iterações dos valores amostrados da função objetivo. A figura também mostra o função de aquisição nas parcelas sombreadas mais baixas. A aquisição é alta onde o GP
 prevê um objetivo elevado (exploração) e onde a incerteza de previsão é alta (exploração) - áreas com os dois atributos são amostradas primeiro. Note que a área no extrema esquerda permanece sem amostragem, como enquanto ele tem alta incerteza, é (corretamente) previsto
 para oferecer pouca melhoria sobre a mais alta observação.
 
