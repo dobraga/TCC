@@ -1,15 +1,12 @@
 ---
 output:
   pdf_document:
-    #number_sections: yes
-    #toc: yes
     keep_tex: true
     template: template.tex
+    pandoc_args: --top-level-division=chapter
   word_document:
     toc: yes
     #reference_docx: 'modelo.docx'
-    
-pandoc_args: --top-level-division=chapter
     
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: |
