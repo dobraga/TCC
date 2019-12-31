@@ -10,7 +10,7 @@ output:
     #reference_docx: 'modelo.docx'
 title: "Optimização Bayesiana"
 subtitle: |
-  Uma aplicação para otimização dos hiperparâmetros de modelos de machine learning.
+  Uma aplicação para otimização de hiperparâmetros de modelos de machine learning.
 supervisor: "Orientador"
 university: "Escola Nacional de Ciências Estatísticas"
 degree: "Bacharelado em Estatística"
