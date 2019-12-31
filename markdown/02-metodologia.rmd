@@ -28,7 +28,7 @@ $$
 
 ![Um exemplo do uso da otimização bayesiana em um problema de design de brinquedo 1D.\label{bo}](images/bo.png){height=50%}
 
-A imagem \ref{bo} mostram uma aproximação do processo Gaussiano (GP) da função objetivo sobre quatro iterações dos valores amostrados da função objetivo. A figura também mostra o função de aquisição nas parcelas sombreadas mais baixas. A aquisição é alta onde o GP
+A figura \ref{bo} mostram uma aproximação do processo Gaussiano (GP) da função objetivo sobre quatro iterações dos valores amostrados da função objetivo. A figura também mostra o função de aquisição nas parcelas sombreadas mais baixas. A aquisição é alta onde o GP
 prevê um objetivo elevado (exploração) e onde a incerteza de previsão é alta (exploração) - áreas com os dois atributos são amostradas primeiro. Note que a área no extrema esquerda permanece sem amostragem, como enquanto ele tem alta incerteza, é (corretamente) previsto
 para oferecer pouca melhoria sobre a mais alta observação.
 
@@ -43,10 +43,9 @@ A figura 1 representa um uma optimização de uma dimensão, onde é iniciado co
 
 Os processos gaussianos comunmente são utilizados como para interpolação de pontos não linear, sendo assim, o objetivo é prever pontos no espaço não observados, levando em conta que pontos próximos aos observados não devem mudar bruscamente o valor da variável de interesse. Abaixo será apresentado um exemplo.\
 
-![[Retirada do livro de Kevin Murphy](https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1ce0e402cf7d8/docs/demoOutput/bookDemos/(15)-Gaussian_processes/gprDemoNoiseFree_02.png)](images/gp.png){height=50%}  
+![[Retirada do livro de Kevin Murphy.\label{gp}](https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1ce0e402cf7d8/docs/demoOutput/bookDemos/(15)-Gaussian_processes/gprDemoNoiseFree_02.png)](images/gp.png){height=50%}  
 
-
-Podo-se observar, que neste caso, esta sendo considerado que não há incerteza de medição nos pontos observados represetados pelo $x$ no gráfico, as bandas representam um intervalo de confiança de 95%.\
+Na figura \ref{bo} pode-se observar, que neste caso, esta sendo considerado que não há incerteza de medição nos pontos observados represetados pelo $x$ no gráfico, as bandas representam um intervalo de confiança de 95%.\
 
 'Para o entendimento dos processos gaussianos é nescessário que seja definido uma noção de similaridade e de variância'
 
