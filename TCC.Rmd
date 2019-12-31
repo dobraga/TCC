@@ -1,8 +1,8 @@
 ---
 output:
   pdf_document:
-    number_sections: yes
-    toc: yes
+    #number_sections: yes
+    #toc: yes
     keep_tex: true
     template: template.tex
   word_document:
