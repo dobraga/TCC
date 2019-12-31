@@ -4,9 +4,6 @@ output:
     keep_tex: true
     template: template.tex
     pandoc_args: --top-level-division=chapter
-  word_document:
-    toc: yes
-    #reference_docx: 'modelo.docx'
     
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: |
@@ -49,7 +46,7 @@ preambulo: |
   Modelo canônico de Relatório Técnico e/ou Científico em conformidade
   com as normas ABNT apresentado à comunidade de usuários \LaTeX.
 
-lot: true
+lot: false
 lof: true
 fontsize: 11pt
 bibliography: bibliography.bibtex
