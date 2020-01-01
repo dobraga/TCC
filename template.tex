@@ -112,9 +112,7 @@
 \instituicao{$instituicao$}
 \orientador{$orientador$}
 \coorientador{$coorientador$}
-\tipotrabalho{Relatório técnico}
-% O preambulo deve conter o tipo do trabalho, o objetivo, 
-% o nome da instituição e a área de concentração 
+%\tipotrabalho{Relatório técnico}
 \preambulo{$preambulo$}
 % ---
 
@@ -133,11 +131,11 @@
 		  pdfauthor={\@author},
     	pdfsubject={\imprimirpreambulo},
 	    pdfcreator={LaTeX with abnTeX2},
-		  pdfkeywords={abnt}{latex}{abntex}{abntex2}{relatório técnico}, 
+		  pdfkeywords={$keywords$}, 
 		  colorlinks=true,       		% false: boxed links; true: colored links
     	linkcolor=blue,          	% color of internal links
     	citecolor=blue,        		% color of links to bibliography
-    	filecolor=magenta,      		% color of file links
+    	filecolor=magenta,      	% color of file links
 		  urlcolor=blue,
 		  bookmarksdepth=4
 }
@@ -187,7 +185,7 @@
 % Folha de rosto
 % (o * indica que haverá a ficha bibliográfica)
 % ---
-\imprimirfolhaderosto*
+\imprimirfolhaderosto
 
 % ---
 % Agradecimentos

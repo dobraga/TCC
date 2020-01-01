@@ -24,7 +24,7 @@ resumo: |
   próprio documento. (\ldots) As palavras-chave devem figurar logo abaixo do
   resumo, antecedidas da expressão Palavras-chave:, separadas entre si por
   ponto e finalizadas também por ponto.
-chave: latex. abntex. editoração de texto.
+keywords: Otimização. Estatística Bayesiana. Machine Learning.
 agradecimento: |
   O agradecimento principal é direcionado a Youssef Cherem.
 
@@ -45,7 +45,6 @@ preambulo: |
   obtenção do título de Bacharel em 
   Estatística.
 
-
 bibliography: bibliography.bibtex
 ---
 
@@ -62,8 +61,6 @@ download.file("https://cdn-images-1.medium.com/max/1600/1*PhKGj_bZlND8IEfII426wA
 download.file("https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1ce0e402cf7d8/docs/demoOutput/bookDemos/(15)-Gaussian_processes/gprDemoNoiseFree_02.png?raw=true",
               "images/gp.png",quiet = T,mode = 'wb')
 ```
-
-Este texto tem como base: [@brochu2010tutorial], [@snoek2012practical] e [@ebden2015gaussian]
 
 ```{r child='markdown/01-introdução.rmd'}
 ```
