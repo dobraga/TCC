@@ -1062,12 +1062,12 @@
 \newcommand{\imprimitfolhadeaprovacao}{%
   \begin{folhadeaprovacao}
     \begin{center}
-      {\ABNTEXchapterfont\large\imprimirautor}
-      \vspace*{1cm}
-      {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
-      \vspace*{1cm}
+      \ABNTEXchapterfont\large\imprimirautor
+
+      \ABNTEXchapterfont\bfseries\Large\imprimirtitulo
+   
       \justify{\imprimirpreambulo}
-      \\
+
       \vspace*{\fill}\vspace*{\fill}
       BANCA EXAMINADORA.
       \end{center}
