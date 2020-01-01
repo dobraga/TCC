@@ -1097,11 +1097,11 @@
     \abntex@ifnotempty{\imprimircoorientador}{%
        {\large\imprimircoorientadorRotulo~\imprimircoorientador}%
     }%
+    \vspace*{1cm}
 
     {\large\imprimirlocal}
     \par
     {\large\imprimirdata}
-    \vspace*{1cm}
 
   \end{center}
 }
