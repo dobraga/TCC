@@ -58,14 +58,8 @@ A optimização bayesiana utiliza como priori o Processo Gaussiano com o vetor d
 A matriz de covariância de um processo gaussiano depende de qual kernel(K) será utilizado, um dos mais utilizado é o gaussiano, que possui este nome por ter o mesmo formato da distribução normal(gaussiana) tendo como única diferença a constnate de normalização, definido a seguir.\
 
 $$
-X \sim GP(0,\Sigma)
-$$
-
-$$
-\Sigma(x_1,x_2) = K(x_1,x_2) + I\sigma^2_y
-$$
-
-$$
+X \sim GP(0,\Sigma) \\
+\Sigma(x_1,x_2) = K(x_1,x_2) + I\sigma^2_y \\
 K(x_1,x_2) = \sigma^2 e^{-\frac{1}{2l^2}(x_1-x_2)^2}
 $$
 
