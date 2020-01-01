@@ -1038,7 +1038,11 @@
   \begin{capa}%
 
     \center
-    \externalfigure[width=16cm,height=2.2cm]{https://imgur.com/a/ETcl3Rn}
+    
+    \begin{figure}
+       \href{https://imgur.com/Qn0qJdv}
+            {\includegraphics[width=16cm,height=2.2cm]{picture}}
+     \end{figure}
 
     \vfill
       \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
