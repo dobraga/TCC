@@ -1063,7 +1063,6 @@
   \begin{folhadeaprovacao}
     \begin{center}
       {\ABNTEXchapterfont\large\imprimirautor}
-      \par
       \vspace*{\fill}\vspace*{\fill}
       {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
       \vspace*{\fill}
@@ -1076,9 +1075,6 @@
       \end{center}
       \assinatura{\textbf{\imprimirorientador} \\ Orientador}
       \assinatura{\textbf{Professor} \\ Convidado 1}
-      \assinatura{\textbf{Professor} \\ Convidado 2}
-      \assinatura{\textbf{Professor} \\ Convidado 3}
-      \assinatura{\textbf{Professor} \\ Convidado 4}
       \begin{center}
       \vspace*{0.5cm}
       {\large\imprimirlocal}
