@@ -1042,15 +1042,15 @@
 
     \vfill
     \begin{center}
-    \ABNTEXchapterfont\bfseries\large\imprimirtitulo
+      \ABNTEXchapterfont\bfseries\large\imprimirtitulo
+
+      \ABNTEXchapterfont\bfseries\large\imprimirautor
     \end{center}
     \vfill
-
-    \ABNTEXchapterfont\bfseries\large\imprimirautor
     
-    \imprimirlocal
+    \large\imprimirlocal
 
-    \imprimirdata
+    \large\imprimirdata
     
     \vspace*{1cm}
   \end{capa}
