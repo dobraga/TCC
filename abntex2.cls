@@ -1064,12 +1064,11 @@
     \begin{center}
       {\ABNTEXchapterfont\large\imprimirautor}
       \vspace*{\fill}\vspace*{\fill}
+      \\
       {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
       \vspace*{\fill}
       \hspace{.45\textwidth}
-      \begin{minipage}{.5\textwidth}
       \imprimirpreambulo
-      \end{minipage}%
       \vspace*{\fill}
       BANCA EXAMINADORA.
       \end{center}
