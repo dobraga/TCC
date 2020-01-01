@@ -1039,12 +1039,11 @@
 
     \center
     \includegraphics[width=16cm,height=2.2cm]{images/ence.png}
-    
-    \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
-    \vspace*{1cm}
       
     \vfill
       \begin{center}
+        \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
+        \vspace*{1cm}
         \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
       \end{center}
     \vfill
