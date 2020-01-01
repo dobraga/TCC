@@ -1048,9 +1048,9 @@
 
     \ABNTEXchapterfont\bfseries\large\imprimirautor
     
-    \large\imprimirlocal
+    \imprimirlocal
 
-    \large\imprimirdata
+    \imprimirdata
     
     \vspace*{1cm}
   \end{capa}
