@@ -1068,8 +1068,9 @@
       {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
       \\
       \vspace*{\fill}
-      \imprimirpreambulo
+      \justify{imprimirpreambulo}
       \vspace*{\fill}
+      \\
       BANCA EXAMINADORA.
       \end{center}
       \assinatura{\textbf{\imprimirorientador} \\ Orientador}
