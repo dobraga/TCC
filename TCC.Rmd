@@ -6,9 +6,7 @@ output:
     pandoc_args: --top-level-division=chapter
     
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-author: |
-  | Douglas Braga
-  | Felipe Sales
+author: Douglas Braga \and Felipe Sales
   
 title: "Optimização Bayesiana"
 instituicao: |
