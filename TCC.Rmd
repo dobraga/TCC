@@ -15,7 +15,6 @@ coorientador: lalalala
 cabecalho: images/ence.png
   
 title: "Optimização Bayesiana"
-instituicao: Escola Nacional de Ciências Estatísticas
 
 resumo: |
   O resumo deve ressaltar o objetivo, o método, os resultados e as conclusões do documento. 
