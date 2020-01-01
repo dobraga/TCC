@@ -1057,6 +1057,38 @@
 }
 % ---
 
+% -------------------
+% Folha de aprovação
+\newcommand{\imprimitfolhadeaprovacao}{%
+  \begin{folhadeaprovacao}
+    \begin{center}
+      {\ABNTEXchapterfont\large\imprimirautor}
+      \par
+      \vspace*{\fill}\vspace*{\fill}
+      {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
+      \vspace*{\fill}
+      \hspace{.45\textwidth}
+      \begin{minipage}{.5\textwidth}
+      \imprimirpreambulo
+      \end{minipage}%
+      \vspace*{\fill}
+      Trabalho aprovado. \imprimirlocal, 24 de novembro de 2012:
+      \end{center}
+      \assinatura{\textbf{\imprimirorientador} \\ Orientador}
+      \assinatura{\textbf{Professor} \\ Convidado 1}
+      \assinatura{\textbf{Professor} \\ Convidado 2}
+      \assinatura{\textbf{Professor} \\ Convidado 3}
+      \assinatura{\textbf{Professor} \\ Convidado 4}
+      \begin{center}
+      \vspace*{0.5cm}
+      {\large\imprimirlocal}
+      \par
+      {\large\imprimirdata}
+      \vspace*{1cm}
+    \end{center}
+  \end{folhadeaprovacao}
+}
+
 
 % ---
 % Folha de rosto
