@@ -1042,12 +1042,11 @@
 
     \vfill
     \begin{center}
-    \ABNTEXchapterfont\bfseries\LARGE\imprimirtitulo
+    \ABNTEXchapterfont\bfseries\large\imprimirtitulo
     \end{center}
     \vfill
 
-    \center
-    \ABNTEXchapterfont\large\imprimirautor
+    \ABNTEXchapterfont\bfseries\large\imprimirautor
     
     \large\imprimirlocal
 
@@ -1079,7 +1078,7 @@
 	
     \vspace*{\fill}\vspace*{\fill}
     \begin{center}
-      \ABNTEXchapterfont\bfseries\Large\imprimirtitulo
+      \ABNTEXchapterfont\large\imprimirtitulo
     \end{center}
     \vspace*{\fill}
 	
