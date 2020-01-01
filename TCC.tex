@@ -106,7 +106,7 @@
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
 \titulo{Optimização Bayesiana}
-\autor{Douglas Braga\\
+\autor{Douglas Martins Mendes Braga\\
 Felipe Sales}
 \local{Rio de Janeiro}
 \data{2020}
@@ -133,7 +133,10 @@ obtenção do título de Bacharel em Estatística.}
 % informações do PDF
 \makeatletter
 \hypersetup{
-     	pagebackref=false,
+     	%pagebackref=true,
+		  pdftitle={\@title}, 
+		  pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
 	    pdfcreator={LaTeX with abnTeX2},
 		  colorlinks=false,      		% false: boxed links; true: colored links
     	linkcolor=blue,          	% color of internal links

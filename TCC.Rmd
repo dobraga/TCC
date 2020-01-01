@@ -7,7 +7,7 @@ output:
     
 date: "`r format(Sys.time(), '%Y')`"
 author: |
-  | Douglas Braga
+  | Douglas Martins Mendes Braga
   | Felipe Sales
 orientador: aaaaaaaaaa
 coorientador: lalalala
