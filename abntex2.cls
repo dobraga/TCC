@@ -295,7 +295,7 @@
   \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
     %
   }{ % else
-    \cleardoublepage%
+    \clearpage%
   }
 }  
 
@@ -1064,7 +1064,7 @@
 %   página no caso de estar no modo twoside. Util para imprimir a Ficha
 %   Bibliografica. Porem, se estiver no modo oneside, a versao sem estrela
 %   é identica.
-\newenvironment{folhaderosto}[1][\folhaderostoname]{\clearpage\PRIVATEbookmarkthis{#1}}{\clearpage}
+\newenvironment{folhaderosto}[1][\folhaderostoname]{\clearpage\PRIVATEbookmarkthis{#1}}{\cleardoublepage}
 \newenvironment{folhaderosto*}[1][\folhaderostoname]{\clearpage\PRIVATEbookmarkthis{#1}}{\newpage}%
 
 % ---
