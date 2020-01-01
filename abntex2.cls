@@ -1038,7 +1038,7 @@
   \begin{capa}%
 
     \center
-    \includegraphics[width=16cm,height=2.2cm]{images/ence.png}
+    \includegraphics[width=16cm,height=2.2cm]{https://imgur.com/a/ETcl3Rn}
 
     \vfill
       \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
