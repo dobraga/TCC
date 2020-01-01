@@ -1,3 +1,5 @@
+# Introdução
+
 Os algoritmos de Machine Learning raramente não possuem parãmetros, como por exemplo, a taxa de aprendizado. Muitas vezes esses parâmetros são considerados nuances.
 
 A optimização bayesiana é um método para encontrar o ponto máximo de funções, esta técnica utiliza-se de suposições a priori da função em análise e combina com evidências dos dados para obter a posteriori. \ 

@@ -5,7 +5,7 @@ output:
     template: template.tex
     pandoc_args: --top-level-division=chapter
     
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: "`r format(Sys.time(), '%Y')`"
 author: |
   | Douglas Braga
   | Felipe Sales
@@ -35,8 +35,13 @@ agradecimento: |
   contribuirão para a evolução do abn\TeX.
   
 preambulo: |
-  Modelo canônico de Relatório Técnico e/ou Científico em conformidade
-  com as normas ABNT apresentado à comunidade de usuários \LaTeX.
+  | Monografia apresentada à Escola 
+  | Nacional de Ciências Estatísticas do 
+  | Instituto Brasileiro de Geografia e 
+  | Estatística como requisito parcial à 
+  | obtenção do título de Bacharel em 
+  | Estatística.
+
 
 bibliography: bibliography.bibtex
 ---
