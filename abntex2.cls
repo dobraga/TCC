@@ -711,7 +711,7 @@
 
 % Comandos de dados - instituicao
 \providecommand{\imprimirinstituicao}{}
-\newcommand{\instituicao}[1]{\renewcommand{\imprimirinstituicao}}
+\newcommand{\instituicao}[1]{\renewcommand{\imprimirinstituicao}{#1}}
 
 % Comandos de dados - local
 \providecommand{\imprimirlocal}{}

@@ -1,0 +1,135 @@
+---
+output:
+  pdf_document:
+    keep_tex: true
+    template: template.tex
+    pandoc_args: --top-level-division=chapter
+    
+date: "31 dezembro, 2019"
+author: |
+  | Douglas Braga
+  | Felipe Sales
+  
+title: "Optimização Bayesiana"
+instituicao: Escola Nacional de Ciências Estatísticas
+
+resumo: |
+  O resumo deve ressaltar o objetivo, o método, os resultados e as conclusões do documento. 
+  A ordem e a extensão destes itens dependem do tipo de resumo (informativo ou indicativo) 
+  e do tratamento que cada item recebe no documento original. O resumo deve ser
+  precedido da referência do documento, com exceção do resumo inserido no
+  próprio documento. (\ldots) As palavras-chave devem figurar logo abaixo do
+  resumo, antecedidas da expressão Palavras-chave:, separadas entre si por
+  ponto e finalizadas também por ponto.
+chave: latex. abntex. editoração de texto.
+agradecimento: |
+  O agradecimento principal é direcionado a Youssef Cherem.
+
+  Os agradecimentos especiais são direcionados ao Centro de Pesquisa em
+  Arquitetura da Informação\footnote{\url{http://www.cpai.unb.br/}} da Universidade de
+  Brasília (CPAI), ao grupo de usuários
+  \emph{latex-br}\footnote{\url{http://groups.google.com/group/latex-br}} e aos
+  novos voluntários do grupo
+  \emph{\abnTeX}\footnote{\url{http://groups.google.com/group/abntex2} e
+  \url{http://www.abntex.net.br/}}~que contribuíram e que ainda
+  contribuirão para a evolução do abn\TeX.
+  
+preambulo: |
+  Modelo canônico de Relatório Técnico e/ou Científico em conformidade
+  com as normas ABNT apresentado à comunidade de usuários \LaTeX.
+
+bibliography: bibliography.bibtex
+---
+
+
+
+
+
+
+
+Este texto tem como base: [@brochu2010tutorial], [@snoek2012practical] e [@ebden2015gaussian]
+
+
+Os algoritmos de Machine Learning raramente não possuem parãmetros, como por exemplo, a taxa de aprendizado. Muitas vezes esses parâmetros são considerados nuances.
+
+A optimização bayesiana é um método para encontrar o ponto máximo de funções, esta técnica utiliza-se de suposições a priori da função em análise e combina com evidências dos dados para obter a posteriori. \ 
+
+
+# Metodologia
+
+## Otimização
+
+No campo da optimização tem-se como objetivo:
+
+$$
+\max\limits_{{x \in A \subset \mathbb{R}^d}} f(x)
+$$
+
+Normalmente, pressupõe-se que a função objetivo tem uma representação matemática conhecida, é convexa ou é pelo menos barata para avaliar. No campo de Machine Learning, uma parte das funções de custo estudadas não seguem essas suposições. Muitas vezes, a avaliação da função custo é muito cara(demorada) ou até mesmo impossível, e as propriedas da função custo são desconhecidas.\
+
+A optimização bayesiana é útil quando a avaliação da função tem custo alto, quando não é conhecido as derivadas da função em análise, quando a função não é convexa ou até mesmo desconhecida.\
+
+As técnicas de otimização bayesiana são algumas das abordagens mais eficientes em termos do número de avaliações de funções necessárias. É conhecida com este nome por ter como base o teorema de Bayes que diz que a posteriori de um modelo(M) dada evidência dos dados(E) é proporcional à verossimilhança de E dado M vezes a priori do modelo(M):
+
+$$
+P(M|E) \propto P(E|M)P(M)
+$$
+
+Na optimização bayesiana, a priori que é definida está ligada ao espaço que acredita-se que a função de custo possa variar. Mesmo que esta função seja desconhecida, é razoavel supor que exista conhecimento prévio sobre alguma de suas propriedades, como a suavidade, isto torna algumas funções objetivas mais prováveis que outras.\
+
+Define-se $x_i$ sendo a i-ésima amostra, e $f(x_i)$ a observação da função objetiva em $x_i$. Serão acumulados as observações $D_{i:t}=\left\{ x_{i:t},f(x_{1:t}) \right\}$, a distribuição apriori será combinada com a verossimilhança $P(D_{i:t}|f)$, que para facilitar, pode-se pensar que a verossimilhança é a proprabilidade do que vimos ocorrer dado que o que achamos sobre a função é a realidade. Se a nossa crença anterior é que a função objetiva é muito suave e isenta de erros, os dados com alta variância ou oscilações devem ser considerados menos prováveis do que os dados que mal se desviam da média. Agora, podemos combiná-los para obter nossa distribuição aposteriori:
+
+$$
+P(f|D_{1:t}) \propto P(D_{1:t}|f)P(f)
+$$
+
+![Um exemplo do uso da otimização bayesiana em um problema de design de brinquedo 1D.\label{bo}](images/bo.png){height=50%}
+
+A figura \ref{bo} mostram uma aproximação do processo Gaussiano (GP) da função objetivo sobre quatro iterações dos valores amostrados da função objetivo. A figura também mostra o função de aquisição nas parcelas sombreadas mais baixas. A aquisição é alta onde o GP
+prevê um objetivo elevado (exploração) e onde a incerteza de previsão é alta (exploração) - áreas com os dois atributos são amostradas primeiro. Note que a área no extrema esquerda permanece sem amostragem, como enquanto ele tem alta incerteza, é (corretamente) previsto
+para oferecer pouca melhoria sobre a mais alta observação.
+
+A posteriori captura a apriori atualizada da função objetivo. Para que uma amostra eficiente seja obtida é utilizado uma função de aquisição para determinar o próximo ponto $x_{t+1} \in A$.  A decisão representa um trade-off automático entre exploração (onde a função objetivo é muito incerta) e exploração (tentando valores de $x$ onde a função objetivo deve ser alta). A optimização bayesiana tem como objetivo minimizar a quantidade de interações necessárias para localizar o ponto máximo e também se comporte bem em funções com múltiplos pontos de máximo.\
+\
+
+A figura \ref{bo} representa um uma optimização de uma dimensão, onde é iniciado com dois ponto aleatórios. A cada iteração, a função de aquisição é maximizada para determinar o próximo ponto para a amostra da função objetivo. A função de aquisição leva em consideração a média a posteriori calculada para os pontos e a variância da previsão. E então é amostrado o $\operatorname{argmax}$ da função da função de aquisição, o processo gaussiano é atualizado e o processo é repetido para os próximos passos.\
+
+
+
+## Processos Gaussianos
+
+Os processos gaussianos comumente são utilizados como para interpolação de pontos não linear, sendo assim, o objetivo é prever pontos no espaço não observados, levando em conta que pontos próximos aos observados não devem mudar bruscamente o valor da variável de interesse. Abaixo será apresentado um exemplo.\
+
+![[Retirada do livro de Kevin Murphy.\label{gp}](https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1ce0e402cf7d8/docs/demoOutput/bookDemos/(15)-Gaussian_processes/gprDemoNoiseFree_02.png)](images/gp.png){height=50%}  
+
+Na figura \ref{gp} pode-se observar, que neste caso, esta sendo considerado que não há incerteza de medição nos pontos observados represetados pelo $x$ no gráfico, as bandas representam um intervalo de confiança de 95%.\
+
+'Para o entendimento dos processos gaussianos é necessário que seja definido uma noção de similaridade e de variância'
+
+Os processos gaussinaos também podem ser utilizados como distribuição a priori para uma conjunto de pontos no espaço.\
+
+Pode-se imaginar como exemplo $n$ ponto gerados de uma distribuição n-dimensional normal multivariada, agora imaginando pontos de um domínio contínuo tem-se um processo gaussiano sendo a generalização infinito-dimensional de uma variável multi-dimensional gaussiana.\
+
+A optimização bayesiana utiliza como priori o Processo Gaussiano com o vetor de médias 0 para facilitar as contas, porém, um fato interessante do processo gaussiano é que este pode ser totalmente definido pela sua matriz de covariância.^[@bishop2012pattern]\
+
+A matriz de covariância de um processo gaussiano depende de qual kernel(K) será utilizado, um dos mais utilizado é o gaussiano, que possui este nome por ter o mesmo formato da distribução normal(gaussiana) tendo como única diferença a constnate de normalização, definido a seguir.\
+
+$$
+X \sim GP(0,\Sigma)
+$$
+
+$$
+\Sigma(x_1,x_2) = K(x_1,x_2) + I\sigma^2_y
+$$
+
+$$
+K(x_1,x_2) = \sigma^2 e^{-\frac{1}{2l^2}(x_1-x_2)^2}
+$$
+
+### Função de Aquisição
+Será assumido que a função $f(x)$ é uma observação de um processo gaussiano e que as observações, $(x_n,y_n)_{n=1}^N$, onde $y_n \mbox{~} N(f(x_n),\nu)$ e $\nu$ é a variância dos ruídos introduzidos na função de observação. Utilizando a regra de bayes para combinar a proiri com os dados para gerar a posteriori que determina qual ponto de $\chi$ 
+
+
+\newpage 
+
+# Referências

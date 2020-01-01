@@ -6,12 +6,12 @@ output:
     pandoc_args: --top-level-division=chapter
     
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-author: Douglas Braga \and Felipe Sales
+author: |
+  | Douglas Braga
+  | Felipe Sales
   
 title: "Optimização Bayesiana"
-instituicao: |
-  | Escola Nacional de Ciências Estatísticas
-  | Bacharelado em Estatística
+instituicao: Escola Nacional de Ciências Estatísticas
 
 resumo: |
   O resumo deve ressaltar o objetivo, o método, os resultados e as conclusões do documento. 
