@@ -1094,11 +1094,10 @@
 
     {\abntex@ifnotempty{\imprimirinstituicao}{\imprimirinstituicao\vspace*{\fill}}}
 
-    {\large\imprimirorientadorRotulo~\imprimirorientador\par}
-    \abntex@ifnotempty{\imprimircoorientador}{%
-       {\large\imprimircoorientadorRotulo~\imprimircoorientador}%
-    }%
-    \vspace*{\fill}
+    \begin{flushleft}
+      \imprimircoorientador
+      \imprimircoorientador
+    \end{flushleft}
 
     {\large\imprimirlocal}
     \par
