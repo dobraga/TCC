@@ -11,7 +11,7 @@ author: |
   | Felipe Sales
   
 title: "Optimização Bayesiana"
-institution: |
+instituicao: |
   | Escola Nacional de Ciências Estatísticas
   | Bacharelado em Estatística
 
