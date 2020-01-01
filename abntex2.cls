@@ -1042,13 +1042,13 @@
 
     \vfill
       \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
+      \vspace*{1cm}
       \begin{center}
         \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
       \end{center}
     \vfill
     
     \large\imprimirlocal
-
     \large\imprimirdata
     
     \vspace*{1cm}
