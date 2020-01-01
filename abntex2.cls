@@ -1043,8 +1043,13 @@
     \vfill
     \begin{center}
       \ABNTEXchapterfont\bfseries\large\imprimirtitulo
-
-      \ABNTEXchapterfont\bfseries\large\imprimirautor
+      
+      \vfill
+      \begin{center}
+        \ABNTEXchapterfont\bfseries\large\imprimirautor
+      \end{center}
+      \vfill
+  
     \end{center}
     \vfill
     
