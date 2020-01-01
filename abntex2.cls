@@ -1039,10 +1039,11 @@
 
     \center
     \includegraphics[width=16cm,height=2.2cm]{images/ence.png}
-
+    
+    \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
+    \vspace*{1cm}
+      
     \vfill
-      \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
-      \vspace*{1cm}
       \begin{center}
         \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
       \end{center}
@@ -1096,6 +1097,8 @@
     \abntex@ifnotempty{\imprimircoorientador}{%
        {\large\imprimircoorientadorRotulo~\imprimircoorientador}%
     }%
+    
+    \vspace*{1cm}
 
     {\large\imprimirlocal}
     \par
