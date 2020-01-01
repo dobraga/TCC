@@ -1041,14 +1041,10 @@
     \includegraphics[width=16cm,height=2.2cm]{images/ence.png}
 
     \vfill
-    \begin{center}
-      \ABNTEXchapterfont\bfseries\large\imprimirtitulo
-      \\
-      \\
-      \\
-      \\
-      \ABNTEXchapterfont\bfseries\large\imprimirautor
-    \end{center}
+      \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirautor}
+      \begin{center}
+        \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
+      \end{center}
     \vfill
     
     \large\imprimirlocal
