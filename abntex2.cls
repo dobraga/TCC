@@ -1067,9 +1067,7 @@
       \\
       {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
       \\
-      \vspace*{\fill}
       \justify{\imprimirpreambulo}
-      \vspace*{\fill}
       \\
       BANCA EXAMINADORA.
       \end{center}
