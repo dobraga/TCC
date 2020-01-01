@@ -9,6 +9,10 @@ date: "`r format(Sys.time(), '%Y')`"
 author: |
   | Douglas Braga
   | Felipe Sales
+orientador: aaaaaaaaaa
+corientador: lalalala
+  
+cabecalho: images/ence.png
   
 title: "Optimização Bayesiana"
 instituicao: Escola Nacional de Ciências Estatísticas

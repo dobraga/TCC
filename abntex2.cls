@@ -1036,14 +1036,18 @@
 % Impressão da Capa
 \newcommand{\imprimircapa}{%
   \begin{capa}%
+
     \center
-    \ABNTEXchapterfont\large\imprimirautor
+    \includegraphics{images/ence.png}
 
     \vfill
     \begin{center}
     \ABNTEXchapterfont\bfseries\LARGE\imprimirtitulo
     \end{center}
     \vfill
+
+    \center
+    \ABNTEXchapterfont\large\imprimirautor
     
     \large\imprimirlocal
 
