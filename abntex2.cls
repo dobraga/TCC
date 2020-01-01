@@ -1038,7 +1038,7 @@
   \begin{capa}%
 
     \center
-    \includegraphics{images/ence.png}
+    \includegraphics[width=16cm,height=2.4cm]{images/ence.png}
 
     \vfill
     \begin{center}

@@ -10,7 +10,7 @@ author: |
   | Douglas Braga
   | Felipe Sales
 orientador: aaaaaaaaaa
-corientador: lalalala
+coorientador: lalalala
   
 cabecalho: images/ence.png
   
