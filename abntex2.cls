@@ -1041,7 +1041,7 @@
     \includegraphics[width=16cm,height=2.2cm]{images/ence.png}
 
     \vfill
-      \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirautor}
+      \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
       \begin{center}
         \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
       \end{center}
@@ -1073,11 +1073,11 @@
   \begin{center}
 
     %\vspace*{1cm}
-    {\ABNTEXchapterfont\large\imprimirautor}
+    \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
 	
     \vspace*{\fill}\vspace*{\fill}
     \begin{center}
-      \ABNTEXchapterfont\large\imprimirtitulo
+      \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
     \end{center}
     \vspace*{\fill}
 	
