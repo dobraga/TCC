@@ -1068,9 +1068,9 @@
       \\
       \justify{\imprimirpreambulo}
       \\
+      \vspace*{\fill}\vspace*{\fill}
       BANCA EXAMINADORA.
       \end{center}
-      \vspace*{\fill}\vspace*{\fill}
       \assinatura{\textbf{\imprimirorientador} \\ Orientador}
       \assinatura{\textbf{Professor} \\ Convidado 1}
       \begin{center}
