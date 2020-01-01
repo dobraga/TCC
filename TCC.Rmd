@@ -76,4 +76,4 @@ download.file("https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1
 
 \newpage 
 
-# Referências
+# REFERÊNCIAS
