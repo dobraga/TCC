@@ -131,7 +131,7 @@
 		  pdfauthor={\@author},
     	pdfsubject={\imprimirpreambulo},
 	    pdfcreator={LaTeX with abnTeX2},
-		  pdfkeywords=$keywords$, 
+		  pdfkeywords={$keywords$},
 		  colorlinks=true,       		% false: boxed links; true: colored links
     	linkcolor=blue,          	% color of internal links
     	citecolor=blue,        		% color of links to bibliography
@@ -152,28 +152,27 @@
 % Controle do espaçamento entre um parágrafo e outro:
 \setlength{\parskip}{0.2cm}  % tente também \onelineskip
 
-% ---
-% compila o indice
-% ---
-\makeindex
-% ---
-
-% ----
-% Início do documento
-% ----
-\begin{document}
-
-
 % Seleciona o idioma do documento (conforme pacotes do babel)
 \selectlanguage{brazil}
 
 % Retira espaço extra obsoleto entre as frases.
 \frenchspacing 
 
+% ----
+% Início do documento
+% ----
+\begin{document}
+
 % ----------------------------------------------------------
 % ELEMENTOS PRÉ-TEXTUAIS
 % ----------------------------------------------------------
-% \pretextual
+\pretextual
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
 
 % ---
 % Capa
@@ -206,7 +205,7 @@
  \noindent
  \\
  \\
- \textbf{Palavras-chaves}: $chave$
+ \textbf{Palavras-chaves}: $keywords$
 \end{resumo}
 % ---
 
