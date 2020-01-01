@@ -63,7 +63,6 @@ download.file("https://imgur.com/download/Qn0qJdv/",
               "images/ence.png",quiet = T,mode = 'wb')
 ```
 
-
 ```{r}
 download.file("https://cdn-images-1.medium.com/max/1600/1*PhKGj_bZlND8IEfII426wA.png",
               "images/bo.png",quiet = T,mode = 'wb')
