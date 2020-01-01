@@ -1095,7 +1095,7 @@
     {\abntex@ifnotempty{\imprimirinstituicao}{\imprimirinstituicao\vspace*{\fill}}}
 
     \begin{flushleft}
-      \imprimirorientador
+      \imprimirorientador \\
       \imprimircoorientador
     \end{flushleft}
 
