@@ -147,8 +147,8 @@
 \newcommand{\anexosname}{Anexos}
 \newcommand{\apendicename}{AP\^ENDICE}
 \newcommand{\apendicesname}{Ap\^endices}
-\newcommand{\orientadorname}{Orientador:}
-\newcommand{\coorientadorname}{Coorientador:}
+\newcommand{\orientadorname}{Orientador(a):}
+\newcommand{\coorientadorname}{Coorientador(a):}
 \newcommand{\folhadeaprovacaoname}{Folha de aprova\c{c}\~ao}
 \newcommand{\resumoname}{Resumo} 
 \newcommand{\listadesiglasname}{Lista de abreviaturas e siglas}
@@ -1038,7 +1038,7 @@
   \begin{capa}%
 
     \center
-    \includegraphics[width=16cm,height=2.4cm]{images/ence.png}
+    \includegraphics[width=16cm,height=2.2cm]{images/ence.png}
 
     \vfill
     \begin{center}

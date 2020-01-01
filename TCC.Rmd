@@ -11,6 +11,11 @@ author: |
   | Felipe Sales
 orientador: aaaaaaaaaa
 coorientador: lalalala
+instituicao: |
+  Instituto Brasileiro de Geografia e Estatística - IBGE
+  Escola Nacional de Ciências Estatísticas - ENCE
+  
+  Bacharelado em Estatística
   
 cabecalho: images/ence.png
   
