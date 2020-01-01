@@ -1063,9 +1063,9 @@
   \begin{folhadeaprovacao}
     \begin{center}
       {\ABNTEXchapterfont\large\imprimirautor}
-      \\
+      \vspace*{1cm}
       {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
-      \\
+      \vspace*{1cm}
       \justify{\imprimirpreambulo}
       \\
       \vspace*{\fill}\vspace*{\fill}
