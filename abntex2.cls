@@ -1063,7 +1063,6 @@
   \begin{folhadeaprovacao}
     \begin{center}
       {\ABNTEXchapterfont\large\imprimirautor}
-      \vspace*{\fill}\vspace*{\fill}
       \\
       {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
       \\
@@ -1071,6 +1070,7 @@
       \\
       BANCA EXAMINADORA.
       \end{center}
+      \vspace*{\fill}\vspace*{\fill}
       \assinatura{\textbf{\imprimirorientador} \\ Orientador}
       \assinatura{\textbf{Professor} \\ Convidado 1}
       \begin{center}
