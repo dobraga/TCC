@@ -138,9 +138,12 @@ obtenção do título de Bacharel em Estatística.}
 
 %
 \usepackage{caption}
-\captionsetup[figure]{
-    position=above,
-}
+\captionsetup{%
+    ,format=hang
+    ,justification=raggedright
+    ,singlelinecheck=false
+    ,figureposition=top
+    }
 
 % ----
 % Início do documento
@@ -420,7 +423,7 @@ P(f|D_{1:t}) \propto P(D_{1:t}|f)P(f)
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth,height=0.5\textheight]{fig/bo.png}
+\includegraphics[width=\textwidth,height=0.6\textheight]{fig/bo.png}
 \caption{Um exemplo do uso da otimização bayesiana em um problema de
 design de brinquedo 1D.\label{bo}}
 \end{figure}
