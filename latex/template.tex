@@ -81,7 +81,7 @@
 % ---
 % Pacote para que imagens e tabelas não mudem de lugar
 % ---
-\usepackage{float}
+\usepackage{placeins}
 
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
@@ -210,8 +210,7 @@
 % ----------------------------------------------------------
 \textual
 \pagestyle{plain}
-\restylefloat{table}
-\restylefloat{figure}
+\FloatBarrier
 
 $body$
 
