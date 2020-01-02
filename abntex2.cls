@@ -1070,14 +1070,12 @@
       \end{center}
       \vspace*{\fill}
   	
-      \abntex@ifnotempty{\imprimirpreambulo}{%
-        \hspace{.45\textwidth}
-        \begin{minipage}{.5\textwidth}
-        	\SingleSpacing
-           \imprimirpreambulo
-         \end{minipage}%
-         \vspace*{\fill}
-      }%
+      \hspace{.45\textwidth}
+      \begin{minipage}{.5\textwidth}
+      	\SingleSpacing
+         \imprimirpreambulo
+       \end{minipage}%
+       \vspace*{\fill}
   
       \imprimirinstituicao
       
