@@ -1,12 +1,12 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.12.26)  2 JAN 2020 08:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.12.26)  2 JAN 2020 08:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **TCC.tex
 (./TCC.tex
 LaTeX2e <2019-10-01> patch level 3
-(./abntex2.cls
-Document Class: abntex2 <CURRENT_DATE> v<VERSION> abnTeX2
+(/home/dobraga/.TinyTeX/texmf-dist/tex/latex/abntex2/abntex2.cls
+Document Class: abntex2 2018/11/24 v-1.9.7 abnTeX2
 (/home/dobraga/.TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 ) (/home/dobraga/.TinyTeX/texmf-dist/tex/latex/memoir/memoir.cls
@@ -468,9 +468,9 @@ Type  H <return>  for immediate help.
 l.551 \ProcessOptions*
                        
 Here is how much of TeX's memory you used:
- 7964 strings out of 494107
- 117503 string characters out of 6173307
- 229404 words of memory out of 5000000
+ 7966 strings out of 494107
+ 117660 string characters out of 6173307
+ 229478 words of memory out of 5000000
  12016 multiletter control sequences out of 15000+600000
  4238 words of font info for 16 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191

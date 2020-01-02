@@ -1,0 +1,135 @@
+\ProvidesPackage{ence}[]
+
+% ----------------------------
+% Alterações da classe ABNTEX2
+\renewcommand{\orientadorname}{Orientador:}
+\renewcommand{\coorientadorname}{Coorientador:}
+
+% ---
+% Impressão da Capa
+\newcommand{\imprimircapa}{%
+  \begin{capa}%
+
+    \center
+    \includegraphics[width=16cm,height=2.2cm]{images/ence.png}
+
+    \vfill
+      \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
+      \vspace*{1cm}
+      \begin{center}
+        \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
+      \end{center}
+    \vfill
+    
+    \large\imprimirlocal
+
+    \large\imprimirdata
+    
+    \vspace*{1cm}
+  \end{capa}
+}
+
+
+% ---
+% Conteudo padrao da Folha de Rosto
+\makeatletter
+\renewcommand{\folhaderostocontent}{
+  \begin{center}
+
+    \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
+	
+    \vspace*{\fill}\vspace*{\fill}
+    \begin{center}
+      \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
+    \end{center}
+    \vspace*{\fill}
+	
+    \abntex@ifnotempty{\imprimirpreambulo}{%
+      \hspace{.45\textwidth}
+      \begin{minipage}{.5\textwidth}
+      	\SingleSpacing
+         \imprimirpreambulo
+       \end{minipage}%
+       \vspace*{\fill}
+    }%
+
+    {\abntex@ifnotempty{\imprimirinstituicao}{\imprimirinstituicao\vspace*{\fill}}}
+
+    {\large\imprimirorientadorRotulo~\imprimirorientador\par}
+    \abntex@ifnotempty{\imprimircoorientador}{%
+       {\large\imprimircoorientadorRotulo~\imprimircoorientador}%
+    }%
+    \vspace*{1cm}
+
+    {\large\imprimirlocal}
+    \par
+    {\large\imprimirdata}
+
+  \end{center}
+}
+\makeatother
+
+
+% --------------------------------------------
+% criar um novo estilo de cabeçalhos e rodapés
+\makepagestyle{meuestilo}
+  %%cabeçalhos
+  \makeevenhead{meuestilo} %%pagina par
+     {topo par à esquerda}
+     {centro \thepage}
+     {direita}
+  \makeoddhead{meuestilo} %%pagina ímpar ou com oneside
+     {topo ímpar/oneside à esquerda}
+     {centro\thepage}
+     {direita}
+  \makeheadrule{meuestilo}{\textwidth}{\normalrulethickness} %linha
+  %% rodapé
+  \makeevenfoot{meuestilo}
+     {rodapé par à esquerda} %%pagina par
+     {centro \thepage}
+     {direita} 
+  \makeoddfoot{meuestilo} %%pagina ímpar ou com oneside
+     {rodapé ímpar/onside à esquerda}
+     {centro \thepage}
+     {direita}
+
+
+% -------------------
+% Folha de aprovação
+\makeatletter
+\newcommand{\imprimitfolhadeaprovacao}{%
+  \begin{folhadeaprovacao}
+    \begin{center}
+      
+      \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
+  	
+      \vspace*{\fill}\vspace*{\fill}\vspace*{-5cm}
+      \begin{center}
+        \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
+      \end{center}
+      
+      \vspace*{\fill}\vspace*{-3cm}
+      \abntex@ifnotempty{\imprimirpreambulo}{%
+        \hspace{.45\textwidth}
+        \begin{minipage}{.5\textwidth}
+        	\SingleSpacing
+           \imprimirpreambulo
+         \end{minipage}%
+         \vspace*{\fill}
+      }%
+  
+      \\
+      BANCA EXAMINADORA.
+      
+      \assinatura{\textbf{\imprimirorientador} \\ Orientador}
+      \assinatura{\textbf{Professor} \\ Convidado 1}
+      \vspace*{3cm}
+      
+      {\large\imprimirlocal}
+      \par
+      {\large\imprimirdata}
+      \vspace*{1cm}
+    \end{center}
+  \end{folhadeaprovacao}
+}
+\makeatother
