@@ -1062,9 +1062,9 @@
 \makeatletter
 \newcommand{\imprimitfolhadeaprovacao}{%
   \begin{folhadeaprovacao}
+    \vspace{-10cm}
     \begin{center}
       
-      \vspace{-10cm}
       \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
   	
       \vspace*{\fill}\vspace*{\fill}
