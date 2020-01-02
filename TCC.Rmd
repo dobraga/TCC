@@ -10,7 +10,7 @@ author: |
   | Douglas Martins Mendes Braga
   | Felipe Sales
 orientador: aaaaaaaaaa
-coorientador: lalalala
+#coorientador: lalalala
 instituicao: |
   Instituto Brasileiro de Geografia e Estatística - IBGE
   
