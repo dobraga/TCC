@@ -74,7 +74,7 @@ download.file("https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1
 ```
 
 ```{r}
-head(iris, 5)
+knitr::kable(head(iris, 5), 'latex')
 ```
 
 ```{r child='01-introdução.rmd'}
