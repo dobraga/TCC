@@ -1081,7 +1081,6 @@
   
       \imprimirinstituicao
       
-      {\imprimirinstituicao\vspace*{\fill}}}
       BANCA EXAMINADORA.
       
       \end{center}
