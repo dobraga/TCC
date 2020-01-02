@@ -133,8 +133,8 @@ obtenção do título de Bacharel em Estatística.}
 % Retira espaço extra obsoleto entre as frases.
 \frenchspacing 
 
-%\usepackage{fontspec}
-%\setmainfont{Calibri}
+\usepackage{fontspec}
+\setmainfont{Calibri}
 
 %
 \usepackage{caption}
@@ -246,8 +246,8 @@ obtenção do título de Bacharel em Estatística.}
 % ----------------------------------------------------------
 % ELEMENTOS TEXTUAIS
 % ----------------------------------------------------------
-\pagestyle{plain}
 \textual
+%\pagestyle{plain}
 
 \hypertarget{introduuxe7uxe3o}{%
 \chapter{Introdução}\label{introduuxe7uxe3o}}
@@ -315,8 +315,16 @@ estudadas não seguem nenhuma dessas suposições e além disto, muitas
 vezes, a avaliação da função é muito custosa(demorada), e as propriedas
 da função objetivo são desconhecidas e as vezes.\\
 
-\hypertarget{inferuxeancia-bayesiana}{%
-\section{Inferência Bayesiana}\label{inferuxeancia-bayesiana}}
+\hypertarget{teorema-de-bayes}{%
+\section{Teorema de Bayes}\label{teorema-de-bayes}}
+
+O Teorema de Bayes é o fundamento da inferência bayesiana e tem como
+objetivo atualizar a probabilidade de um acontecimento dado que outro
+evento tenha ocorrido.
+
+\[
+Pr(B_1|A) = \frac{Pr(A \cap B_1)}{Pr(A)} = \frac{Pr(B_1)Pr(A|B_1)}{Pr(A)}
+\]
 
 \hypertarget{processos-gaussianos}{%
 \section{Processos Gaussianos}\label{processos-gaussianos}}

@@ -13,8 +13,13 @@ Esse é um caso de otimização onde busca-se o maior valor possível da funçã
 
 Porém, normalmente pressupõe-se que a função objetivo tem uma representação matemática conhecida, é convexa ou pelo menos é facilmente avaliada. No campo de Machine Learning, uma parte das funções de custo estudadas não seguem nenhuma dessas suposições e além disto, muitas vezes, a avaliação da função é muito custosa(demorada), e as propriedas da função objetivo são desconhecidas e as vezes.\
 
-## Inferência Bayesiana
+## Teorema de Bayes
 
+O Teorema de Bayes é o fundamento da inferência bayesiana e tem como objetivo atualizar a probabilidade de um acontecimento dado que outro evento tenha ocorrido.
+
+$$
+Pr(B_1|A) = \frac{Pr(A \cap B_1)}{Pr(A)} = \frac{Pr(B_1)Pr(A|B_1)}{Pr(A)}
+$$
 
 ## Processos Gaussianos
 
