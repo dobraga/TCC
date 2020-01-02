@@ -1062,14 +1062,26 @@
 \newcommand{\imprimitfolhadeaprovacao}{%
   \begin{folhadeaprovacao}
     \begin{center}
-      \ABNTEXchapterfont\large\imprimirautor
-
-      \ABNTEXchapterfont\bfseries\Large\imprimirtitulo
-   
-      \justify{\imprimirpreambulo}
-
+      \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
+	
       \vspace*{\fill}\vspace*{\fill}
+      \begin{center}
+        \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
+      \end{center}
+      \vspace*{\fill}
+  	
+      \abntex@ifnotempty{\imprimirpreambulo}{%
+        \hspace{.45\textwidth}
+        \begin{minipage}{.5\textwidth}
+        	\SingleSpacing
+           \imprimirpreambulo
+         \end{minipage}%
+         \vspace*{\fill}
+      }%
+  
+      {\abntex@ifnotempty{\imprimirinstituicao}{\imprimirinstituicao\vspace*{\fill}}}
       BANCA EXAMINADORA.
+      
       \end{center}
       \assinatura{\textbf{\imprimirorientador} \\ Orientador}
       \assinatura{\textbf{Professor} \\ Convidado 1}
