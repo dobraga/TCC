@@ -1079,7 +1079,9 @@
          \vspace*{\fill}
       }%
   
-      {\abntex@ifnotempty{\imprimirinstituicao}{\imprimirinstituicao\vspace*{\fill}}}
+      {\abntex@ifnotempty{\imprimirinstituicao}
+      
+      {\imprimirinstituicao\vspace*{\fill}}}
       BANCA EXAMINADORA.
       
       \end{center}
