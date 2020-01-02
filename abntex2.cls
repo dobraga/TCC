@@ -1078,19 +1078,20 @@
        \vspace*{\fill}
   
       \imprimirinstituicao
-      
+      \\
       BANCA EXAMINADORA.
       
-      \end{center}
       \assinatura{\textbf{\imprimirorientador} \\ Orientador}
       \assinatura{\textbf{Professor} \\ Convidado 1}
+      
+      \end{center}
+      
       \begin{center}
-      \vspace*{0.5cm}
-      {\large\imprimirlocal}
-      \par
-      {\large\imprimirdata}
-      \vspace*{1cm}
-    \end{center}
+        {\large\imprimirlocal}
+        \par
+        {\large\imprimirdata}
+        \vspace*{1cm}
+      \end{center}
   \end{folhadeaprovacao}
 }
 
