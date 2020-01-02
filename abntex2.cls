@@ -1064,7 +1064,7 @@
   \begin{folhadeaprovacao}
     \begin{center}
       
-      \vspace{-2cm}
+      \vspace{-10cm}
       \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
   	
       \vspace*{\fill}\vspace*{\fill}
