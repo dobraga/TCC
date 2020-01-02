@@ -665,15 +665,15 @@
 
 % ---
 % Configura layout para elementos textuais
-%\newcommand{\textual}{%
-%  \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
-%    \pagestyle{plain}%
-%  }{%else  
-%    \pagestyle{abntheadings}%
-%    \aliaspagestyle{chapter}{abntchapfirst}% customizing chapter pagestyle
-%  }  
-%  \nouppercaseheads%
-%  \bookmarksetup{startatroot}% 
+\newcommand{\textual}{%
+  \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
+    \pagestyle{plain}%
+  }{%else  
+    \pagestyle{abntheadings}%
+    \aliaspagestyle{chapter}{abntchapfirst}% customizing chapter pagestyle
+  }  
+  \nouppercaseheads%
+  \bookmarksetup{startatroot}% 
 %}
 \renewcommand{\mainmatter}{\textual}
 % ---
