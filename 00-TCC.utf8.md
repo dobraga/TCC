@@ -1,3 +1,106 @@
+---
+output:
+  pdf_document:
+    keep_tex: true
+    template: latex/template.tex
+    pandoc_args: --top-level-division=chapter
+    
+date: "2020"
+author: |
+  | Douglas Martins Mendes Braga
+  | Felipe Sales
+orientador: aaaaaaaaaa
+coorientador: lalalala
+instituicao: |
+  Instituto Brasileiro de Geografia e Estatística - IBGE
+  
+  Escola Nacional de Ciências Estatísticas - ENCE
+  
+  Bacharelado em Estatística
+  
+cabecalho: fig/ence.png
+  
+title: "Optimização Bayesiana"
+
+resumo: |
+  O resumo deve ressaltar o objetivo, o método, os resultados e as conclusões do documento. 
+  A ordem e a extensão destes itens dependem do tipo de resumo (informativo ou indicativo) 
+  e do tratamento que cada item recebe no documento original. O resumo deve ser
+  precedido da referência do documento, com exceção do resumo inserido no
+  próprio documento. (\ldots) As palavras-chave devem figurar logo abaixo do
+  resumo, antecedidas da expressão Palavras-chave:, separadas entre si por
+  ponto e finalizadas também por ponto.
+keywords: Otimização. Estatística Bayesiana. Machine Learning.
+agradecimento: |
+  O agradecimento principal é direcionado a Youssef Cherem.
+
+  Os agradecimentos especiais são direcionados ao Centro de Pesquisa em
+  Arquitetura da Informação\footnote{\url{http://www.cpai.unb.br/}} da Universidade de
+  Brasília (CPAI), ao grupo de usuários
+  \emph{latex-br}\footnote{\url{http://groups.google.com/group/latex-br}} e aos
+  novos voluntários do grupo
+  \emph{\abnTeX}\footnote{\url{http://groups.google.com/group/abntex2} e
+  \url{http://www.abntex.net.br/}}~que contribuíram e que ainda
+  contribuirão para a evolução do abn\TeX.
+  
+preambulo: |
+  Monografia apresentada à Escola 
+  Nacional de Ciências Estatísticas do 
+  Instituto Brasileiro de Geografia e 
+  Estatística como requisito parcial à 
+  obtenção do título de Bacharel em 
+  Estatística.
+
+bibliography: latex/bibliography.bibtex
+---
+
+
+
+
+
+
+
+
+
+
+# Introdução
+
+Os algoritmos de Machine Learning raramente não possuem parãmetros, como por exemplo, a taxa de aprendizado. Muitas vezes esses parâmetros são definidos por tentativa e erro.
+
+A optimização bayesiana é um método para encontrar pontos próximos a pontos ótimos das funções, esta técnica utiliza-se de suposições a priori e combina com evidências dos dados para obter a posteriori. \ 
+
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-8}Iris}
+\centering
+\begin{tabular}[t]{r|r|r|r|l}
+\hline
+Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
+\hline
+5.1 & 3.5 & 1.4 & 0.2 & setosa\\
+\hline
+4.9 & 3.0 & 1.4 & 0.2 & setosa\\
+\hline
+4.7 & 3.2 & 1.3 & 0.2 & setosa\\
+\hline
+4.6 & 3.1 & 1.5 & 0.2 & setosa\\
+\hline
+5.0 & 3.6 & 1.4 & 0.2 & setosa\\
+\hline
+\multicolumn{5}{l}{\textit{Fonte: } O próprio autor}\\
+\end{tabular}
+\end{table}
+
+lalalalal
+
+
+# Revisão de Literatura
+
+
+# Base de Dados
+
+
 # Metodologia
 
 ## Otimização
@@ -82,3 +185,7 @@ A posteriori captura a apriori atualizada da função objetivo. Para que uma amo
 
 A figura \ref{bo} representa um uma optimização de uma dimensão, onde é iniciado com dois ponto aleatórios. A cada iteração, a função de aquisição é maximizada para determinar o próximo ponto para a amostra da função objetivo. A função de aquisição leva em consideração a média a posteriori calculada para os pontos e a variância da previsão. E então é amostrado o $\operatorname{argmax}$ da função da função de aquisição, o processo gaussiano é atualizado e o processo é repetido para os próximos passos.\
 
+
+\newpage 
+
+# REFERÊNCIAS
