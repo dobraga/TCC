@@ -1086,7 +1086,7 @@
       
       \assinatura{\textbf{\imprimirorientador} \\ Orientador}
       \assinatura{\textbf{Professor} \\ Convidado 1}
-      \vspace*{1cm}
+      \vspace*{3cm}
       
       {\large\imprimirlocal}
       \par
