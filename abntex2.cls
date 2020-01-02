@@ -1066,12 +1066,12 @@
       
       \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
   	
-      \vspace*{\fill}\vspace*{\fill}\vspace*{-10cm}
+      \vspace*{\fill}\vspace*{\fill}\vspace*{-5cm}
       \begin{center}
         \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
       \end{center}
       
-      \vspace*{\fill}
+      \vspace*{\fill}\vspace*{-5cm}
       \abntex@ifnotempty{\imprimirpreambulo}{%
         \hspace{.45\textwidth}
         \begin{minipage}{.5\textwidth}
@@ -1086,6 +1086,7 @@
       
       \assinatura{\textbf{\imprimirorientador} \\ Orientador}
       \assinatura{\textbf{Professor} \\ Convidado 1}
+      \vspace*{1cm}
       
       {\large\imprimirlocal}
       \par
