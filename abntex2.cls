@@ -1066,19 +1066,19 @@
       
       \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
   	
-      \vspace*{\fill}\vspace*{\fill}\vspace*{-5cm}
+      \vspace*{\fill}\vspace*{\fill}\vspace*{-10cm}
       \begin{center}
         \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
       \end{center}
       
-      \vspace*{\fill}\vspace*{-5cm}
+      \vspace*{\fill}
       \abntex@ifnotempty{\imprimirpreambulo}{%
         \hspace{.45\textwidth}
         \begin{minipage}{.5\textwidth}
         	\SingleSpacing
            \imprimirpreambulo
          \end{minipage}%
-         \vspace*{\fill}\vspace*{-5cm}
+         \vspace*{\fill}
       }%
   
       \\
