@@ -55,7 +55,13 @@ bibliography: latex/bibliography.bibtex
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.pos = 'H')
+require(knitr)
+require(kableExtra)
+
+opts_chunk$set(echo = F, message = F, warning = F, fig.pos = 'H')
+options(
+  knitr.table.format = "latex"
+)
 ```
 
 ```{r}
@@ -74,7 +80,8 @@ download.file("https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1
 ```
 
 ```{r}
-knitr::kable(head(iris, 5), 'latex')
+kable(head(iris, 5), caption = 'Iris') %>% 
+  footnote('Fonte: O próprio autor')
 ```
 
 ```{r child='01-introdução.rmd'}
