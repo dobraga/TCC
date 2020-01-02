@@ -2,7 +2,7 @@
 
 ## Otimização
 
-No campo da optimização tem-se como objetivo:
+No campo da optimização tem-se como objetivo:^[@0521833787]
 
 $$
 \max\limits_{{x \in A \subset \mathbb{R}^d}} f(x)
