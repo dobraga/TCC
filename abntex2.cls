@@ -1069,17 +1069,17 @@
       \vspace*{\fill}\vspace*{\fill}
       \begin{center}
         \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
+  	
+        \abntex@ifnotempty{\imprimirpreambulo}{%
+          \hspace{.45\textwidth}
+          \begin{minipage}{.5\textwidth}
+          	\SingleSpacing
+             \imprimirpreambulo
+           \end{minipage}%
+           \vspace*{\fill}
+        }%
       \end{center}
       \vspace*{\fill}
-  	
-      \abntex@ifnotempty{\imprimirpreambulo}{%
-        \hspace{.45\textwidth}
-        \begin{minipage}{.5\textwidth}
-        	\SingleSpacing
-           \imprimirpreambulo
-         \end{minipage}%
-         \vspace*{\fill}
-      }%
   
       \\
       BANCA EXAMINADORA.
