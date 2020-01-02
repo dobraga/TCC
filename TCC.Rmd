@@ -76,7 +76,13 @@ download.file("https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1
 ```{r child='markdown/01-introdução.rmd'}
 ```
 
-```{r child='markdown/02-metodologia.rmd'}
+```{r child='markdown/02-revisao.rmd'}
+```
+
+```{r child='markdown/03-dados.rmd'}
+```
+
+```{r child='markdown/04-metodologia.rmd'}
 ```
 
 \newpage 
