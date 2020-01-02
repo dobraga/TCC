@@ -5,16 +5,16 @@ set.seed(2108)
 # FUNÇÂO DE TESTE COMPLEXA #
 ############################
 f = function(x,y){
-  fim = .7*(exp(-(x - 2)^2) + exp(-(x - 6)^2/10) + 1/ (x^2 + 1)) + 
-  .2*(exp(-(y - 2)^2) + exp(-(y - 6)^2/10) + 1/ (y^2 + 1)) +
-  .8*(exp(-(y - 2)^2) + exp(-(y - 6)^2/10) + 1/ (y^2 + 1)) +
-  (exp(-(y - 2)^2) + exp(-(y - 6)^2/10) + 1/ (y^2 + 1))
+  fim = (.7*(exp(-(x - 2)^2) + exp(-(x - 6)^2/10) + 1/ (x^2 + 1)) + 
+        .2*(exp(-(y - 2)^2) + exp(-(y - 6)^2/10) + 1/ (y^2 + 1)) +
+        .8*(exp(-(y - 2)^2) + exp(-(y - 6)^2/10) + 1/ (y^2 + 1)) +
+        (exp(-(y - 2)^2) + exp(-(y - 6)^2/10) + 1/ (y^2 + 1)))*(sin(x)*cos(y))^2
   
   return(list(Score = fim))
 }
 
-x = seq(0,5,length.out = 150)
-y = seq(0,5,length.out = 150)
+x = seq(0,5,length.out = 300)
+y = seq(0,5,length.out = 300)
 
 # -------------------- #
 # SEARCH GRID COMPLETE #
@@ -43,7 +43,7 @@ print(paste0("O valor máximo encontrado na grid foi ",round(max(grid$Value),4))
 OPT_Res <- BayesianOptimization(f,
                                 bounds = list(x = c(0, 5),
                                               y = c(0, 5)),
-                                init_points = 2, n_iter = 30,
+                                init_points = 10, n_iter = 20,
                                 acq = "poi", kappa = 2.576, eps = 0.0,
                                 verbose = TRUE)
 

@@ -5,11 +5,11 @@
 Um problema de otimização pode ser definido como:^[@chong2013introduction]
 
 $$
-\mbox{minimize } f(x) \\
+\mbox{maximize } f(x) \\
 \mbox{restrito a } \boldsymbol{x} \leq \boldsymbol{\Omega}
 $$
 
-Neste caso, busca-se minimizar os valores da função objetivo $f$.
+Esse é um caso de otimização onde busca-se o maior valor possível da função objetivo $f$.
 
 Onde $\boldsymbol{f_i}$ são as funções de restrição, $\boldsymbol{b_i}$ são as constantes que definem os limites, $\boldsymbol{x} = (x_1,...,x_n)$ é o vetor da variável a ser otimizada, 
 
