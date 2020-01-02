@@ -641,7 +641,8 @@
 % Cabecalho padrao
 \makepagestyle{abntheadings}
 \makeevenhead{abntheadings}{\ABNTEXfontereduzida\thepage}{}{\ABNTEXfontereduzida\textit\leftmark}
-\makeoddhead{abntheadings}{\ABNTEXfontereduzida\textit\rightmark}{}{\ABNTEXfontereduzida\thepage}
+%\makeoddhead{abntheadings}{\ABNTEXfontereduzida\textit\rightmark}{}{\ABNTEXfontereduzida\thepage}
+\makeoddhead{abntheadings}{}{}{\ABNTEXfontereduzida\thepage}
 \makeheadrule{abntheadings}{\textwidth}{\normalrulethickness}
 
 % Cabecalho do inicio do capitulo
