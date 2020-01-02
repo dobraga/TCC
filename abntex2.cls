@@ -669,7 +669,8 @@
   \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
     \pagestyle{plain}%
   }{%else  
-    \pagestyle{abntheadings}%
+    \pagestyle{plain}%
+    %\pagestyle{abntheadings}%
     \aliaspagestyle{chapter}{abntchapfirst}% customizing chapter pagestyle
   }  
   \nouppercaseheads%
