@@ -1070,15 +1070,15 @@
       \begin{center}
         \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
       \end{center}
-      \vspace*{\fill}
-  	
+      
+      \vspace*{\fill}\vspace*{-5cm}
       \abntex@ifnotempty{\imprimirpreambulo}{%
         \hspace{.45\textwidth}
         \begin{minipage}{.5\textwidth}
         	\SingleSpacing
            \imprimirpreambulo
          \end{minipage}%
-         \vspace*{\fill}
+         \vspace*{\fill}\vspace*{-5cm}
       }%
   
       \\
