@@ -641,8 +641,7 @@
 % Cabecalho padrao
 \makepagestyle{abntheadings}
 \makeevenhead{abntheadings}{\ABNTEXfontereduzida\thepage}{}{\ABNTEXfontereduzida\textit\leftmark}
-%\makeoddhead{abntheadings}{\ABNTEXfontereduzida\textit\rightmark}{}{\ABNTEXfontereduzida\thepage}
-\makeoddhead{abntheadings}{}{}{\ABNTEXfontereduzida\thepage}
+\makeoddhead{abntheadings}{\ABNTEXfontereduzida\textit\rightmark}{}{\ABNTEXfontereduzida\thepage}
 \makeheadrule{abntheadings}{\textwidth}{\normalrulethickness}
 
 % Cabecalho do inicio do capitulo
@@ -666,16 +665,16 @@
 
 % ---
 % Configura layout para elementos textuais
-\newcommand{\textual}{%
-  \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
-    \pagestyle{plain}%
-  }{%else  
-    \pagestyle{abntheadings}%
-    \aliaspagestyle{chapter}{abntchapfirst}% customizing chapter pagestyle
-  }  
-  \nouppercaseheads%
-  \bookmarksetup{startatroot}% 
-}
+%\newcommand{\textual}{%
+%  \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
+%    \pagestyle{plain}%
+%  }{%else  
+%    \pagestyle{abntheadings}%
+%    \aliaspagestyle{chapter}{abntchapfirst}% customizing chapter pagestyle
+%  }  
+%  \nouppercaseheads%
+%  \bookmarksetup{startatroot}% 
+%}
 \renewcommand{\mainmatter}{\textual}
 % ---
 
