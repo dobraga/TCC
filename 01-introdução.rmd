@@ -8,3 +8,5 @@ A optimização bayesiana é um método para encontrar o ponto máximo de funç�
 ```{r}
 kable(head(iris, 5), caption = 'Iris', fonte = 'O próprio autor')
 ```
+
+lalalalal
