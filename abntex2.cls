@@ -1071,7 +1071,7 @@
         \MakeUppercase{\ABNTEXchapterfont\bfseries\large\imprimirtitulo}
       \end{center}
       
-      \vspace*{\fill}\vspace*{-5cm}
+      \vspace*{\fill}\vspace*{-3cm}
       \abntex@ifnotempty{\imprimirpreambulo}{%
         \hspace{.45\textwidth}
         \begin{minipage}{.5\textwidth}
