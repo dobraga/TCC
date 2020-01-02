@@ -1064,7 +1064,7 @@
     \begin{center}
       \ABNTEXchapterfont\large\imprimirautor
 
-      \ABNTEXchapterfont\Large\imprimirtitulo
+      \ABNTEXchapterfont\bfseries\Large\imprimirtitulo
    
       \justify{\imprimirpreambulo}
 
