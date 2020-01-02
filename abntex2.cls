@@ -1059,6 +1059,7 @@
 
 % -------------------
 % Folha de aprovação
+\makeatletter
 \newcommand{\imprimitfolhadeaprovacao}{%
   \begin{folhadeaprovacao}
     \begin{center}
@@ -1095,7 +1096,7 @@
     \end{center}
   \end{folhadeaprovacao}
 }
-
+\makeatother
 
 % ---
 % Folha de rosto
