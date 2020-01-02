@@ -228,6 +228,7 @@ obtenção do título de Bacharel em Estatística.}
 % ELEMENTOS TEXTUAIS
 % ----------------------------------------------------------
 \textual
+\makepagestyle{plain}
 
 \hypertarget{introduuxe7uxe3o}{%
 \chapter{Introdução}\label{introduuxe7uxe3o}}
@@ -252,19 +253,27 @@ análise e combina com evidências dos dados para obter a posteriori. ~
 \hypertarget{otimizauxe7uxe3o}{%
 \section{Otimização}\label{otimizauxe7uxe3o}}
 
-No campo da optimização tem-se como objetivo:\footnote{Boyd and
-  Vandenberghe (2004)}
+Um problema de otimização pode ser definido como:\footnote{Chong and Zak
+  (2013)}
 
 \[
-\max\limits_{{x \in A \subset \mathbb{R}^d}} f(x)
+\mbox{minimize } f(x) \\
+\mbox{restrito a } \boldsymbol{x} \leq \boldsymbol{\Omega}
 \]
 
-Normalmente, pressupõe-se que a função objetivo tem uma representação
-matemática conhecida, é convexa ou é pelo menos barata para avaliar. No
-campo de Machine Learning, uma parte das funções de custo estudadas não
-seguem essas suposições. Muitas vezes, a avaliação da função custo é
-muito cara(demorada) ou até mesmo impossível, e as propriedas da função
-custo são desconhecidas.\\
+Neste caso, busca-se minimizar os valores da função objetivo \(f\).
+
+Onde \(\boldsymbol{f_i}\) são as funções de restrição,
+\(\boldsymbol{b_i}\) são as constantes que definem os limites,
+\(\boldsymbol{x} = (x_1,...,x_n)\) é o vetor da variável a ser
+otimizada,
+
+Porém, normalmente pressupõe-se que a função objetivo tem uma
+representação matemática conhecida, é convexa ou pelo menos é facilmente
+avaliada. No campo de Machine Learning, uma parte das funções de custo
+estudadas não seguem essas suposições. Muitas vezes, a avaliação da
+função custo é muito cara(demorada) ou até mesmo impossível, e as
+propriedas da função custo são desconhecidas.\\
 
 A optimização bayesiana é útil quando a avaliação da função tem custo
 alto, quando não é conhecido as derivadas da função em análise, quando a
@@ -414,10 +423,9 @@ qual ponto de \(\chi\)
 Bishop, Christopher M. 2012. ``Pattern Recognition and Machine Learning,
 2006.'' \emph{Korean Society of Civil Engineers} 60 (1): 78--78.
 
-\leavevmode\hypertarget{ref-0521833787}{}%
-Boyd, Stephen, and Lieven Vandenberghe. 2004. \emph{Convex
-Optimization}. Cambridge University Press.
-\url{https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf}.
+\leavevmode\hypertarget{ref-chong2013introduction}{}%
+Chong, Edwin KP, and Stanislaw H Zak. 2013. \emph{An Introduction to
+Optimization}. Vol. 76. John Wiley \& Sons.
 
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS

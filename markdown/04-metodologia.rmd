@@ -2,13 +2,18 @@
 
 ## Otimização
 
-No campo da optimização tem-se como objetivo:^[@0521833787]
+Um problema de otimização pode ser definido como:^[@chong2013introduction]
 
 $$
-\max\limits_{{x \in A \subset \mathbb{R}^d}} f(x)
+\mbox{minimize } f(x) \\
+\mbox{restrito a } \boldsymbol{x} \leq \boldsymbol{\Omega}
 $$
 
-Normalmente, pressupõe-se que a função objetivo tem uma representação matemática conhecida, é convexa ou é pelo menos barata para avaliar. No campo de Machine Learning, uma parte das funções de custo estudadas não seguem essas suposições. Muitas vezes, a avaliação da função custo é muito cara(demorada) ou até mesmo impossível, e as propriedas da função custo são desconhecidas.\
+Neste caso, busca-se minimizar os valores da função objetivo $f$.
+
+Onde $\boldsymbol{f_i}$ são as funções de restrição, $\boldsymbol{b_i}$ são as constantes que definem os limites, $\boldsymbol{x} = (x_1,...,x_n)$ é o vetor da variável a ser otimizada, 
+
+Porém, normalmente pressupõe-se que a função objetivo tem uma representação matemática conhecida, é convexa ou pelo menos é facilmente avaliada. No campo de Machine Learning, uma parte das funções de custo estudadas não seguem essas suposições. Muitas vezes, a avaliação da função custo é muito cara(demorada) ou até mesmo impossível, e as propriedas da função custo são desconhecidas.\
 
 A optimização bayesiana é útil quando a avaliação da função tem custo alto, quando não é conhecido as derivadas da função em análise, quando a função não é convexa ou até mesmo desconhecida.\
 
