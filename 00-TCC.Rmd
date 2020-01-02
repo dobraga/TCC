@@ -80,10 +80,6 @@ download.file("https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1
               "fig/gp.png",quiet = T,mode = 'wb')
 ```
 
-```{r}
-kable(head(iris, 5), caption = 'Iris', fonte = 'O próprio autor')
-```
-
 ```{r child='01-introdução.rmd'}
 ```
 
