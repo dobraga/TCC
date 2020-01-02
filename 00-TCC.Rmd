@@ -81,7 +81,7 @@ download.file("https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1
 
 ```{r}
 kable(head(iris, 5), caption = 'Iris') %>% 
-  footnote('Fonte: O próprio autor')
+  footnote(alphabet = 'O próprio autor', alphabet_title = 'Fonte: ')
 ```
 
 ```{r child='01-introdução.rmd'}
