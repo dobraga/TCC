@@ -70,30 +70,6 @@
 \makeatother
 
 
-% --------------------------------------------
-% criar um novo estilo de cabeçalhos e rodapés
-\makepagestyle{meuestilo}
-  %%cabeçalhos
-  \makeevenhead{meuestilo} %%pagina par
-     {topo par à esquerda}
-     {centro \thepage}
-     {direita}
-  \makeoddhead{meuestilo} %%pagina ímpar ou com oneside
-     {topo ímpar/oneside à esquerda}
-     {centro\thepage}
-     {direita}
-  \makeheadrule{meuestilo}{\textwidth}{\normalrulethickness} %linha
-  %% rodapé
-  \makeevenfoot{meuestilo}
-     {rodapé par à esquerda} %%pagina par
-     {centro \thepage}
-     {direita} 
-  \makeoddfoot{meuestilo} %%pagina ímpar ou com oneside
-     {rodapé ímpar/onside à esquerda}
-     {centro \thepage}
-     {direita}
-
-
 % -------------------
 % Folha de aprovação
 \makeatletter
@@ -121,7 +97,10 @@
       \\
       BANCA EXAMINADORA.
       
-      \assinatura{\textbf{\imprimirorientador} \\ Orientador}
+      \assinatura{\textbf{\imprimirorientador} \\ Orientador(a)}
+      \abntex@ifnotempty{\imprimircoorientador}{%
+        \assinatura{\textbf{\imprimircoorientador} \\ Coorientador(a)}
+      }
       \assinatura{\textbf{Professor} \\ Convidado 1}
       \vspace*{3cm}
       

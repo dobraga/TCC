@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1577971016 "/home/dobraga/Desktop/TCC/Project/TCC.tex" "/home/dobraga/Desktop/TCC/Project/TCC.pdf" "TCC" 1577971016
-  "./latex/ence.sty" 1577965507 3273 76d67465dbaecf7d69bb8ab80701bda0 ""
+["pdflatex"] 1577971409 "/home/dobraga/Desktop/TCC/Project/TCC.tex" "/home/dobraga/Desktop/TCC/Project/TCC.pdf" "TCC" 1577971409
+  "./latex/ence.sty" 1577971398 2699 01e391520684ad4f83cf833c09468a09 ""
   "/home/dobraga/.TinyTeX/texmf-dist/fonts/tfm/jknappen/ec/ecrm1200.tfm" 1136768653 3584 f80ddd985bd00e29e9a6047ebd9d4781 ""
   "/home/dobraga/.TinyTeX/texmf-dist/fonts/tfm/jknappen/ec/ecrm1440.tfm" 1136768653 3584 3169d30142b88a27d4ab0e3468e963a2 ""
   "/home/dobraga/.TinyTeX/texmf-dist/fonts/tfm/jknappen/ec/ecss1200.tfm" 1136768653 3584 db562fb1d1c474cc55f0ce8a1dd94fe7 ""
@@ -89,13 +89,13 @@
   "/home/dobraga/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1577386355 390025 2673054c20adca08d5f142e28afc4d9a ""
   "/home/dobraga/.TinyTeX/texmf-var/web2c/pdftex/pdflatex.fmt" 1577388688 827377 399cd0dc4a66a8b51d8ab346b479fe84 ""
   "/home/dobraga/.TinyTeX/texmf.cnf" 1577386356 653 fa762881ae92d47a44dfd4a4255f8455 ""
-  "/home/dobraga/Desktop/TCC/Project/TCC.aux" 1577971016 8 a94a2480d3289e625eea47cd1b285758 ""
-  "/home/dobraga/Desktop/TCC/Project/TCC.tex" 1577971016 15679 d0cc797b58153a6cb700ca94eda25553 ""
+  "/home/dobraga/Desktop/TCC/Project/TCC.aux" 1577971409 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/home/dobraga/Desktop/TCC/Project/TCC.tex" 1577971407 15679 d0cc797b58153a6cb700ca94eda25553 ""
   "TCC.aux" 0 -1 0 "pdflatex"
-  "TCC.tex" 1577971016 15679 d0cc797b58153a6cb700ca94eda25553 ""
-  "latex/ence.sty" 1577965507 3273 76d67465dbaecf7d69bb8ab80701bda0 ""
+  "TCC.tex" 1577971407 15679 d0cc797b58153a6cb700ca94eda25553 ""
+  "latex/ence.sty" 1577971398 2699 01e391520684ad4f83cf833c09468a09 ""
   (generated)
-  "/home/dobraga/Desktop/TCC/Project/TCC.pdf"
   "/home/dobraga/Desktop/TCC/Project/TCC.log"
   "TCC.aux"
+  "/home/dobraga/Desktop/TCC/Project/TCC.pdf"
   "TCC.log"
