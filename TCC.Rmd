@@ -2,7 +2,7 @@
 output:
   pdf_document:
     keep_tex: true
-    template: template.tex
+    template: latex/template.tex
     pandoc_args: --top-level-division=chapter
     
 date: "`r format(Sys.time(), '%Y')`"
@@ -18,7 +18,7 @@ instituicao: |
   
   Bacharelado em Estatística
   
-cabecalho: images/ence.png
+cabecalho: fig/ence.png
   
 title: "Optimização Bayesiana"
 
@@ -51,7 +51,7 @@ preambulo: |
   obtenção do título de Bacharel em 
   Estatística.
 
-bibliography: bibliography.bibtex
+bibliography: latex/bibliography.bibtex
 ---
 
 ```{r setup, include=FALSE}
@@ -60,17 +60,17 @@ knitr::opts_chunk$set(echo = F, message = F, warning = F, fig.pos = 'H')
 
 ```{r}
 download.file("https://imgur.com/download/Qn0qJdv/",
-              "images/ence.png",quiet = T,mode = 'wb')
+              "fig/ence.png",quiet = T,mode = 'wb')
 ```
 
 ```{r}
 download.file("https://cdn-images-1.medium.com/max/1600/1*PhKGj_bZlND8IEfII426wA.png",
-              "images/bo.png",quiet = T,mode = 'wb')
+              "fig/bo.png",quiet = T,mode = 'wb')
 ```
 
 ```{r}
 download.file("https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1ce0e402cf7d8/docs/demoOutput/bookDemos/(15)-Gaussian_processes/gprDemoNoiseFree_02.png?raw=true",
-              "images/gp.png",quiet = T,mode = 'wb')
+              "fig/gp.png",quiet = T,mode = 'wb')
 ```
 
 ```{r child='markdown/01-introdução.rmd'}
