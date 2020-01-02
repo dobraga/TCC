@@ -1063,7 +1063,8 @@
 \newcommand{\imprimitfolhadeaprovacao}{%
   \begin{folhadeaprovacao}
     \begin{center}
-
+      
+      \vspace{-2cm}
       \MakeUppercase{\ABNTEXchapterfont\large\imprimirautor}
   	
       \vspace*{\fill}\vspace*{\fill}
@@ -1086,8 +1087,6 @@
       
       \assinatura{\textbf{\imprimirorientador} \\ Orientador}
       \assinatura{\textbf{Professor} \\ Convidado 1}
-      
-      \\
       
       {\large\imprimirlocal}
       \par
