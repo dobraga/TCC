@@ -289,7 +289,7 @@
 % ---
 
 % ---
-% cleardoublepage se este documento nao for article
+% clearpagepage se este documento nao for article
 % ---
 \newcommand{\PRIVATEclearpageifneeded}{%
   \ifthenelse{\equal{\ABNTEXisarticle}{true}}{%
@@ -747,7 +747,7 @@
 
 % ---
 % Ambiente para definicao da Capa
-\newenvironment{capa}{\begin{titlingpage}}{\end{titlingpage}\cleardoublepage}
+\newenvironment{capa}{\begin{titlingpage}}{\end{titlingpage}\clearpage}
 % ---
 
 % ---
@@ -853,7 +853,7 @@
   \begin{symbols}
 }{%
   \end{symbols}
-  \cleardoublepage
+  \clearpage
 }
 % ---
 
@@ -864,7 +864,7 @@
   \begin{symbols}
 }{%
   \end{symbols}
-  \cleardoublepage
+  \clearpage
 }
 % ---
 
@@ -940,7 +940,7 @@
 % ---
 % Imprime uma pagina de divisao no estilo parte
 \newcommand{\partpage}{%
-  \cleardoublepage
+  \clearpage
   \phantomsection
   \addcontentsline{toc}{part}{\appendixtocname}%
   \appendixpage*
@@ -1090,7 +1090,7 @@
 %   página no caso de estar no modo twoside. Util para imprimir a Ficha
 %   Bibliografica. Porem, se estiver no modo oneside, a versao sem estrela
 %   é identica.
-\newenvironment{folhaderosto}[1][\folhaderostoname]{\clearpage\PRIVATEbookmarkthis{#1}}{\cleardoublepage}
+\newenvironment{folhaderosto}[1][\folhaderostoname]{\clearpage\PRIVATEbookmarkthis{#1}}{\clearpagepage}
 \newenvironment{folhaderosto*}[1][\folhaderostoname]{\clearpage\PRIVATEbookmarkthis{#1}}{\newpage}%
 
 % ---
