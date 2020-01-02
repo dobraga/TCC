@@ -235,18 +235,17 @@ obtenção do título de Bacharel em Estatística.}
 % ----------------------------------------------------------
 \textual
 \pagestyle{plain}
-\FloatBarrier
 
 \hypertarget{introduuxe7uxe3o}{%
 \chapter{Introdução}\label{introduuxe7uxe3o}}
 
 Os algoritmos de Machine Learning raramente não possuem parãmetros, como
 por exemplo, a taxa de aprendizado. Muitas vezes esses parâmetros são
-considerados nuances.
+definidos por tentativa e erro.
 
-A optimização bayesiana é um método para encontrar o ponto máximo de
-funções, esta técnica utiliza-se de suposições a priori da função em
-análise e combina com evidências dos dados para obter a posteriori. ~
+A optimização bayesiana é um método para encontrar pontos próximos a
+pontos ótimos das funções, esta técnica utiliza-se de suposições a
+priori e combina com evidências dos dados para obter a posteriori. ~
 
 \begin{table}
 
@@ -304,7 +303,75 @@ representação matemática conhecida, é convexa ou pelo menos é facilmente
 avaliada. No campo de Machine Learning, uma parte das funções de custo
 estudadas não seguem nenhuma dessas suposições e além disto, muitas
 vezes, a avaliação da função é muito custosa(demorada), e as propriedas
-da função objetivo são desconhecidas.\\
+da função objetivo são desconhecidas e as vezes.\\
+
+\hypertarget{inferuxeancias-bayesiana}{%
+\section{Inferências Bayesiana}\label{inferuxeancias-bayesiana}}
+
+\hypertarget{processos-gaussianos}{%
+\section{Processos Gaussianos}\label{processos-gaussianos}}
+
+Os processos gaussianos comumente são utilizados como para interpolação
+de pontos não linear, sendo assim, o objetivo é prever pontos no espaço
+não observados, levando em conta que pontos próximos aos observados não
+devem mudar bruscamente o valor da variável de interesse. Abaixo será
+apresentado um exemplo.\\
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth,height=0.3\textheight]{fig/gp.png}
+\caption{\href{https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1ce0e402cf7d8/docs/demoOutput/bookDemos/(15)-Gaussian_processes/gprDemoNoiseFree_02.png}{Retirada
+do livro de Kevin Murphy.\label{gp}}}
+\end{figure}
+
+Na figura \ref{gp} pode-se observar, que neste caso, esta sendo
+considerado que não há incerteza de medição nos pontos observados
+represetados pelo \(x\) no gráfico, as bandas representam um intervalo
+de confiança de 95\%.\\
+
+Para o entendimento dos processos gaussianos é necessário que seja
+definido uma noção de similaridade e de variância'
+
+Os processos gaussinaos também podem ser utilizados como distribuição a
+priori para uma conjunto de pontos no espaço.\\
+
+Pode-se imaginar como exemplo \(n\) ponto gerados de uma distribuição
+n-dimensional normal multivariada, agora imaginando pontos de um domínio
+contínuo tem-se um processo gaussiano sendo a generalização
+infinito-dimensional de uma variável multi-dimensional gaussiana.\\
+
+A optimização bayesiana utiliza como priori o Processo Gaussiano com o
+vetor de médias 0 para facilitar as contas, porém, um fato interessante
+do processo gaussiano é que este pode ser totalmente definido pela sua
+matriz de covariância.\footnote{Bishop (2012)}\\
+
+A matriz de covariância de um processo gaussiano depende de qual
+kernel(K) será utilizado, um dos mais utilizado é o gaussiano, que
+possui este nome por ter o mesmo formato da distribução
+normal(gaussiana) tendo como única diferença a constnate de
+normalização, definido a seguir.\\
+
+\[
+X \sim GP(0,\Sigma)
+\]
+
+\[
+\Sigma(x_1,x_2) = K(x_1,x_2) + I\sigma^2_y
+\]
+
+\[
+K(x_1,x_2) = \sigma^2 e^{-\frac{1}{2l^2}(x_1-x_2)^2}
+\]
+
+Será assumido que a função \(f(x)\) é uma observação de um processo
+gaussiano e que as observações, \((x_n,y_n)_{n=1}^N\), onde
+\(y_n \mbox{~} N(f(x_n),\nu)\) e \(\nu\) é a variância dos ruídos
+introduzidos na função de observação. Utilizando a regra de bayes para
+combinar a proiri com os dados para gerar a posteriori que determina
+qual ponto de \(\chi\)
+
+\hypertarget{otimizauxe7uxe3o-bayesiana}{%
+\section{Otimização Bayesiana}\label{otimizauxe7uxe3o-bayesiana}}
 
 A optimização bayesiana é útil quando a avaliação da função tem custo
 alto, quando não é conhecido as derivadas da função em análise, quando a
@@ -377,71 +444,6 @@ posteriori calculada para os pontos e a variância da previsão. E então é
 amostrado o \(\operatorname{argmax}\) da função da função de aquisição,
 o processo gaussiano é atualizado e o processo é repetido para os
 próximos passos.\\
-
-\hypertarget{processos-gaussianos}{%
-\section{Processos Gaussianos}\label{processos-gaussianos}}
-
-Os processos gaussianos comumente são utilizados como para interpolação
-de pontos não linear, sendo assim, o objetivo é prever pontos no espaço
-não observados, levando em conta que pontos próximos aos observados não
-devem mudar bruscamente o valor da variável de interesse. Abaixo será
-apresentado um exemplo.\\
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth,height=0.3\textheight]{fig/gp.png}
-\caption{\href{https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1ce0e402cf7d8/docs/demoOutput/bookDemos/(15)-Gaussian_processes/gprDemoNoiseFree_02.png}{Retirada
-do livro de Kevin Murphy.\label{gp}}}
-\end{figure}
-
-Na figura \ref{gp} pode-se observar, que neste caso, esta sendo
-considerado que não há incerteza de medição nos pontos observados
-represetados pelo \(x\) no gráfico, as bandas representam um intervalo
-de confiança de 95\%.\\
-
-Para o entendimento dos processos gaussianos é necessário que seja
-definido uma noção de similaridade e de variância'
-
-Os processos gaussinaos também podem ser utilizados como distribuição a
-priori para uma conjunto de pontos no espaço.\\
-
-Pode-se imaginar como exemplo \(n\) ponto gerados de uma distribuição
-n-dimensional normal multivariada, agora imaginando pontos de um domínio
-contínuo tem-se um processo gaussiano sendo a generalização
-infinito-dimensional de uma variável multi-dimensional gaussiana.\\
-
-A optimização bayesiana utiliza como priori o Processo Gaussiano com o
-vetor de médias 0 para facilitar as contas, porém, um fato interessante
-do processo gaussiano é que este pode ser totalmente definido pela sua
-matriz de covariância.\footnote{Bishop (2012)}\\
-
-A matriz de covariância de um processo gaussiano depende de qual
-kernel(K) será utilizado, um dos mais utilizado é o gaussiano, que
-possui este nome por ter o mesmo formato da distribução
-normal(gaussiana) tendo como única diferença a constnate de
-normalização, definido a seguir.\\
-
-\[
-X \sim GP(0,\Sigma)
-\]
-
-\[
-\Sigma(x_1,x_2) = K(x_1,x_2) + I\sigma^2_y
-\]
-
-\[
-K(x_1,x_2) = \sigma^2 e^{-\frac{1}{2l^2}(x_1-x_2)^2}
-\]
-
-\hypertarget{funuxe7uxe3o-de-aquisiuxe7uxe3o}{%
-\subsection{Função de Aquisição}\label{funuxe7uxe3o-de-aquisiuxe7uxe3o}}
-
-Será assumido que a função \(f(x)\) é uma observação de um processo
-gaussiano e que as observações, \((x_n,y_n)_{n=1}^N\), onde
-\(y_n \mbox{~} N(f(x_n),\nu)\) e \(\nu\) é a variância dos ruídos
-introduzidos na função de observação. Utilizando a regra de bayes para
-combinar a proiri com os dados para gerar a posteriori que determina
-qual ponto de \(\chi\)
 
 \newpage
 
