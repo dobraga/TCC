@@ -9,7 +9,7 @@ date: "`r format(Sys.time(), '%Y')`"
 author: |
   | Douglas Martins Mendes Braga
   | Felipe de Carvalho Salles
-  | Felipe Otario
+  Douglas mais otario ainda
 orientador: aaaaaaaaaa
 coorientador: lalalala
 instituicao: |
