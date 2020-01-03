@@ -5,7 +5,6 @@ Para este tipo de problema existe um conjunto de variáveis de entrada que tamb�
 
 ### Boosting
 
-
 ### Avaliação de Modelos
 
 #### Validação Cruzada
