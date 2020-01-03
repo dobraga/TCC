@@ -312,7 +312,7 @@ representação matemática conhecida, é convexa ou pelo menos é facilmente
 avaliada. No campo de Machine Learning, uma parte das funções de custo
 estudadas não seguem nenhuma dessas suposições e além disto, muitas
 vezes, a avaliação da função é muito custosa(demorada), e as propriedas
-da função objetivo são desconhecidas e as vezes.\\
+da função objetivo são desconhecidas e as vezes.
 
 \hypertarget{inferuxeancia-bayesiana}{%
 \section{Inferência Bayesiana}\label{inferuxeancia-bayesiana}}
@@ -336,7 +336,7 @@ distribuição Normal Multivariada\footnote{Williams and Rasmussen (1996)}
 e comumente são utilizados para interpolação de pontos não linear, sendo
 assim, o objetivo é prever pontos no espaço não observados, levando em
 conta que pontos próximos aos observados não devem mudar bruscamente o
-valor da variável de interesse. Abaixo será apresentado um exemplo.\\
+valor da variável de interesse. Abaixo será apresentado um exemplo.
 
 \begin{figure}
 \centering
@@ -348,24 +348,24 @@ do livro de Kevin Murphy.\label{gp}}}
 Na figura \ref{gp} pode-se observar, que neste caso, esta sendo
 considerado que não há incerteza de medição nos pontos observados
 represetados pelo \(x\) no gráfico, as bandas representam um intervalo
-de confiança de 95\%.\\
+de confiança de 95\%.
 
 Para o entendimento dos processos gaussianos é necessário que seja
 definido uma noção de similaridade e de variância.
 
 Os processos gaussinaos também podem ser utilizados como distribuição a
-priori para uma conjunto de pontos no espaço.\\
+priori para uma conjunto de pontos no espaço.
 
 Pode-se imaginar como exemplo \(n\) ponto gerados de uma distribuição
 n-dimensional normal multivariada, agora imaginando pontos de um domínio
 contínuo tem-se um processo gaussiano sendo a generalização
-infinito-dimensional de uma variável multi-dimensional gaussiana.\\
+infinito-dimensional de uma variável multi-dimensional gaussiana.
 
 A matriz de covariância de um processo gaussiano depende de qual
 kernel(K) será utilizado, um dos mais utilizado é o gaussiano, que
 possui este nome por ter o mesmo formato da distribução
 normal(gaussiana) tendo como única diferença a constnate de
-normalização, definido a seguir.\\
+normalização, definido a seguir.
 
 \[
 X \sim GP(0,\Sigma)
@@ -380,23 +380,23 @@ K(x_1,x_2) = \sigma^2 e^{-\frac{1}{2l^2}(x_1-x_2)^2}
 \]
 
 \hypertarget{otimizauxe7uxe3o-bayesiana}{%
-\section{Otimização Bayesiana}\label{otimizauxe7uxe3o-bayesiana}}
+\subsection{Otimização Bayesiana}\label{otimizauxe7uxe3o-bayesiana}}
 
 A optimização bayesiana utiliza como priori o Processo Gaussiano com o
 vetor de médias 0 para facilitar as contas, porém, um fato interessante
 do processo gaussiano é que este pode ser totalmente definido pela sua
-matriz de covariância.\footnote{Bishop (2012)}\\
+matriz de covariância.\footnote{Bishop (2012)}
 
 Será assumido que a função \(f(x)\) é uma observação de um processo
 gaussiano e que as observações, \((x_n,y_n)_{n=1}^N\), onde
 \(y_n \mbox{~} N(f(x_n),\nu)\) e \(\nu\) é a variância dos ruídos
 introduzidos na função de observação. Utilizando a regra de bayes para
 combinar a proiri com os dados para gerar a posteriori que determina
-qual ponto de \(\chi\)
+qual ponto de \(\chi\).
 
 A optimização bayesiana é útil quando a avaliação da função tem custo
 alto, quando não é conhecido as derivadas da função em análise, quando a
-função não é convexa ou até mesmo desconhecida.\\
+função não é convexa ou até mesmo desconhecida.
 
 As técnicas de otimização bayesiana são algumas das abordagens mais
 eficientes em termos do número de avaliações de funções necessárias. É
@@ -412,7 +412,7 @@ Na optimização bayesiana, a priori que é definida está ligada ao espaço
 que acredita-se que a função de custo possa variar. Mesmo que esta
 função seja desconhecida, é razoavel supor que exista conhecimento
 prévio sobre alguma de suas propriedades, como a suavidade, isto torna
-algumas funções objetivas mais prováveis que outras.\\
+algumas funções objetivas mais prováveis que outras.
 
 Define-se \(x_i\) sendo a i-ésima amostra, e \(f(x_i)\) a observação da
 função objetiva em \(x_i\). Serão acumulados as observações
@@ -454,8 +454,7 @@ um trade-off automático entre exploração (onde a função objetivo é muito
 incerta) e exploração (tentando valores de \(x\) onde a função objetivo
 deve ser alta). A optimização bayesiana tem como objetivo minimizar a
 quantidade de interações necessárias para localizar o ponto máximo e
-também se comporte bem em funções com múltiplos pontos de máximo.\\
-~\\
+também se comporte bem em funções com múltiplos pontos de máximo.
 
 A figura \ref{bo} representa um uma optimização de uma dimensão, onde é
 iniciado com dois ponto aleatórios. A cada iteração, a função de
@@ -464,10 +463,21 @@ função objetivo. A função de aquisição leva em consideração a média a
 posteriori calculada para os pontos e a variância da previsão. E então é
 amostrado o \(\operatorname{argmax}\) da função da função de aquisição,
 o processo gaussiano é atualizado e o processo é repetido para os
-próximos passos.\\
+próximos passos.
 
 \hypertarget{aprendizado-supervisionado}{%
 \section{Aprendizado Supervisionado}\label{aprendizado-supervisionado}}
+
+Para este tipo de problema existe um conjunto de variáveis de entrada
+que também pode ser chamada de variáveis independentes. Este conjunto de
+variáveis possui alguma influência em uma ou mais variáveis que podem
+ser chamadas de variáveis dependentes. Esse problema é conhecido como
+aprendizado supervisionado e tem como objetivo utilizar as variáveis de
+entrada para prever as variáveis de saída.\footnote{Friedman, Hastie,
+  and Tibshirani (2001)}
+
+\hypertarget{boosting}{%
+\section{Boosting}\label{boosting}}
 
 \newpage
 
@@ -487,6 +497,11 @@ Optimization}. Vol. 76. John Wiley \& Sons.
 \leavevmode\hypertarget{ref-degroot2012probability}{}%
 DeGroot, Morris H, and Mark J Schervish. 2012. \emph{Probability and
 Statistics}. Pearson Education.
+
+\leavevmode\hypertarget{ref-friedman2001elements}{}%
+Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. 2001. \emph{The
+Elements of Statistical Learning}. Vol. 1. 10. Springer series in
+statistics New York.
 
 \leavevmode\hypertarget{ref-williams1996gaussian}{}%
 Williams, Christopher KI, and Carl Edward Rasmussen. 1996. ``Gaussian
