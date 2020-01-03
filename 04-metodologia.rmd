@@ -14,9 +14,11 @@ Esse é um caso de otimização onde busca-se o maior valor possível da funçã
 
 Porém, normalmente pressupõe-se que a função objetivo tem uma representação matemática conhecida, é convexa ou pelo menos é facilmente avaliada. No campo de Machine Learning, uma parte das funções de custo estudadas não seguem nenhuma dessas suposições e além disto, muitas vezes, a avaliação da função é muito custosa(demorada), e as propriedas da função objetivo são desconhecidas e as vezes.\
 
-## Teorema de Bayes
+## Inferência Bayesiana
 
-O Teorema de Bayes é o fundamento da inferência bayesiana e tem como objetivo atualizar a probabilidade de um acontecimento dado que outro evento tenha ocorrido.
+### Teorema de Bayes
+
+O Teorema de Bayes é o fundamento da inferência bayesiana e tem como objetivo atualizar a probabilidade de um acontecimento dado que outro evento tenha ocorrido.^[@degroot2012probability]
 
 $$
 Pr(B_1|A) = \frac{Pr(A \cap B_1)}{Pr(A)} = \frac{Pr(B_1)Pr(A|B_1)}{Pr(A)}
@@ -24,7 +26,8 @@ $$
 
 ## Processos Gaussianos
 
-Os processos gaussianos comumente são utilizados para interpolação de pontos não linear, sendo assim, o objetivo é prever pontos no espaço não observados, levando em conta que pontos próximos aos observados não devem mudar bruscamente o valor da variável de interesse. Abaixo será apresentado um exemplo.\
+O processo gaussiano é a generalização infinito-dimensional da distribuição Normal Multivariada^[@williams1996gaussian] e comumente são utilizados para interpolação de pontos não linear, sendo assim, o objetivo é prever pontos no espaço não observados, levando em conta que pontos próximos aos observados não devem mudar bruscamente o valor da variável de interesse. Abaixo será apresentado um exemplo.\
+
 
 ![[Retirada do livro de Kevin Murphy.\label{gp}](https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1ce0e402cf7d8/docs/demoOutput/bookDemos/(15)-Gaussian_processes/gprDemoNoiseFree_02.png)](fig/gp.png){height=30%}  
 
@@ -82,4 +85,10 @@ A posteriori captura a apriori atualizada da função objetivo. Para que uma amo
 \
 
 A figura \ref{bo} representa um uma optimização de uma dimensão, onde é iniciado com dois ponto aleatórios. A cada iteração, a função de aquisição é maximizada para determinar o próximo ponto para a amostra da função objetivo. A função de aquisição leva em consideração a média a posteriori calculada para os pontos e a variância da previsão. E então é amostrado o $\operatorname{argmax}$ da função da função de aquisição, o processo gaussiano é atualizado e o processo é repetido para os próximos passos.\
+
+## Aprendizado Supervisionado
+
+
+
+
 

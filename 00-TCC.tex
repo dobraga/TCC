@@ -133,8 +133,8 @@ obtenção do título de Bacharel em Estatística.}
 % Retira espaço extra obsoleto entre as frases.
 \frenchspacing 
 
-\usepackage{fontspec}
-\setmainfont[Ligatures=TeX]{Calibri}
+%\usepackage{fontspec}
+%\setmainfont[Ligatures=TeX]{Calibri}
 
 %
 \usepackage{caption}
@@ -314,12 +314,15 @@ estudadas não seguem nenhuma dessas suposições e além disto, muitas
 vezes, a avaliação da função é muito custosa(demorada), e as propriedas
 da função objetivo são desconhecidas e as vezes.\\
 
+\hypertarget{inferuxeancia-bayesiana}{%
+\section{Inferência Bayesiana}\label{inferuxeancia-bayesiana}}
+
 \hypertarget{teorema-de-bayes}{%
-\section{Teorema de Bayes}\label{teorema-de-bayes}}
+\subsection{Teorema de Bayes}\label{teorema-de-bayes}}
 
 O Teorema de Bayes é o fundamento da inferência bayesiana e tem como
 objetivo atualizar a probabilidade de um acontecimento dado que outro
-evento tenha ocorrido.
+evento tenha ocorrido.\footnote{DeGroot and Schervish (2012)}
 
 \[
 Pr(B_1|A) = \frac{Pr(A \cap B_1)}{Pr(A)} = \frac{Pr(B_1)Pr(A|B_1)}{Pr(A)}
@@ -328,11 +331,12 @@ Pr(B_1|A) = \frac{Pr(A \cap B_1)}{Pr(A)} = \frac{Pr(B_1)Pr(A|B_1)}{Pr(A)}
 \hypertarget{processos-gaussianos}{%
 \section{Processos Gaussianos}\label{processos-gaussianos}}
 
-Os processos gaussianos comumente são utilizados para interpolação de
-pontos não linear, sendo assim, o objetivo é prever pontos no espaço não
-observados, levando em conta que pontos próximos aos observados não
-devem mudar bruscamente o valor da variável de interesse. Abaixo será
-apresentado um exemplo.\\
+O processo gaussiano é a generalização infinito-dimensional da
+distribuição Normal Multivariada\footnote{Williams and Rasmussen (1996)}
+e comumente são utilizados para interpolação de pontos não linear, sendo
+assim, o objetivo é prever pontos no espaço não observados, levando em
+conta que pontos próximos aos observados não devem mudar bruscamente o
+valor da variável de interesse. Abaixo será apresentado um exemplo.\\
 
 \begin{figure}
 \centering
@@ -462,6 +466,9 @@ amostrado o \(\operatorname{argmax}\) da função da função de aquisição,
 o processo gaussiano é atualizado e o processo é repetido para os
 próximos passos.\\
 
+\hypertarget{aprendizado-supervisionado}{%
+\section{Aprendizado Supervisionado}\label{aprendizado-supervisionado}}
+
 \newpage
 
 \hypertarget{referuxeancias}{%
@@ -476,6 +483,15 @@ Bishop, Christopher M. 2012. ``Pattern Recognition and Machine Learning,
 \leavevmode\hypertarget{ref-chong2013introduction}{}%
 Chong, Edwin KP, and Stanislaw H Zak. 2013. \emph{An Introduction to
 Optimization}. Vol. 76. John Wiley \& Sons.
+
+\leavevmode\hypertarget{ref-degroot2012probability}{}%
+DeGroot, Morris H, and Mark J Schervish. 2012. \emph{Probability and
+Statistics}. Pearson Education.
+
+\leavevmode\hypertarget{ref-williams1996gaussian}{}%
+Williams, Christopher KI, and Carl Edward Rasmussen. 1996. ``Gaussian
+Processes for Regression.'' In \emph{Advances in Neural Information
+Processing Systems}, 514--20.
 
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
