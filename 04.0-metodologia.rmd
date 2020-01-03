@@ -2,7 +2,7 @@
 
 O objetivo deste trabalho é desenvolver um modelo preditivo que consiga fazer a previsão para um determinado indivíduo em um espaço de tempo a ser determinado(ex. 3 meses) que após obter a liberdade voltará acometer delitos e seja apreendido novamente.
 
-Para isto, será utilizado um modelo de Machine Learning chamado de Gradient Boosting que ganhou notoriedade após ser (utilizado por diversas equipes vencedoras de competições)[https://github.com/dmlc/xgboost/tree/master/demo#machine-learning-challenge-winning-solutions] ele tem como objetivo fazer um junção de vários modelos fracos para criar um modelo forte.
+Para isto, será utilizado um modelo de Machine Learning chamado de Gradient Boosting que ganhou notoriedade após ser (utilizado por diversas equipes vencedoras de competições)^[https://github.com/dmlc/xgboost/tree/master/demo#machine-learning-challenge-winning-solutions] ele tem como objetivo fazer um junção de vários modelos fracos para criar um modelo forte.
 
 Porém, como a maioria dos modelos de Machine Learning, é nescessário a definição de diversos parâmetros definidos pelo usuário, o modelo não otimiza estes parâmetros, estes parâmetros são conhecidos como hiperparâmetros. 
 
