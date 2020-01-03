@@ -8,5 +8,3 @@ A optimização bayesiana é um método para encontrar pontos próximos a pontos
 ```{r}
 kable(head(iris, 5), caption = 'Iris', fonte = 'O próprio autor')
 ```
-
-lalalalal
