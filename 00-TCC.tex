@@ -88,9 +88,9 @@
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
-\titulo{Optimização Bayesiana}
+\titulo{Determinantes da Reincidência Juvenil no Estado do Rio de Janeiro}
 \autor{Douglas Martins Mendes Braga\\
-Felipe Sales}
+Felipe de Carvalho Salles}
 \local{Rio de Janeiro}
 \data{2020}
 \instituicao{Instituto Brasileiro de Geografia e Estatística - IBGE
@@ -252,13 +252,29 @@ obtenção do título de Bacharel em Estatística.}
 \hypertarget{introduuxe7uxe3o}{%
 \chapter{Introdução}\label{introduuxe7uxe3o}}
 
-Os algoritmos de Machine Learning raramente não possuem parãmetros, como
-por exemplo, a taxa de aprendizado. Muitas vezes esses parâmetros são
-definidos por tentativa e erro.
+A violência praticada por menores de idade é, hoje, um problema para a
+sociedade brasileira. Estas crianças e jovens, em conflito com a lei,
+são constantemente internados ou detidos em instituições para a promoção
+de ações socioeducativas, possibilitando-os que, após esta medida,
+retornem à sociedade para viverem em harmonia de acordo com o imposto
+pela lei.
 
-A optimização bayesiana é um método para encontrar pontos próximos a
-pontos ótimos das funções, esta técnica utiliza-se de suposições a
-priori e combina com evidências dos dados para obter a posteriori. ~
+Porém os programas e possibilidades de ressocialização podem não ser
+suficientes, podendo o adolescente cometer um novo delito, passando a
+ser reincidente -- trata-se de ``reincidência quando o agente comete
+novo crime, depois de transitar em julgado a sentença que, no País ou no
+estrangeiro, o tenha condenado por crime anterior'' (Art. 63 do Código
+Penal - Decreto Lei 2848/40).
+
+A pesquisa tem como objetivo principal mensurar a enormidade da
+reincidência juvenil no Estado do Rio de Janeiro, a partir de variáveis
+sociodemográficas, socioeconômicas e criminais, com uma variável
+dependente construída para capturar, em termos de probabilidade, o que
+se define como reincidência. Neste caso, o problema passa a ser
+encontrar uma relação entre as variáveis dispostas no banco de dados que
+preveja predições consistentes, nos dando a probabilidade de o
+adolescente cometer novamente um crime, utilizando um modelo de
+otimização bayesiana.
 
 \begin{table}
 
@@ -290,6 +306,34 @@ Sepal.Length & Sepal.Width & Petal.Length & Petal.Width & Species\\
 
 \hypertarget{metodologia}{%
 \chapter{Metodologia}\label{metodologia}}
+
+O objetivo deste trabalho é desenvolver um modelo preditivo que consiga
+fazer a previsão para um determinado indivíduo em um espaço de tempo a
+ser determinado(ex. 3 meses) que após obter a liberdade voltará acometer
+delitos e seja apreendido novamente.
+
+Para isto, será utilizado um modelo de Machine Learning chamado de
+Gradient Boosting que ganhou notoriedade após ser (utilizado por
+diversas equipes vencedoras de
+competições){[}\url{https://github.com/dmlc/xgboost/tree/master/demo\#machine-learning-challenge-winning-solutions}{]}
+ele tem como objetivo fazer um junção de vários modelos fracos para
+criar um modelo forte.
+
+Porém, como a maioria dos modelos de Machine Learning, é nescessário a
+definição de diversos parâmetros definidos pelo usuário, o modelo não
+otimiza estes parâmetros, estes parâmetros são conhecidos como
+hiperparâmetros.
+
+No campo da otimização é nescessário que a função a ser otimização tenha
+forma fechada, possua derivadas e etc., mas neste caso, não existe uma
+função com a relação entre os hiperparâmetros, isto invalida a
+utilizados de qualquer método que é commumente utilizado para
+otimização. Muitas vezes é utilizado busca aleatório de um conjunto de
+hiperparametros bom, mas por se tratar de um modelo recursivo, o
+treinamento deste modelo pode ser demorado, por isto será utilizado uma
+técnica conhecida como Optimização Bayesiana que tem como objetivo uma
+convergência em menos iterações na buscar de uma boa combinação de
+hiperparâmetros.
 
 \hypertarget{otimizauxe7uxe3o}{%
 \section{Otimização}\label{otimizauxe7uxe3o}}
@@ -478,6 +522,9 @@ entrada para prever as variáveis de saída.\footnote{Friedman, Hastie,
 
 \hypertarget{boosting}{%
 \subsection{Boosting}\label{boosting}}
+
+A técnica conhecida como \emph{boosting} tem como objetivo juntar
+diversos modelos fracos para criar um modelo forte.
 
 \hypertarget{avaliauxe7uxe3o-de-modelos}{%
 \subsection{Avaliação de Modelos}\label{avaliauxe7uxe3o-de-modelos}}

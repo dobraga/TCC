@@ -8,7 +8,7 @@ output:
 date: "`r format(Sys.time(), '%Y')`"
 author: |
   | Douglas Martins Mendes Braga
-  | Felipe Sales
+  | Felipe de Carvalho Salles
 orientador: aaaaaaaaaa
 coorientador: lalalala
 instituicao: |
@@ -20,7 +20,7 @@ instituicao: |
   
 cabecalho: fig/ence.png
   
-title: "Optimização Bayesiana"
+title: "Determinantes da Reincidência Juvenil no Estado do Rio de Janeiro "
 
 resumo: |
   O resumo deve ressaltar o objetivo, o método, os resultados e as conclusões do documento. 

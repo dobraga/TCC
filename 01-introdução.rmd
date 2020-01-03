@@ -1,9 +1,10 @@
 # Introdução
 
-Os algoritmos de Machine Learning raramente não possuem parãmetros, como por exemplo, a taxa de aprendizado. Muitas vezes esses parâmetros são definidos por tentativa e erro.
+A violência praticada por menores de idade é, hoje, um problema para a sociedade brasileira. Estas crianças e jovens, em conflito com a lei, são constantemente internados ou detidos em instituições para a promoção de ações socioeducativas, possibilitando-os que, após esta medida, retornem à sociedade para viverem em harmonia de acordo com o imposto pela lei. 
 
-A optimização bayesiana é um método para encontrar pontos próximos a pontos ótimos das funções, esta técnica utiliza-se de suposições a priori e combina com evidências dos dados para obter a posteriori. \ 
+Porém os programas e possibilidades de ressocialização podem não ser suficientes, podendo o adolescente cometer um novo delito, passando a ser reincidente – trata-se de “reincidência quando o agente comete novo crime, depois de transitar em julgado a sentença que, no País ou no estrangeiro, o tenha condenado por crime anterior" (Art. 63 do Código Penal - Decreto Lei 2848/40).
 
+A pesquisa tem como objetivo principal mensurar a enormidade da reincidência juvenil no Estado do Rio de Janeiro, a partir de variáveis sociodemográficas, socioeconômicas e criminais, com uma variável dependente construída para capturar, em termos de probabilidade, o que se define como reincidência. Neste caso, o problema passa a ser encontrar uma relação entre as variáveis dispostas no banco de dados que preveja predições consistentes, nos dando a probabilidade de o adolescente cometer novamente um crime, utilizando um modelo de otimização bayesiana.
 
 ```{r}
 kable(head(iris, 5), caption = 'Iris', fonte = 'O próprio autor')

@@ -5,6 +5,8 @@ Para este tipo de problema existe um conjunto de variáveis de entrada que tamb�
 
 ### Boosting
 
+A técnica conhecida como *boosting* tem como objetivo juntar diversos modelos fracos para criar um modelo forte.
+
 ### Avaliação de Modelos
 
 #### Validação Cruzada
