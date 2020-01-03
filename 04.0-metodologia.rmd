@@ -1,0 +1,13 @@
+# Metodologia
+
+```{r child='04.1-otimizacao.rmd'}
+```
+
+```{r child='04.2-bayesiana.rmd'}
+```
+
+```{r child='04.3-gaussiano.rmd'}
+```
+
+```{r child='04.4-supervisionado.rmd'}
+```

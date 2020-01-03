@@ -1,0 +1,11 @@
+## Aprendizado Supervisionado
+
+Para este tipo de problema existe um conjunto de variáveis de entrada que também pode ser chamada de variáveis independentes. Este conjunto de variáveis possui alguma influência em uma ou mais variáveis que podem ser chamadas de variáveis dependentes. Esse problema é conhecido como aprendizado supervisionado e tem como objetivo utilizar as variáveis de entrada para prever as variáveis de saída.^[@friedman2001elements]
+
+
+### Boosting
+
+
+### Avaliação de Modelos
+
+#### Validação Cruzada

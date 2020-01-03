@@ -1,0 +1,9 @@
+## Inferência Bayesiana
+
+### Teorema de Bayes
+
+O Teorema de Bayes é o fundamento da inferência bayesiana e tem como objetivo atualizar a probabilidade de um acontecimento dado que outro evento tenha ocorrido.^[@degroot2012probability]
+
+$$
+Pr(B_1|A) = \frac{Pr(A \cap B_1)}{Pr(A)} = \frac{Pr(B_1)Pr(A|B_1)}{Pr(A)}
+$$

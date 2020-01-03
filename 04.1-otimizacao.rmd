@@ -1,0 +1,13 @@
+## Otimização
+
+Um problema de otimização pode ser definido como:
+
+$$
+\mbox{maximize } f(x)
+\\
+\mbox{restrito a } \boldsymbol{x} \leq \boldsymbol{\Omega}
+$$
+
+Esse é um caso de otimização onde busca-se o maior valor possível da função objetivo $f$ tendo $\Omega$ como as restrições desta otimização e $\boldsymbol{x} = (x_1,...,x_n)$ como o vetor das variáveis independentes.^[@chong2013introduction]
+
+Porém, normalmente pressupõe-se que a função objetivo tem uma representação matemática conhecida, é convexa ou pelo menos é facilmente avaliada. No campo de Machine Learning, uma parte das funções de custo estudadas não seguem nenhuma dessas suposições e além disto, muitas vezes, a avaliação da função é muito custosa(demorada), e as propriedas da função objetivo são desconhecidas e as vezes.
