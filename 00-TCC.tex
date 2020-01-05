@@ -312,18 +312,19 @@ fazer a previsão para um determinado indivíduo em um espaço de tempo a
 ser determinado(ex. 3 meses) que após obter a liberdade voltará acometer
 delitos e seja apreendido novamente.
 
-Para isto, será utilizado o modelo de Machine Learning conhecido como
+Para isto, será utilizado o algoritmo de Machine Learning conhecido como
 Gradient Boosting que é uma das técnicas mais poderosas desenvolvidas
-nos últimos vinte anos\footnote{Friedman, Hastie, and Tibshirani (2001)}.
+nos últimos vinte anos.\footnote{Friedman, Hastie, and Tibshirani (2001)}
 
 Porém, como a maioria dos modelos de Machine Learning, é nescessário a
 definição de diversos hiperparâmetros que são parâmetros definidos pelo
 usuário e o modelo não otimiza estes parâmetros.
 
-No campo da otimização é nescessário que a função a ser otimização tenha
-forma fechada, possua derivadas e etc., mas neste caso, não existe uma
-função com a relação entre os hiperparâmetros, isto invalida a
-utilizados de qualquer método que é commumente utilizado para
+Para a definição destes parãmetros pode-se utilizar técnicas de
+otimização, porém neste campo é nescessário que a função a ser otimizada
+tenha forma fechada, possua derivadas e etc., mas neste caso, não existe
+uma função relacione os hiperparâmetros com a função de erro, isto
+invalida a utilização de qualquer método que é commumente utilizado para
 otimização. Muitas vezes é utilizado busca aleatório de um conjunto de
 hiperparametros bom, mas por se tratar de um modelo recursivo, o
 treinamento deste modelo pode ser demorado, por isto será utilizado uma
@@ -352,7 +353,7 @@ representação matemática conhecida, é convexa ou pelo menos é facilmente
 avaliada. No campo de Machine Learning, uma parte das funções de custo
 estudadas não seguem nenhuma dessas suposições e além disto, muitas
 vezes, a avaliação da função é muito custosa(demorada), e as propriedas
-da função objetivo são desconhecidas e as vezes.
+da função objetivo em relação aos hiperparâmetros são desconhecidas.
 
 \hypertarget{inferuxeancia-bayesiana}{%
 \section{Inferência Bayesiana}\label{inferuxeancia-bayesiana}}
@@ -516,8 +517,24 @@ aprendizado supervisionado e tem como objetivo utilizar as variáveis de
 entrada para prever as variáveis de saída.\footnote{Friedman, Hastie,
   and Tibshirani (2001)}
 
+\hypertarget{muxe9todos-ensemble}{%
+\subsection{\texorpdfstring{Métodos
+\emph{Ensemble}}{Métodos Ensemble}}\label{muxe9todos-ensemble}}
+
+Muitos pesquisadores buscam maneiras de combinar a previsão de diversos
+modelos para criar um único modelo que possua uma taxa de acertos
+maior.\footnote{({\textbf{???}})} Os dois principais algoritmos
+conhecidos são os: \emph{bagging}\footnote{({\textbf{???}})} e
+\emph{boosting}\footnote{({\textbf{???}})}.
+
+\hypertarget{bagging}{%
+\subsubsection{Bagging}\label{bagging}}
+
+O Random Forest é um algoritmo de Machine Learning que tem como base o
+\emph{bootstrap aggregating}.\footnote{({\textbf{???}})}
+
 \hypertarget{boosting}{%
-\subsection{Boosting}\label{boosting}}
+\subsubsection{Boosting}\label{boosting}}
 
 A técnica conhecida como \emph{boosting} tem como objetivo juntar
 diversos modelos fracos para criar um modelo forte.

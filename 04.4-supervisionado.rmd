@@ -2,8 +2,15 @@
 
 Para este tipo de problema existe um conjunto de variáveis de entrada que também pode ser chamada de variáveis independentes. Este conjunto de variáveis possui alguma influência em uma ou mais variáveis que podem ser chamadas de variáveis dependentes. Esse problema é conhecido como aprendizado supervisionado e tem como objetivo utilizar as variáveis de entrada para prever as variáveis de saída.^[@friedman2001elements]
 
+### Métodos *Ensemble*
 
-### Boosting
+Muitos pesquisadores buscam maneiras de combinar a previsão de diversos modelos para criar um único modelo que possua uma taxa de acertos maior.^[@opitz1999popular] Os dois principais algoritmos conhecidos são os: *bagging*^[@breiman1996bagging] e *boosting*^[@schapire1999brief]. 
+
+#### Bagging
+
+O Random Forest é um algoritmo de Machine Learning que tem como base o *bootstrap aggregating*.^[@breiman2001random]
+
+#### Boosting
 
 A técnica conhecida como *boosting* tem como objetivo juntar diversos modelos fracos para criar um modelo forte.
 
