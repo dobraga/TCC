@@ -14,6 +14,12 @@ O Random Forest é um algoritmo de Machine Learning que tem como base o *bootstr
 
 A técnica conhecida como *boosting* tem como objetivo juntar diversos modelos fracos para criar um modelo forte.
 
+```{r, tidy=FALSE, eval=FALSE, highlight=FALSE }
+
+pseudocode
+
+```
+
 ### Avaliação de Modelos
 
 #### Validação Cruzada
