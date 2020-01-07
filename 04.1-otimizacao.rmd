@@ -4,7 +4,9 @@ Um problema de otimização pode ser definido como:
 
 $$
 \mbox{maximize } f(x)
-\\
+$$
+
+$$
 \mbox{restrito a } \boldsymbol{x} \leq \boldsymbol{\Omega}
 $$
 
