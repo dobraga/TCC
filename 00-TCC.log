@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.12.26)  7 JAN 2020 19:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.1.7)  7 JAN 2020 20:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -469,7 +469,7 @@ l.551 \ProcessOptions*
                        
 Here is how much of TeX's memory you used:
  7965 strings out of 494107
- 117661 string characters out of 6173307
+ 117661 string characters out of 6173309
  229357 words of memory out of 5000000
  12015 multiletter control sequences out of 15000+600000
  4238 words of font info for 16 fonts, out of 8000000 for 9000
