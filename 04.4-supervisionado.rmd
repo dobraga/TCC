@@ -12,24 +12,7 @@ O Random Forest é um algoritmo de Machine Learning amplamente utilizado e que t
 
 #### Boosting
 
-A técnica conhecida como *boosting* tem como objetivo juntar diversos modelos fracos para criar um modelo forte.
-
-\begin{algorithm}[H]
-\SetAlgoLined
-\KwResult{Write here the result }
- initialization\;
- \While{While condition}{
-  instructions\;
-  \eIf{condition}{
-   instructions1\;
-   instructions2\;
-   }{
-   instructions3\;
-  }
- }
- \caption{Algoritmo *boosting* geral}
-\end{algorithm}
-
+A técnica conhecida como *boosting* foi introduzida por ^[@schapire1990strength] e tem como objetivo juntar diversos modelos fracos para criar um modelo forte.
 
 ### Avaliação de Modelos
 
