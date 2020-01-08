@@ -528,14 +528,18 @@ entrada para prever as variáveis de saída.\footnote{Friedman, Hastie,
 Muitos pesquisadores buscam maneiras de combinar a previsão de diversos
 modelos para criar um único modelo que possua uma taxa de acertos
 maior.\footnote{Opitz and Maclin (1999)} Os dois principais algoritmos
-conhecidos são os: \emph{bagging}\footnote{Breiman (1996)} e
-\emph{boosting}\footnote{Schapire (1999)}.
+são: \emph{bagging}\footnote{Breiman (1996)} e \emph{boosting}\footnote{Schapire
+  (1999)}. Ambos algoritmos partem de um modelo base e a escolha deste
+modelo não é restritiva, pode-se utilizar modelos de regressão
+logistica\footnote{Friedman et al. (2000)}, árvores de decisão, redes
+neurais\footnote{Martı'nez-Muñoz (2019)}, entre outros.
 
 \hypertarget{bagging}{%
 \subsubsection{Bagging}\label{bagging}}
 
-O Random Forest é um algoritmo de Machine Learning que tem como base o
-\emph{bootstrap aggregating}.\footnote{Breiman (2001)}
+O Random Forest é um algoritmo de Machine Learning amplamente utilizado
+e que tem como base o \emph{bootstrap aggregating} como o bagging também
+é conhecido.\footnote{Breiman (2001)}
 
 \hypertarget{boosting}{%
 \subsubsection{Boosting}\label{boosting}}
@@ -543,20 +547,21 @@ O Random Forest é um algoritmo de Machine Learning que tem como base o
 A técnica conhecida como \emph{boosting} tem como objetivo juntar
 diversos modelos fracos para criar um modelo forte.
 
-Algoritmo genérico do \emph{boosting}
-
-\textbf{INPUT:} \(\mathcal{D}\) \(\xi\);\\
-\textbf{OUTPUT:} ;\\
-~\\
-\textbf{IF} this\_is\_True:\\
-\hspace*{0.333em}\hspace*{0.333em}do\_this;\\
-\textbf{ELSE}\\
-\hspace*{0.333em}\hspace*{0.333em}select B from input;\\
-\hspace*{0.333em}\hspace*{0.333em}do something whith input;\\
-\hspace*{0.333em}\hspace*{0.333em}\textbf{FOR EACH} \(a_i\) \textbf{in}
-B\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}do
-something with \(a_i\);
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwResult{Write here the result }
+ initialization\;
+ \While{While condition}{
+  instructions\;
+  \eIf{condition}{
+   instructions1\;
+   instructions2\;
+   }{
+   instructions3\;
+  }
+ }
+ \caption{Algoritmo *boosting* geral}
+\end{algorithm}
 
 \hypertarget{avaliauxe7uxe3o-de-modelos}{%
 \subsection{Avaliação de Modelos}\label{avaliauxe7uxe3o-de-modelos}}
@@ -598,6 +603,16 @@ Statistics}. Pearson Education.
 Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. 2001. \emph{The
 Elements of Statistical Learning}. Vol. 1. 10. Springer series in
 statistics New York.
+
+\leavevmode\hypertarget{ref-friedman2000additive}{}%
+Friedman, Jerome, Trevor Hastie, Robert Tibshirani, and others. 2000.
+``Additive Logistic Regression: A Statistical View of Boosting (with
+Discussion and a Rejoinder by the Authors).'' \emph{The Annals of
+Statistics} 28 (2). Institute of Mathematical Statistics: 337--407.
+
+\leavevmode\hypertarget{ref-martinez2019sequential}{}%
+Martı'nez-Muñoz, Gonzalo. 2019. ``Sequential Training of Neural Networks
+with Gradient Boosting.'' \emph{arXiv Preprint arXiv:1909.12098}.
 
 \leavevmode\hypertarget{ref-opitz1999popular}{}%
 Opitz, David, and Richard Maclin. 1999. ``Popular Ensemble Methods: An

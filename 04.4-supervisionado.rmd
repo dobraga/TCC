@@ -4,29 +4,32 @@ Para este tipo de problema existe um conjunto de variáveis de entrada que tamb�
 
 ### Métodos *Ensemble*
 
-Muitos pesquisadores buscam maneiras de combinar a previsão de diversos modelos para criar um único modelo que possua uma taxa de acertos maior.^[@opitz1999popular] Os dois principais algoritmos conhecidos são os: *bagging*^[@breiman1996bagging] e *boosting*^[@schapire1999brief]. 
+Muitos pesquisadores buscam maneiras de combinar a previsão de diversos modelos para criar um único modelo que possua uma taxa de acertos maior.^[@opitz1999popular] Os dois principais algoritmos são: *bagging*^[@breiman1996bagging] e *boosting*^[@schapire1999brief]. Ambos algoritmos partem de um modelo base e a escolha deste modelo não é restritiva, pode-se utilizar modelos de regressão logistica^[@friedman2000additive], árvores de decisão, redes neurais^[@martinez2019sequential], entre outros.
 
 #### Bagging
 
-O Random Forest é um algoritmo de Machine Learning que tem como base o *bootstrap aggregating*.^[@breiman2001random]
+O Random Forest é um algoritmo de Machine Learning amplamente utilizado e que tem como base o *bootstrap aggregating* como o bagging também é conhecido.^[@breiman2001random]
 
 #### Boosting
 
 A técnica conhecida como *boosting* tem como objetivo juntar diversos modelos fracos para criar um modelo forte.
 
-Algoritmo genérico do *boosting*
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwResult{Write here the result }
+ initialization\;
+ \While{While condition}{
+  instructions\;
+  \eIf{condition}{
+   instructions1\;
+   instructions2\;
+   }{
+   instructions3\;
+  }
+ }
+ \caption{Algoritmo *boosting* geral}
+\end{algorithm}
 
-| **INPUT:** $\mathcal{D}$ 
-             $\xi$;  
-| **OUTPUT:** ;  
-| 
-| **IF** this_is_True:  
-|   do_this;  
-| **ELSE**
-|   select B from input;  
-|   do something whith input;  
-|   **FOR EACH** $a_i$ **in** B   
-|     do something with $a_i$;
 
 ### Avaliação de Modelos
 
