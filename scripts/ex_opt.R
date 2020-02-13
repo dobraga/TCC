@@ -12,7 +12,7 @@ f = function(x,y){
   
   return(list(Score = fim))
 }
-
+  
 x = seq(0,5,length.out = 300)
 y = seq(0,5,length.out = 300)
 

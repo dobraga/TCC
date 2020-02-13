@@ -1,4 +1,4 @@
----
+  ---
 title: "Exemplo processo gaussiano"
 author: "Douglas Braga"
 date: "18 de outubro de 2018"

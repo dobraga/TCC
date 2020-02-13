@@ -1,0 +1,7 @@
+# Introdução
+
+A violência praticada por menores de idade é, hoje, um problema para a sociedade brasileira. Estas crianças e jovens, em conflito com a lei, são constantemente internados ou detidos em instituições para a promoção de ações socioeducativas, possibilitando-os que, após esta medida, retornem à sociedade para viverem em harmonia de acordo com o imposto pela lei. 
+
+Porém os programas e possibilidades de ressocialização podem não ser suficientes, passando a ser reincidente – trata-se de “reincidência quando o agente comete novo crime, depois de transitar em julgado a sentença que, no País ou no estrangeiro, o tenha condenado por crime anterior" (Art. 63 do Código Penal - Decreto Lei 2848/40).
+
+O estudo tem como objetivo principal utilizar variáveis sociodemográficas, socioeconômicas e criminais para realizar a predição da probabilidade de reincidência juvenil. Para isto, será utilizado um método *ensemble* que tem como objetivo fazer a junção de várias árvores de decisão, porém o ponto negativo, como a maioria dos modelos de Machine Learning, esse algoritmo nescessita da definição de diversos parâmetros pelo usuário por não serem otimizados no treinamento, e para a otimização destes hiperparâmetros será utilizada a técnica Otimização Bayesiana.

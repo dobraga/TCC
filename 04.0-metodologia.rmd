@@ -2,11 +2,11 @@
 
 O objetivo deste trabalho é desenvolver um modelo preditivo que consiga fazer a previsão para um determinado indivíduo em um espaço de tempo a ser determinado(ex. 3 meses) que após obter a liberdade voltará acometer delitos e seja apreendido novamente.
 
-Para isto, será utilizado o algoritmo de Machine Learning conhecido como Gradient Boosting que é uma das técnicas mais poderosas desenvolvidas nos últimos vinte anos.^[@friedman2001elements]
+Para isto, será utilizado o algoritmo de Machine Learning conhecido como Boosting que é uma das técnicas mais poderosas desenvolvidas nos últimos vinte anos.^[@friedman2001elements]
 
-Porém, como a maioria dos modelos de Machine Learning, é nescessário a definição de diversos hiperparâmetros que são parâmetros definidos pelo usuário e o modelo não otimiza estes parâmetros.
+Porém, como a maioria dos modelos de Machine Learning, é nescessário a definição de diversos parâmetros que o modelo não otimiza, conhecidos como hiperparâmetros.
 
-Para a definição destes parãmetros pode-se utilizar técnicas de otimização, porém neste campo é nescessário que a função a ser otimizada tenha forma fechada, possua derivadas e etc., mas neste caso, não existe uma função relacione os hiperparâmetros com a função de erro, isto invalida a utilização de qualquer método que é commumente utilizado para otimização. Muitas vezes é utilizado busca aleatório de um conjunto de hiperparametros bom, mas por se tratar de um modelo recursivo, o treinamento deste modelo pode ser demorado, por isto será utilizado uma técnica conhecida como Optimização Bayesiana que tem como objetivo uma convergência em menos iterações na buscar de uma boa combinação de hiperparâmetros.
+Para a definição destes hiperparâmetros pode-se utilizar técnicas de otimização, porém neste campo é nescessário que a função a ser otimizada tenha forma fechada, possua derivadas e etc., mas neste caso, não existe uma função relacione os hiperparâmetros com a função de erro, isto invalida a utilização de qualquer método que é commumente utilizado para otimização. Muitas vezes é utilizado busca aleatório de um conjunto de hiperparametros bom, mas por se tratar de um modelo recursivo, o treinamento deste modelo pode ser demorado, por isto será utilizado uma técnica conhecida como Optimização Bayesiana que tem como objetivo uma convergência em menos iterações na buscar de uma boa combinação de hiperparâmetros.
 
 
 ```{r child='04.1-otimizacao.rmd'}
