@@ -1,16 +1,14 @@
 ## Processos Gaussianos
 
-O processo gaussiano é a generalização infinito-dimensional da distribuição Normal Multivariada^[@williams1996gaussian] e comumente são utilizados para interpolação de pontos não linear, sendo assim, o objetivo é prever pontos no espaço não observados, levando em conta que pontos próximos aos observados não devem mudar bruscamente o valor da variável de interesse. Abaixo será apresentado um exemplo.
+Pode-se imaginar como exemplo $n$ ponto gerados de uma distribuição n-dimensional normal multivariada, agora imaginando infinitos pontos de um domínio contínuo tem-se um processo gaussiano sendo a generalização infinito-dimensional de uma variável multi-dimensional gaussiana^[@williams1996gaussian] e comumente são utilizados para interpolação de pontos não linear, sendo assim, o objetivo é prever pontos no espaço não observados, levando em conta que pontos próximos aos observados não devem mudar bruscamente o valor da variável de interesse. 
+
+Abaixo será apresentado um exemplo.
 
 ![[Retirada do livro de Kevin Murphy.\label{gp}](https://github.com/probml/pmtk3/blob/30d7a1952f3979b16e92dbfa4cd1ce0e402cf7d8/docs/demoOutput/bookDemos/(15)-Gaussian_processes/gprDemoNoiseFree_02.png)](fig/gp.png){height=30%}  
 
 Na figura \ref{gp} pode-se observar, que neste caso, esta sendo considerado que não há incerteza de medição nos pontos observados represetados pelo $x$ no gráfico, as bandas representam um intervalo de confiança de 95%.
 
 Para o entendimento dos processos gaussianos é necessário que seja definido uma noção de similaridade e de variância.
-
-Os processos gaussinaos também podem ser utilizados como distribuição a priori para uma conjunto de pontos no espaço.
-
-Pode-se imaginar como exemplo $n$ ponto gerados de uma distribuição n-dimensional normal multivariada, agora imaginando pontos de um domínio contínuo tem-se um processo gaussiano sendo a generalização infinito-dimensional de uma variável multi-dimensional gaussiana.
 
 A matriz de covariância de um processo gaussiano depende de qual kernel(K) será utilizado, um dos mais utilizado é o gaussiano, que possui este nome por ter o mesmo formato da distribução normal(gaussiana) tendo como única diferença a constnate de normalização, definido a seguir.
 
@@ -26,9 +24,11 @@ $$
 K(x_1,x_2) = \sigma^2 e^{-\frac{1}{2l^2}(x_1-x_2)^2}
 $$
 
+Como qualquer outra distribuição de probabilidade os processos gaussinaos também podem ser utilizados como distribuição a priori para uma conjunto de pontos no espaço.
+
 ### Otimização Bayesiana
 
-A optimização bayesiana utiliza como priori o Processo Gaussiano com o vetor de médias 0 para facilitar as contas, porém, um fato interessante do processo gaussiano é que este pode ser totalmente definido pela sua matriz de covariância.^[@bishop2012pattern]
+A optimização bayesiana utiliza como priori o Processo Gaussiano com o vetor de médias 0 para facilitar as contas, porém, um fato interessante do processo gaussiano é que a média pode ser totalmente definida pela sua matriz de covariância.^[@bishop2012pattern]
 
 Será assumido que a função $f(x)$ é uma observação de um processo gaussiano e que as observações, $(x_n,y_n)_{n=1}^N$, onde $y_n \mbox{~} N(f(x_n),\nu)$ e $\nu$ é a variância dos ruídos introduzidos na função de observação. Utilizando a regra de bayes para combinar a proiri com os dados para gerar a posteriori que determina qual ponto de $\chi$.
 

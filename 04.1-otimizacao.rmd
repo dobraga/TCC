@@ -13,3 +13,14 @@ $$
 Esse é um caso de otimização onde busca-se o maior valor possível da função objetivo $f$ tendo $\Omega$ como as restrições desta otimização e $\boldsymbol{x} = (x_1,...,x_n)$ como o vetor das variáveis independentes.^[@chong2013introduction]
 
 Porém, normalmente pressupõe-se que a função objetivo tem uma representação matemática conhecida, é convexa ou pelo menos é facilmente avaliada. No campo de Machine Learning, uma parte das funções de custo estudadas não seguem nenhuma dessas suposições e além disto, muitas vezes, a avaliação da função é muito custosa(demorada), e as propriedas da função objetivo em relação aos hiperparâmetros são desconhecidas.
+
+### Otimização hiperparamétrica
+
+Para a definição dos hiperparâmetros do modelo pode-se utilizar técnicas de otimização, porém neste campo é nescessário que a função a ser otimizada tenha forma fechada, possua derivadas e etc., mas neste caso, não existe uma função relacione os hiperparâmetros com a função de erro, isto invalida a utilização de qualquer método que é commumente utilizado para otimização. 
+
+Muitas vezes é utilizado busca aleatório de um conjunto de hiperparametros bom, mas por se tratar de um modelo recursivo, o treinamento deste modelo pode ser demorado, por isto será utilizado uma técnica conhecida como Optimização Bayesiana que tem como objetivo uma convergência em menos iterações na buscar de uma boa combinação de hiperparâmetros.
+
+
+#### Busca aleatória
+
+#### Busca em grade

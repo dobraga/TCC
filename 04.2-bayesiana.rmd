@@ -5,5 +5,31 @@
 O Teorema de Bayes é o fundamento da inferência bayesiana e tem como objetivo atualizar a probabilidade de um acontecimento dado que outro evento tenha ocorrido.^[@degroot2012probability]
 
 $$
-Pr(B_1|A) = \frac{Pr(A \cap B_1)}{Pr(A)} = \frac{Pr(B_1)Pr(A|B_1)}{Pr(A)}
+Pr(B|A) = \frac{Pr(A \cap B)}{Pr(A)}
+$$
+
+Transformando, temos:
+
+$$
+Pr(A \cap B) = Pr(B|A).Pr(A)\\
+\mbox{ou também}\\
+Pr(A \cap B) = Pr(A|B).Pr(B)
+$$
+
+E subistituindo na primeira equação, temos:
+
+$$
+Pr(B|A) = \frac{Pr(A|B)}{Pr(A)}Pr(B)
+$$
+
+Levando em condideração que $Pr(B|A)$ é função de $B$, temos que $Pr(A)$ é uma constante para o núcleo da distribuição, temos que:
+
+$$
+P(B|A) \propto P(A|B)P(B)
+$$
+
+Que também pode ser visto como:
+
+$$
+posteriori \propto \mbox{verossimilhança}.\mbox{priori}
 $$
