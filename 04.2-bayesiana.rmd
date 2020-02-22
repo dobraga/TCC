@@ -12,7 +12,9 @@ Transformando, temos:
 
 $$
 Pr(A \cap B) = Pr(B|A).Pr(A)\\
+  
 \mbox{ou também}\\
+  
 Pr(A \cap B) = Pr(A|B).Pr(B)
 $$
 

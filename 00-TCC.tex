@@ -274,15 +274,16 @@ da probabilidade de reincidência juvenil. Para isto, será utilizado um
 método que tem como objetivo fazer a junção de várias árvores de decisão
 conhecido como \emph{boosting} que é uma das técnicas mais poderosas
 desenvolvidas nos últimos vinte anos.\footnote{Friedman, Hastie, and
-  Tibshirani (2001)} Porém o ponto negativo dessa técnica é que ,como a
+  Tibshirani (2001)} Porém o ponto negativo dessa técnica é que, como a
 maioria dos modelos de Machine Learning, nescessita da inputação de
 diversos parâmetros que não são otimizados no treinamento, também
 conhecidos como hiperparâmetros.
 
-Não existe uma combinação perfeita de hiperparâmetros e como existe uma
-função que relacione os hiperparâmetros com uma função de erro não
-conseguimos utilizar a técnicas mais conhecidas no ramo da otimização,
-serão abordados alguns métodos de otimização hiperparamétrica.
+Não existe uma combinação perfeita de hiperparâmetros e como não existe
+uma função que relacione os hiperparâmetros com uma função de erro não
+conseguimos utilizar as técnicas mais conhecidas no ramo da otimização,
+neste trabalho serão abordados alguns métodos de otimização
+hiperparamétrica.
 
 \hypertarget{revisuxe3o-bibliogruxe1fica}{%
 \chapter{Revisão Bibliográfica}\label{revisuxe3o-bibliogruxe1fica}}
@@ -328,10 +329,8 @@ estados, do Distrito Federal e dos municípios. - ECA (Brasil, 1990).
 Um problema de otimização pode ser definido como:
 
 \[
-\mbox{maximize } f(x)
-\]
-
-\[
+\mbox{maximize } f(x) \\
+\\
 \mbox{restrito a } \boldsymbol{x} \leq \boldsymbol{\Omega}
 \]
 
@@ -387,11 +386,11 @@ Pr(B|A) = \frac{Pr(A \cap B)}{Pr(A)}
 
 Transformando, temos:
 
-\[
-Pr(A \cap B) = Pr(B|A).Pr(A)\\
-\mbox{ou também}\\
-Pr(A \cap B) = Pr(A|B).Pr(B)
-\]
+\$\$ Pr(A \cap B) = Pr(B\textbar{}A).Pr(A)\textbackslash{}
+
+\mbox{ou também}\textbackslash{}
+
+Pr(A \cap B) = Pr(A\textbar{}B).Pr(B) \$\$
 
 E subistituindo na primeira equação, temos:
 
