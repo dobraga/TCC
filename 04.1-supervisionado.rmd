@@ -1,6 +1,6 @@
 ## Aprendizado Supervisionado
 
-Para este tipo de problema existe um conjunto de variáveis de entrada que também pode ser chamada de variáveis independentes. Este conjunto de variáveis possui alguma influência em uma ou mais variáveis que podem ser chamadas de variáveis dependentes. Esse problema é conhecido como aprendizado supervisionado e tem como objetivo utilizar as variáveis de entrada para prever as variáveis de saída.^[@friedman2001elements]
+O problema de aprendizado supervisionado existe um conjunto de variáveis de entrada que também pode ser chamada de variáveis independentes. Este conjunto de variáveis possui alguma influência em uma ou mais variáveis que podem ser chamadas de variáveis dependentes ou variáveis resposta. Esse problema é conhecido como aprendizado supervisionado e tem como objetivo utilizar as variáveis de entrada para prever as variáveis de saída.^[@friedman2001elements]
 
 ### Árvore de decisão
 
@@ -12,17 +12,6 @@ if variável A >= 1.7 then
 |  else Variável Resposta = 5.6
 else Variável Resposta = 2.5
 ```
-
-#### Critério de classificação
-
-Como observado no exemplo anterior. 
-
-##### 
-
-#### Split Point
-
-Como visto no exemplo anterior, para a variáveis numéricas é nescessário encontrar um ponto para ser realizado a quebra 
-
 
 ### Métodos *Ensemble*
 

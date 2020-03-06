@@ -323,6 +323,81 @@ estados, do Distrito Federal e dos municípios. - ECA (Brasil, 1990).
 \hypertarget{metodologia}{%
 \chapter{Metodologia}\label{metodologia}}
 
+\hypertarget{aprendizado-supervisionado}{%
+\section{Aprendizado Supervisionado}\label{aprendizado-supervisionado}}
+
+O problema de aprendizado supervisionado existe um conjunto de variáveis
+de entrada que também pode ser chamada de variáveis independentes. Este
+conjunto de variáveis possui alguma influência em uma ou mais variáveis
+que podem ser chamadas de variáveis dependentes ou variáveis resposta.
+Esse problema é conhecido como aprendizado supervisionado e tem como
+objetivo utilizar as variáveis de entrada para prever as variáveis de
+saída.\footnote{Friedman, Hastie, and Tibshirani (2001)}
+
+\hypertarget{uxe1rvore-de-decisuxe3o}{%
+\subsection{Árvore de decisão}\label{uxe1rvore-de-decisuxe3o}}
+
+Modelos baseados em árvores de decisão são modelos baseados em uma ou
+mais regras aninhadas no formato \emph{se-então} para que seja feito o
+particionamento dos dados, ou seja, prever o resultado.\footnote{Kuhn
+  and Johnson (2013)}
+
+\begin{verbatim}
+if variável A >= 1.7 then
+|  if variável B >= 202.1 then Variável Resposta = 1.3
+|  else Variável Resposta = 5.6
+else Variável Resposta = 2.5
+\end{verbatim}
+
+\hypertarget{muxe9todos-ensemble}{%
+\subsection{\texorpdfstring{Métodos
+\emph{Ensemble}}{Métodos Ensemble}}\label{muxe9todos-ensemble}}
+
+Muitos pesquisadores buscam maneiras de combinar a previsão de diversos
+modelos para criar um único modelo que possua uma taxa de acertos
+maior.\footnote{Opitz and Maclin (1999)} Os dois principais algoritmos
+atendem esse objetivo são: \emph{bootstrap aggregating}\footnote{Breiman
+  (1996)} e \emph{boosting}\footnote{Schapire (1999)}. Ambos algoritmos
+partem de um modelo base e a escolha deste modelo não é restritiva,
+pode-se utilizar modelos de regressão logistica\footnote{Friedman et al.
+  (2000)}, árvores de decisão, redes neurais\footnote{Martı'nez-Muñoz
+  (2019)}, entre outros.
+
+\hypertarget{bootstrap-aggregating}{%
+\subsubsection{Bootstrap Aggregating}\label{bootstrap-aggregating}}
+
+O algoritmo \emph{Bootstrap Aggregating} também é conhecido como
+\emph{bagging}
+
+O Random Forest é um algoritmo de Machine Learning amplamente utilizado
+e que tem como base o \emph{bootstrap aggregating} como o bagging também
+é conhecido.\footnote{Breiman (2001)}
+
+\hypertarget{boosting}{%
+\subsubsection{Boosting}\label{boosting}}
+
+A técnica conhecida como \emph{boosting} foi introduzida por Schapire,
+Robert E.\footnote{Schapire (1990)} e tem como objetivo juntar diversos
+modelos fracos usando combinação aditiva ponderada para criar um modelo
+forte.
+
+O ponto principal que diferencia do \emph{bagging} é que este algoritmo
+é um método sequencial, onde ``o modelo aprende com seus erros''.
+
+\$\$
+
+\$\$
+
+\[
+H(x) = \sum_{t=1}^T{\alpha_th_t(\boldsymbol{x})}
+\]
+
+\hypertarget{avaliauxe7uxe3o-de-modelos}{%
+\subsection{Avaliação de Modelos}\label{avaliauxe7uxe3o-de-modelos}}
+
+\hypertarget{validauxe7uxe3o-cruzada}{%
+\subsubsection{Validação Cruzada}\label{validauxe7uxe3o-cruzada}}
+
 \hypertarget{otimizauxe7uxe3o}{%
 \section{Otimização}\label{otimizauxe7uxe3o}}
 
@@ -340,29 +415,27 @@ otimização e \(\boldsymbol{x} = (x_1,...,x_n)\) como o vetor das
 variáveis independentes.\footnote{Chong and Zak (2013)}
 
 Porém, normalmente pressupõe-se que a função objetivo tem uma
-representação matemática conhecida, é convexa ou pelo menos é facilmente
-avaliada. No campo de Machine Learning, uma parte das funções de custo
-estudadas não seguem nenhuma dessas suposições e além disto, muitas
-vezes, a avaliação da função é muito custosa(demorada), e as propriedas
-da função objetivo em relação aos hiperparâmetros são desconhecidas.
+representação matemática conhecida, seja convexa ou pelo menos é
+facilmente avaliada. No campo de Machine Learning, uma parte das funções
+de custo estudadas não seguem nenhuma dessas suposições e além disto,
+muitas vezes, a avaliação da função é muito custosa.
 
 \hypertarget{otimizauxe7uxe3o-hiperparamuxe9trica}{%
 \subsection{Otimização
 hiperparamétrica}\label{otimizauxe7uxe3o-hiperparamuxe9trica}}
 
-Para a definição dos hiperparâmetros do modelo pode-se utilizar técnicas
-de otimização, porém neste campo é nescessário que a função a ser
-otimizada tenha forma fechada, possua derivadas e etc., mas neste caso,
-não existe uma função relacione os hiperparâmetros com a função de erro,
-isto invalida a utilização de qualquer método que é commumente utilizado
-para otimização.
+No campo da otimização, em sua maioria, a função a ser otimizada
+nescessita de forma fechada, possua derivadas, mas neste caso, não
+existe uma função que relacione os hiperparâmetros com uma função de
+erro, isto invalida a utilização de qualquer método que é commumente
+utilizado.
 
-Muitas vezes é utilizado busca aleatório de um conjunto de
-hiperparametros bom, mas por se tratar de um modelo recursivo, o
-treinamento deste modelo pode ser demorado, por isto será utilizado uma
-técnica conhecida como Optimização Bayesiana que tem como objetivo uma
-convergência em menos iterações na buscar de uma boa combinação de
-hiperparâmetros.
+Por isto, muitas vezes é utilizado busca aleatório de um conjunto de
+hiperparâmetros razoávelmente bom, mas por se tratar de um modelo
+recursivo, o treinamento deste modelo pode ser demorado, por isto será
+utilizado uma técnica conhecida como Optimização Bayesiana que tem como
+objetivo uma convergência em menos iterações na buscar de uma boa
+combinação de hiperparâmetros.
 
 \hypertarget{busca-aleatuxf3ria}{%
 \subsubsection{Busca aleatória}\label{busca-aleatuxf3ria}}
@@ -548,96 +621,6 @@ posteriori calculada para os pontos e a variância da previsão. E então é
 amostrado o \(\operatorname{argmax}\) da função da função de aquisição,
 o processo gaussiano é atualizado e o processo é repetido para os
 próximos passos.
-
-\hypertarget{aprendizado-supervisionado}{%
-\section{Aprendizado Supervisionado}\label{aprendizado-supervisionado}}
-
-Para este tipo de problema existe um conjunto de variáveis de entrada
-que também pode ser chamada de variáveis independentes. Este conjunto de
-variáveis possui alguma influência em uma ou mais variáveis que podem
-ser chamadas de variáveis dependentes. Esse problema é conhecido como
-aprendizado supervisionado e tem como objetivo utilizar as variáveis de
-entrada para prever as variáveis de saída.\footnote{Friedman, Hastie,
-  and Tibshirani (2001)}
-
-\hypertarget{uxe1rvore-de-decisuxe3o}{%
-\subsection{Árvore de decisão}\label{uxe1rvore-de-decisuxe3o}}
-
-Modelos baseados em árvores de decisão são modelos baseados em uma ou
-mais regras aninhadas no formato \emph{se-então} para que seja feito o
-particionamento dos dados, ou seja, prever o resultado.\footnote{Kuhn
-  and Johnson (2013)}
-
-\begin{verbatim}
-if variável A >= 1.7 then
-|  if variável B >= 202.1 then Variável Resposta = 1.3
-|  else Variável Resposta = 5.6
-else Variável Resposta = 2.5
-\end{verbatim}
-
-\hypertarget{crituxe9rio-de-classificauxe7uxe3o}{%
-\subsubsection{Critério de
-classificação}\label{crituxe9rio-de-classificauxe7uxe3o}}
-
-Como observado no exemplo anterior.
-
-\hypertarget{section}{%
-\paragraph{}\label{section}}
-
-\hypertarget{split-point}{%
-\subsubsection{Split Point}\label{split-point}}
-
-Como visto no exemplo anterior, para a variáveis numéricas é nescessário
-encontrar um ponto para ser realizado a quebra
-
-\hypertarget{muxe9todos-ensemble}{%
-\subsection{\texorpdfstring{Métodos
-\emph{Ensemble}}{Métodos Ensemble}}\label{muxe9todos-ensemble}}
-
-Muitos pesquisadores buscam maneiras de combinar a previsão de diversos
-modelos para criar um único modelo que possua uma taxa de acertos
-maior.\footnote{Opitz and Maclin (1999)} Os dois principais algoritmos
-atendem esse objetivo são: \emph{bootstrap aggregating}\footnote{Breiman
-  (1996)} e \emph{boosting}\footnote{Schapire (1999)}. Ambos algoritmos
-partem de um modelo base e a escolha deste modelo não é restritiva,
-pode-se utilizar modelos de regressão logistica\footnote{Friedman et al.
-  (2000)}, árvores de decisão, redes neurais\footnote{Martı'nez-Muñoz
-  (2019)}, entre outros.
-
-\hypertarget{bootstrap-aggregating}{%
-\subsubsection{Bootstrap Aggregating}\label{bootstrap-aggregating}}
-
-O algoritmo \emph{Bootstrap Aggregating} também é conhecido como
-\emph{bagging}
-
-O Random Forest é um algoritmo de Machine Learning amplamente utilizado
-e que tem como base o \emph{bootstrap aggregating} como o bagging também
-é conhecido.\footnote{Breiman (2001)}
-
-\hypertarget{boosting}{%
-\subsubsection{Boosting}\label{boosting}}
-
-A técnica conhecida como \emph{boosting} foi introduzida por Schapire,
-Robert E.\footnote{Schapire (1990)} e tem como objetivo juntar diversos
-modelos fracos usando combinação aditiva ponderada para criar um modelo
-forte.
-
-O ponto principal que diferencia do \emph{bagging} é que este algoritmo
-é um método sequencial, onde ``o modelo aprende com seus erros''.
-
-\$\$
-
-\$\$
-
-\[
-H(x) = \sum_{t=1}^T{\alpha_th_t(\boldsymbol{x})}
-\]
-
-\hypertarget{avaliauxe7uxe3o-de-modelos}{%
-\subsection{Avaliação de Modelos}\label{avaliauxe7uxe3o-de-modelos}}
-
-\hypertarget{validauxe7uxe3o-cruzada}{%
-\subsubsection{Validação Cruzada}\label{validauxe7uxe3o-cruzada}}
 
 \newpage
 

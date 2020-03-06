@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.2.22)  22 FEB 2020 11:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2020.3.4)  5 MAR 2020 21:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **00-TCC.tex
 (./00-TCC.tex
-LaTeX2e <2020-02-02> patch level 3
-L3 programming layer <2020-02-21> (/home/dobraga/.TinyTeX/texmf-dist/tex/latex/
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-02-25> (/home/dobraga/.TinyTeX/texmf-dist/tex/latex/
 abntex2/abntex2.cls
 Document Class: abntex2 2018/11/24 v-1.9.7 abnTeX2
 (/home/dobraga/.TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
@@ -90,7 +90,7 @@ File: mem12.clo 2010/10/19 v0.4b memoir class 12pt size option
 \partopsepiii=\skip98
 \m@msavetopsep=\skip99
 \m@msavepartopsep=\skip100
-\@enLab=\toks14
+\@enLab=\toks15
 \abstitleskip=\skip101
 \absleftindent=\skip102
 \abs@leftindent=\dimen137
@@ -121,7 +121,7 @@ Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
 \col@sep=\dimen139
 \ar@mcellbox=\box45
 \extrarowheight=\dimen140
-\NC@list=\toks15
+\NC@list=\toks16
 \extratabsurround=\skip117
 \backup@length=\skip118
 \ar@cellbox=\box46
@@ -137,7 +137,7 @@ Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
 \TX@target=\dimen144
 \TX@delta=\dimen145
 \TX@cols=\count187
-\TX@ftn=\toks16
+\TX@ftn=\toks17
 )
 \heavyrulewidth=\dimen146
 \lightrulewidth=\dimen147
@@ -162,7 +162,7 @@ Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
 \@linestogo=\count193
 \@cellstogo=\count194
 \@cellsincolumn=\count195
-\crtok=\toks17
+\crtok=\toks18
 \@mincolumnwidth=\dimen159
 \c@newflo@tctr=\count196
 \mem@margin@floatbox=\box47
@@ -225,7 +225,7 @@ LaTeX Info: Redefining \emph on input line 7670.
 \bibitemsep=\skip159
 \indexcolsep=\skip160
 \indexrule=\skip161
-\indexmarkstyle=\toks18
+\indexmarkstyle=\toks19
 \@indexbox=\insert199
 \glossarycolsep=\dimen172
 \glossaryrule=\dimen173
@@ -258,9 +258,9 @@ LaTeX Info: Redefining \emph on input line 7670.
 \c@pagenote=\count268
 \c@pagenoteshadow=\count269
 \mem@pn@lastkern=\skip181
-\every@verbatim=\toks19
-\afterevery@verbatim=\toks20
-\verbatim@line=\toks21
+\every@verbatim=\toks20
+\afterevery@verbatim=\toks21
+\verbatim@line=\toks22
 \tab@position=\count270
 \verbatim@in@stream=\read2
 \verbatimindent=\skip182
@@ -349,7 +349,7 @@ Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
 ) (/home/dobraga/.TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks22
+\KV@toks@=\toks23
 ) (/home/dobraga/.TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
 ) (/home/dobraga/.TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
@@ -447,9 +447,9 @@ Package: bookmark 2019/12/03 v1.28 PDF bookmarks (HO)
 File: bkm-pdftex.def 2019/12/03 v1.28 bookmark driver for pdfTeX (HO)
 \BKM@id=\count305
 )) (/home/dobraga/.TinyTeX/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2020/02/14 3.40 The Babel package
+Package: babel 2020/02/28 3.41 The Babel package
 (/home/dobraga/.TinyTeX/texmf-dist/tex/generic/babel/switch.def
-File: switch.def 2020/02/14 3.40 Babel switching mechanism
+File: switch.def 2020/02/28 3.41 Babel switching mechanism
 )
 
 ! Package babel Error: Unknown option `brazil'. Either you misspelled it
@@ -463,10 +463,10 @@ Type  H <return>  for immediate help.
 l.542 \ProcessOptions*
                        
 Here is how much of TeX's memory you used:
- 7900 strings out of 483172
- 116537 string characters out of 5965524
- 399351 words of memory out of 5000000
- 22871 multiletter control sequences out of 15000+600000
+ 7900 strings out of 482938
+ 116537 string characters out of 5960160
+ 400514 words of memory out of 5000000
+ 23105 multiletter control sequences out of 15000+600000
  532936 words of font info for 26 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  42i,1n,33p,247b,67s stack positions out of 5000i,500n,10000p,200000b,80000s
