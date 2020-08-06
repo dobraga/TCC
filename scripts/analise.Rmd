@@ -1,0 +1,621 @@
+---
+title: "Análise"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(embed)
+library(tidymodels)
+library(magrittr)
+library(patchwork)
+library(rmarkdown)
+library(skimr)
+library(plotly)
+library(correlationfunnel)
+
+set.seed(21081996)
+options(scipen=999, digits=2)
+
+theme_set(theme_bw())
+```
+
+```{r, warning=FALSE}
+df = read_csv("input/listings.csv", col_types = cols())
+df %>% paged_table()
+```
+
+# 1. Enriquecimento de base
+
+```{r}
+bairros = readRDS('output/bairros.rds')
+paged_table(bairros)
+```
+
+```{r, message=FALSE}
+g = bairros %>% 
+  group_by(idh, renda_per_capita, cluster) %>% 
+  summarise(bairro = paste(bairro, collapse=', ')) %>% 
+  ggplot(aes(x=idh, y=renda_per_capita, color=factor(cluster), label=bairro)) + 
+  scale_y_continuous(trans = 'log') +
+  geom_text()
+
+ggplotly(g)
+```
+
+```{r}
+df %>% anti_join(bairros, by = c("neighbourhood_cleansed"="bairro")) %>% select(neighbourhood_cleansed) %>% distinct()
+```
+
+
+```{r}
+df %<>% inner_join(bairros, by = c("neighbourhood_cleansed"="bairro")) #temos todos os bairros
+df %>% paged_table()
+```
+
+# 2. Separar em treino e teste
+
+```{r}
+dfs = initial_split(df, 0.8)
+train = training(dfs)
+test = testing(dfs)
+dfs
+```
+Primeiro vamos remover as variáveis que não possuem variação.
+
+```{r}
+rec = recipe(price~ ., data = train) %>% 
+  step_zv(all_predictors())
+
+rec_prep = prep(rec)
+aux = rec_prep %>% juice()
+```
+
+```{r}
+skim_without_charts(aux)
+```
+
+Agora removeremos algumas variáveis que não fazem sentido para nossa analise, definiremos as colunas que são identifacores(não serão utilizados nos modelos) e trataremos os campos de quartos, camas e banheiros que estão NULL, visitando o site de alguns deles é possível notar que não temos essa informação. logo serão tratados como 0.
+
+```{r}
+rec %<>% 
+  step_rm(
+    last_scraped, name, summary, space, description, neighborhood_overview, notes, 
+    access, interaction, house_rules, picture_url, host_name, host_since, 
+    host_location, host_about, host_response_rate, host_acceptance_rate, 
+    host_thumbnail_url, host_picture_url, host_listings_count, 
+    host_total_listings_count, neighbourhood, city, state, zipcode, market, 
+    smart_location, bed_type, square_feet, weekly_price, monthly_price, 
+    security_deposit, cleaning_fee, minimum_minimum_nights, maximum_minimum_nights, 
+    minimum_maximum_nights, maximum_maximum_nights, minimum_nights_avg_ntm, 
+    maximum_nights_avg_ntm, calendar_updated, availability_30, availability_60, 
+    availability_90, availability_365, calendar_last_scraped, number_of_reviews, 
+    number_of_reviews_ltm, first_review, last_review, review_scores_rating, 
+    review_scores_accuracy, review_scores_cleanliness, review_scores_checkin, 
+    review_scores_communication, review_scores_location, review_scores_value, 
+    require_guest_profile_picture, require_guest_phone_verification, 
+    calculated_host_listings_count, calculated_host_listings_count_entire_homes, 
+    calculated_host_listings_count_private_rooms, 
+    calculated_host_listings_count_shared_rooms, reviews_per_month
+  ) %>% 
+  step_mutate(
+    bathrooms = coalesce(bathrooms, 0), 
+    bedrooms = coalesce(bedrooms, 0), 
+    beds = coalesce(beds, 0)
+  ) %>% 
+  add_role(
+    id, listing_url, host_id, host_url, new_role = 'ID'
+  ) 
+
+rec_prep = prep(rec) 
+aux = juice(rec_prep)
+paged_table(aux)
+```
+
+
+# 3. Ajusta variáveis monetárias e nulls em numéricas
+
+```{r}
+aux %>% select(price, extra_people) %>% paged_table()
+```
+
+```{r}
+ajusta_numero = function(string){
+  string %>% str_remove_all('\\$|\\,')  %>% as.double() %>% return()
+}
+
+rec %<>% step_mutate(
+    price = ajusta_numero(price),
+    extra_people = ajusta_numero(extra_people)
+  )
+
+rec_prep = prep(rec) 
+aux = juice(rec_prep) 
+aux %>% select(price, extra_people, bathrooms, bedrooms, beds) %>% skim()
+```
+
+Podemos notar que temos valores zerados para o preço que não faz sentido e serão removidos da nossa análise.
+
+```{r}
+rec %<>% step_filter(price>0) 
+
+rec_prep = prep(rec) 
+aux = juice(rec_prep) 
+aux %>% select(price, extra_people, bathrooms, bedrooms, beds) %>% skim()
+```
+
+Podemos notar que existem valores extremos nas quantidades de camas, quartos e camas.
+
+# 4. Métricas Utilizadas
+
+```{r}
+metrics = metric_set(smape, rmse, mape, mase, mae)
+```
+
+![](https://wikimedia.org/api/rest_v1/media/math/render/svg/9d7003eba8a7ffe2379cd5c232adf78daa3d1edf)
+
+![](https://wikimedia.org/api/rest_v1/media/math/render/svg/eeb88fa0f90448e9d1a67cd7a70164f674aeb300)
+
+![](https://wikimedia.org/api/rest_v1/media/math/render/svg/961e2d315e7269f820104c7b4b422f840104be2c)
+
+![](https://wikimedia.org/api/rest_v1/media/math/render/svg/e29dc835adfb565ab696e46f5c5b8df9f18ffb9c)
+
+![](https://wikimedia.org/api/rest_v1/media/math/render/svg/3ef87b78a9af65e308cf4aa9acf6f203efbdeded)
+
+# 5. Análise espacial e por bairros
+
+## 5.1 Bairros e cluster
+
+```{r}
+calc_stat <- function(x) {
+  stats <- quantile(x, probs = c(0.1, 0.25, 0.5, 0.75, 0.9))
+  names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
+  return(stats)
+}
+```
+
+```{r}
+df_ %>% 
+  ggplot(aes(group=cluster, x=cluster, y=price, fill=cluster))+
+  stat_summary(fun.data = calc_stat, geom="boxplot") +
+  scale_y_log10() +
+  scale_x_continuous(breaks = 1:6) +
+  theme(legend.position = "none") +
+  ggtitle('Imagem x: Distribuição dos preços por cluster')
+```
+
+Podemos notar que as medidas descritivas(1º quartil, mediana e 3º quartil) decaiem com relação a 'qualificação' do cluster, menos para o último cluster que possui medidas comparáveis com o primeiro e segundo clusters.
+
+```{r message=FALSE}
+resumo_bairros = aux %>% 
+  group_by(neighbourhood_cleansed, cluster, zona, subprefeitura) %>% 
+  summarise(
+    quantidade_alugueis = n(),
+    preco_mediano = median(price),
+    preco_medio = mean(price),
+    preco_maximo = max(price),
+    esperanca_vida = mean(esperanca_vida),
+    tx_alfabetizacao_adulta = mean(tx_alfabetizacao_adulta),
+    tx_frequencia_escolar = mean(tx_frequencia_escolar),
+    renda_per_capita = mean(renda_per_capita),
+    idh_longevidade = mean(idh_longevidade),
+    idh_educacao = mean(idh_educacao),
+    idh_renda = mean(idh_renda),
+    idh = mean(idh)
+  )
+
+resumo_bairros %>% arrange(desc(preco_mediano)) %>% paged_table()
+```
+
+```{r message=FALSE}
+aux %>% group_by(cluster) %>% summarise(
+    bairros = paste(unique(neighbourhood_cleansed), collapse = ', '),
+    zona = paste(unique(zona), collapse = ', '),
+    subprefeitura = paste(unique(subprefeitura), collapse = ', '),
+  ) %>% as.data.frame() %>% View()
+```
+
+
+```{r message=FALSE}
+resumo_cluster = aux %>% 
+  group_by(cluster) %>% 
+  summarise(
+    quantidade_bairros = n_distinct(neighbourhood_cleansed),
+    quantidade_alugueis = n(),
+    preco_mediano = median(price),
+    preco_medio = mean(price),
+    preco_maximo = max(price),
+    esperanca_vida = mean(esperanca_vida),
+    tx_alfabetizacao_adulta = mean(tx_alfabetizacao_adulta),
+    tx_frequencia_escolar = mean(tx_frequencia_escolar),
+    renda_per_capita = mean(renda_per_capita),
+    idh_longevidade = mean(idh_longevidade),
+    idh_educacao = mean(idh_educacao),
+    idh_renda = mean(idh_renda),
+    idh = mean(idh)
+  )
+
+resumo_cluster %>% paged_table()
+```
+
+Visto isso, criaremos uma flag especial para o quinto cluster por possuir um padrão diferente dos demais.
+
+```{r}
+rec %<>% step_mutate(
+  cluster_5_6 = if_else(cluster %in% c(5, 5), 1, 0)
+)
+```
+
+
+## 5.2 Mapas
+
+```{r, message=FALSE}
+map = sf::read_sf('input/neighbourhoods.geojson') %>% select(-neighbourhood_group)
+map = inner_join(map, resumo_bairros, by = c("neighbourhood"="neighbourhood_cleansed"))
+map %>% paged_table()
+```
+
+```{r, message=FALSE, warning=FALSE}
+gmap = ggplot() + 
+  geom_sf(data = map,
+          aes(fill=zona, label=neighbourhood)) + 
+  ggtitle('Imagem x: Clusters dos bairros do Rio de Janeiro') 
+
+ggplotly(gmap)
+```
+
+```{r, message=FALSE, warning=FALSE}
+gmap = ggplot() + 
+  geom_sf(data = map,
+          aes(fill=subprefeitura, label=neighbourhood)) + 
+  ggtitle('Imagem x: Clusters dos bairros do Rio de Janeiro')
+
+ggplotly(gmap)
+```
+
+```{r, message=FALSE, warning=FALSE}
+gmap = ggplot() + 
+  geom_sf(data = map %>% mutate(cluster = as.factor(cluster)),
+          aes(fill=cluster, label=neighbourhood)) + 
+  ggtitle('Imagem x: Clusters dos bairros do Rio de Janeiro')
+
+ggplotly(gmap)
+```
+
+```{r}
+map %>% 
+  ggplot(aes(x=quantidade_alugueis)) + 
+  geom_histogram() + 
+  # scale_x_log10() +
+  ggtitle('Imagem X: Distribuição da quantidade de casas por bairro')
+```
+
+```{r}
+gg = aux %>% 
+  mutate(price=log(price)) %>% 
+  ggplot(aes(x=longitude, y=latitude, color=price, alpha=price))+geom_point()+scale_color_gradient(low = "grey", high = "red")
+ggExtra::ggMarginal(gg, type = "histogram")
+```
+
+Existe correlação negativa entre preço e latlong, o que era esperado.
+
+```{r, message=FALSE, warning=FALSE}
+gmap = map %>% 
+  mutate(
+    cluster = as.factor(cluster)
+    ,quantidade_alugueis_log=log(quantidade_alugueis)
+  ) %>%  
+  ggplot() + 
+  geom_sf(aes(fill=quantidade_alugueis_log, label=paste(neighbourhood, quantidade_alugueis))) + 
+  scale_fill_gradient(low = "lightgreen", high = "black") +
+  ggtitle('Imagem x: Distribuição da quantidade de casas')
+
+ggplotly(gmap)
+```
+
+
+# 5. Baseline
+
+Será utilizado como baseline a mediana do cluster para a previsão.
+
+```{r, message=FALSE}
+resumo_cluster %>% paged_table()
+```
+## 5.1 Base de treino
+
+```{r}
+bake(rec_prep, training(dfs)) %>% 
+  select(cluster, price) %>% 
+  left_join(resumo_cluster, by = "cluster") %>% 
+  metrics(truth = price, estimate = preco_mediano) %>% paged_table()
+```
+
+## 5.2 Base de teste
+
+```{r}
+bake(rec_prep, testing(dfs)) %>% 
+  select(cluster, price) %>% 
+  left_join(resumo_cluster, by = "cluster") %>% 
+  metrics(truth = price, estimate = preco_mediano) %>% paged_table()
+```
+
+# 6. Análise variáveis
+
+## 6.1 Variável resposta
+
+```{r}
+g1 = aux %>% ggplot(aes(x=price)) + geom_histogram() + ggtitle('Frequência da distribuição de preço')
+g2 = ggplot(aux, aes(sample=price)) + stat_qq() + stat_qq_line()+ ggtitle('Comparação de quantil entre a normal teórica e a amostrada')
+g1 | g2
+```
+
+Como temos uma variável muito assimétrica, isso pode acabar influenciando negativamente nosso modelo, será feita uma transformação Box Cox para tratar esse comportamento.
+
+**Devemos transformar a variável resposta??**
+
+```{r}
+rec %<>% step_BoxCox(price, extra_people)
+rec_prep = prep(rec) 
+aux = juice(rec_prep) 
+
+g1 = ggplot(aux, aes(x=price)) + geom_histogram() + ggtitle('Frequência da distribuição de preço')
+g2 = ggplot(aux, aes(sample=price)) + stat_qq() + stat_qq_line() + ggtitle('Comparação de quantil entre a normal teórica e a amostrada')
+
+g1 | g2
+```
+
+```{r}
+nrow(aux)
+```
+
+Na base de treino temos `r nrow(aux)`, logo poderiamos separar isso em, mais ou menos, `r nrow(aux)/5000` de 5000 linhas, usaremos 500 amostras aleatórias com reposição de 5000 observações.
+
+```{r}
+shap = map_dbl(1:500, function(x){shapiro.test(x = sample(aux$price, 5000))$p.value})
+shap[1:10]
+```
+
+```{r}
+tibble(shap=shap) %>% ggplot(aes(x=shap))+geom_histogram()+ggtitle('Imagem X: Reamostragem do teste de Shapiro Wilk')
+```
+
+Logo, ao nível de 5% de confiança, a variável preço depos da transformação é normalmente distribuida.
+
+## 6.2 Variáveis null
+
+```{r}
+skim_without_charts(aux)
+```
+
+```{r}
+rec %<>%
+  step_mutate(
+    host_is_superhost = coalesce(host_is_superhost, FALSE),
+    host_has_profile_pic = coalesce(host_has_profile_pic, FALSE),
+    host_identity_verified = coalesce(host_identity_verified, FALSE)
+  )
+
+rec_prep = prep(rec) 
+aux = juice(rec_prep) 
+```
+
+```{r}
+tidy(rec_prep)
+```
+
+
+## 6.3 Valores extremos
+
+Como comentado anteriormente, temos valores bem altos em algumas variáveis, será verificado se não é um erro.
+
+```{r}
+aux %>% 
+  select(listing_url,host_url,id,host_id,accommodates,bathrooms,bedrooms,beds,guests_included,minimum_nights,maximum_nights) %>% 
+  gather(variavel, valor, -c(listing_url,host_url,id,host_id)) %>% 
+  ggplot(aes(x=valor, group=1)) + geom_boxplot() + facet_wrap(~variavel, scales = 'free') + ggtitle('Imagem X: Boxplot das variáveis numéricas')
+```
+
+```{r}
+aux %>% 
+  select(listing_url,host_url,id,host_id,accommodates,bathrooms,bedrooms,beds,guests_included,minimum_nights,maximum_nights) %>% 
+  gather(variavel, valor, -c(listing_url,host_url,id,host_id)) %>% 
+  ggplot(aes(x=valor, y=1, group=1)) + stat_summary(fun.data = calc_stat, geom="boxplot") + facet_wrap(~variavel, scales = 'free') + 
+  ggtitle('Imagem X: Boxplot das variáveis numéricas sem os outliers')
+```
+
+```{r}
+aux %>% 
+  select(listing_url,accommodates,guests_included,extra_people,bathrooms,bedrooms,beds,minimum_nights,maximum_nights) %>% 
+  arrange(
+    desc(guests_included)
+    # desc(maximum_nights)
+    # desc(minimum_nights)
+    # desc(bathrooms)
+    # desc(bedrooms)
+    # desc(beds)
+  )
+```
+
+O campo `accommodates` é a quantidade máxima de pessoas na casa,`guests_included` é o valor que a partir deste valor passa a ser cobrado o valor `extra_people`, ou seja, caso o campo `guests_included` seja maior ou igual ao campo `accommodates` a taxa `extra_people` não é cobrado.
+
+```{r}
+rec %<>% step_mutate(
+  guests_included = if_else(guests_included>accommodates, accommodates, guests_included),
+  extra_people = if_else(guests_included>=accommodates, 0, extra_people),
+  fl_extra_people = if_else(extra_people>0, 1, 0)
+)
+
+rec_prep = prep(rec) 
+saveRDS(rec_prep, 'output/recipe.rds')
+
+aux = juice(rec_prep)
+```
+
+```{r}
+aux %>% 
+  select(
+    listing_url,accommodates,guests_included,extra_people,fl_extra_people,
+    bathrooms,bedrooms,beds,minimum_nights,maximum_nights) %>% 
+  arrange(
+    desc(guests_included)
+    # desc(maximum_nights)
+    # desc(minimum_nights)
+    # desc(bathrooms)
+    # desc(bedrooms)
+    # desc(beds)
+  )
+```
+
+# 7. Correlação
+
+```{r}
+aux %>% 
+  select(
+    -contains('ID'), -contains('url'), -transit, -host_neighbourhood, -host_response_time, -host_verifications,
+    -street, -amenities
+  ) %>% 
+  binarize() %>% 
+  correlate(target = price__3.29270992555389_Inf) %>%
+  plot_correlation_funnel(interactive = TRUE)
+```
+
+
+# 8. Primeiro modelo
+
+## 8.1 Regressão Linear
+
+```{r}
+rec_num = rec %>% 
+  step_rm(all_nominal(), has_type("date")) %>% 
+  step_rm(has_role('ID')) %>% 
+  step_naomit(all_predictors()) %>% prep()
+```
+
+```{r}
+invBoxCox = function(x, lambda){
+  (x*lambda+1)^(1/lambda)
+}
+
+(lambda = rec_prep$steps[[7]]$lambdas)
+```
+
+### 8.1.1 Treino
+
+```{r}
+lr1 = linear_reg(mode = "regression") %>% set_engine('lm') %>% fit(data = juice(rec_num), price~.)
+```
+
+```{r}
+pred_train = predict(lr1, juice(rec_num)) %>% 
+  bind_cols(juice(rec_num)) %>% 
+  mutate(
+    erro_transf = .pred-price,
+    .pred = invBoxCox(.pred, lambda),
+    price = invBoxCox(price, lambda),
+    erro = .pred-price
+  ) 
+
+pred_train %>% metrics(truth = price, estimate = .pred) %>% paged_table()
+```
+
+```{r}
+summary(lr1$fit)
+```
+
+Temos diversas variáveis não relevantes para o modelo que poderiam ser removidas
+
+```{r}
+er = pred_train %>% ggplot(aes(x=erro_transf)) + geom_histogram()
+prec = pred_train %>% ggplot(aes(x=price, y=.pred, alpha=.2)) + geom_point()
+er / prec
+```
+
+### 8.1.2 Teste
+
+```{r}
+pred_test = predict(lr1, bake(rec_num, test)) %>% 
+  bind_cols(bake(rec_num, test)) %>% 
+  mutate(
+    erro_transf = .pred-price,
+    .pred = invBoxCox(.pred, lambda),
+    price = invBoxCox(price, lambda),
+    erro = .pred-price
+  ) 
+
+pred_test %>% metrics(truth = price, estimate = .pred) %>% paged_table()
+```
+
+```{r}
+er = pred_test %>% ggplot(aes(x=erro_transf)) + geom_histogram()
+prec = pred_test %>% ggplot(aes(x=price, y=.pred, alpha=.2)) + geom_point()
+er / prec
+```
+
+## 8.2 Primeiro modelo de arvore
+
+```{r}
+rf1 = rand_forest(trees = 1000, mode = "regression") %>% set_engine('ranger') %>% fit(data = juice(rec_num), price~.)
+```
+
+### 8.2.1 Treino
+
+```{r}
+pred_train = predict(rf1, juice(rec_num)) %>% 
+  bind_cols(juice(rec_num)) %>% 
+  mutate(
+    .pred = invBoxCox(.pred, lambda),
+    price = invBoxCox(price, lambda),
+    erro = .pred-price
+  ) 
+
+pred_train %>% metrics(truth = price, estimate = .pred) %>% paged_table()
+```
+
+```{r}
+er = pred_train %>% ggplot(aes(x=erro)) + geom_histogram()
+prec = pred_train %>% ggplot(aes(x=price, y=.pred, alpha=.2)) + geom_point()
+er / prec
+```
+
+### 8.2.1 Teste
+
+```{r}
+pred_test = predict(rf1, bake(rec_num, test)) %>% 
+  bind_cols(bake(rec_num, test)) %>% 
+  mutate(
+    .pred = invBoxCox(.pred, lambda),
+    price = invBoxCox(price, lambda),
+    erro = .pred-price
+  ) 
+
+pred_test %>% metrics(truth = price, estimate = .pred) %>% paged_table()
+```
+
+
+```{r}
+er = pred_test %>% ggplot(aes(x=erro)) + geom_histogram()
+prec = pred_test %>% ggplot(aes(x=price, y=.pred, alpha=.2)) + geom_point()
+er / prec
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

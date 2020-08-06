@@ -1,0 +1,4 @@
+# Metodologia
+
+```{r child='04.1-supervisionado.rmd'}
+```

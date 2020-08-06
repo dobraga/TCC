@@ -1,0 +1,25 @@
+# Base de Dados
+
+Para este trabalho, foram utilizadas três bases de dados, duas com a origem do site @inside que, além de disponibilizar uma base com as informações das locações, também disponibiliza um arquivo no formato *geojson*, que fornece os limites dos bairros somente para a cidade do Rio de Janeiro, como pode ser visto na Figura \ref{mapa_bairro}.
+
+```{r include = T, fig.cap='\\label{mapa_bairro}Limite dos bairros do Rio de Janeiro'}
+map = sf::read_sf('../output/neighbourhoods.geojson') %>% dplyr::select(-neighbourhood_group)
+ggplot2::ggplot() + 
+  ggplot2::geom_sf(data = map) + 
+  ggplot2::theme(legend.position = "none") +
+  ggplot2::theme_bw()
+```
+
+O Inside Airbnb é um conjunto independente de recursos e dados não comerciáveis que permite conhecer como o Airbnb está realmente sendo usado nas diversas cidades do mundo.
+
+Ao analisar informações publicamente disponíveis sobre as propriedades listadas do Airbnb de uma cidade, o Inside Airbnb fornece filtros e métricas importantes para que você possa ver como o Airbnb está sendo usado para competir com o mercado imobiliário residencial.
+Com o Inside Airbnb, há a possibilidade de se fazer questionamentos tantos básicos quanto avançados sobre o Airbnb em qualquer lugar, restringindo até mesmo por bairros como, por exemplo:
+
+-	"Quantas locações existem próximas de mim?"
+
+-	"Quantas casas e apartamentos estão sendo alugados com frequência para turistas e não para residentes de longa duração?"
+
+-	"Quanto os anfitriões ganham com aluguel para turistas?"
+
+
+A terceira base de dados se trata de variáveis fornecidas pelo site @datario que foi utilizada para enriquecimento da base de dados com informações que podem ajudar precificação de diárias, faz parte de um projeto pioneiro do Instituto Pereira Passos (IPP) na transparência e desenvolvimento de informações estatísticas, mapas, estudos e pesquisas com foco na Cidade do Rio de Janeiro. Neste trabalho utilizou-se variáveis como esperança de vida, taxa de alfabetização, frequência escolar, renda per capita, índice de desenvolvimento humano (IDH), separadas por bairros, do ano de 2000, para verificar se há influência de áreas melhor desenvolvidas com o valor cobrado da diária.

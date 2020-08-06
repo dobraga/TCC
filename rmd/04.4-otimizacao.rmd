@@ -1,0 +1,27 @@
+## Otimização
+
+Um problema de otimização pode ser definido como:
+
+$$
+\mbox{maximize } f(x)
+$$
+
+$$
+\mbox{restrito a } \boldsymbol{x} \leq \boldsymbol{\Omega}
+$$
+
+Esse é um caso de otimização onde busca-se o maior valor possível da função objetivo $f$ tendo $\Omega$ como as restrições desta otimização e $\boldsymbol{x} = (x_1,...,x_n)$ como o vetor das variáveis independentes.^[@chong2013introduction]
+
+Porém, normalmente pressupõe-se que a função objetivo tem uma representação matemática conhecida, seja convexa ou pelo menos é facilmente avaliada. No campo de Machine Learning, uma parte das funções de custo estudadas não seguem nenhuma dessas suposições e além disto, muitas vezes, a avaliação da função é muito custosa.
+
+### Otimização hiperparamétrica
+
+No campo da otimização, em sua maioria, a função a ser otimizada nescessita de forma fechada, possua derivadas, mas neste caso, não existe uma função que relacione os hiperparâmetros com uma função de erro, isto invalida a utilização de qualquer método que é commumente utilizado.
+
+Por isto, muitas vezes é utilizado busca aleatório de um conjunto de hiperparâmetros razoávelmente bom, mas por se tratar de um modelo recursivo, o treinamento deste modelo pode ser demorado, por isto será utilizado uma técnica conhecida como Optimização Bayesiana que tem como objetivo uma convergência em menos iterações na buscar de uma boa combinação de hiperparâmetros.
+
+
+#### Busca aleatória
+
+#### Busca em grade
+  

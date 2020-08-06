@@ -1,0 +1,172 @@
+### Regressão Linear Múltipla
+
+Tem-se uma regressão linear múltipla quando se admite que a variável resposta (Y) é função de duas ou mais variáveis explicativas (regressoras). 
+Sejam $X_1$,$X_2$, $\dots$ , $X_p$ as p variáveis explicativas relacionadas à variável resposta Y e $x_{n,1}$, $x_{n,2}$, $\dots$, $x_{n,p}$  valores observados das variáveis explicativas (constantes conhecidas) [@neter1989applied]. Especificamente, o modelo de regressão linear com uma única resposta fica na forma:
+
+$$
+Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2}+\dots + \beta_p X_{ip} + \epsilon_i
+$$
+
+Em notação matricial, podemos escrever o modelo da seguinte forma:
+
+$$
+\begin{bmatrix}
+Y_1 \\
+Y_2 \\
+\vdots \\
+Y_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & x_{1,1} & x_{1,2} & \dots & x_{1,p} \\
+1 & x_{2,1} & x_{2,2} & \dots & x_{2,p} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_{n,1} & x_{n,2} & \dots & x_{n,p}
+\end{bmatrix}
+\begin{bmatrix}
+\beta_0 \\
+\beta_1 \\
+\vdots \\
+\beta_n
+\end{bmatrix}
++
+\begin{bmatrix}
+\epsilon_1 \\
+\epsilon_2 \\
+\vdots \\
+\epsilon_n
+\end{bmatrix}
+$$
+
+ou
+
+$$
+\begin{matrix}
+\underbrace{\textbf{Y}}_{(n\times 1)} 
+= 
+\underbrace{\textbf{X}}_{n\times(p+1)}
+\underbrace{\theta}_{(p+1)\times1}
++
+\underbrace{\underline{ \epsilon}}_{(n\times 1)}
+\end{matrix}
+$$
+
+em que:
+
+- $\textbf{Y} = (Y_1,\dots , Y_n)^T$ : o vetor transposto das observações da variável aleatória Y.
+
+- $\textbf{X}$: matriz dos valores constantes de x observados para cada observação da reposta y.
+
+- $\theta$: vetor dos coeficientes do modelo.
+
+- $\underline{ \epsilon}$: vetor dos erros aleatórios.
+
+
+Além disso, têm-se as suposições:
+
+
+\begin{enumerate}[label=(\roman*)]
+\item a variável resposta Y tem relação linear com as variáveis explicativas $X_j$, j = 1, 2,$\dots$, p;
+\item as variáveis explicativas $X_j$ são conhecidas;
+\item $E(\epsilon_i)$ = 0, ou seja, $E(\underline{ \epsilon}) = \textbf{0}$, sendo $\textbf{0}$ um vetor de zeros de dimensões $n \times 1$;
+\item os erros são homocedásticos, isto é, Var($\epsilon_i$) = E($\epsilon_i^2$) = $\sigma^2$;
+\item os erros são independentes, isto é, Cov($\epsilon_i,\epsilon_{j}$) = E($\epsilon_i \epsilon_{j}$) = 0, i $\neq$ j;
+\item os erros têm distribuição normal.
+\end{enumerate}
+
+
+Logo, combinando-se (iv) e (v) tem-se Var($\underline{ \epsilon}$) = E($\underline{ \epsilon} \underline{ \epsilon}^T$) = $\textbf{I}\sigma^2$, sendo $\textbf{I}$ uma matriz identidade, de dimensão $n \times n$. Portanto, considerando-se, também, (vi) tem-se $\underline{ \epsilon} \sim N(\textbf{0},\textbf{I}\sigma^2)$ e $\textbf{Y} \sim N(\textbf{X}\theta, \textbf{I}\sigma^2)$, pois, $E(\textbf{Y}) = \textbf{X}\theta$ e Var($\textbf{Y}) = Var(\underline{ \epsilon}) = \textbf{I}\sigma^2$. A suposição de normalidade é necessária para a elaboração dos testes de hipóteses para os coeficientes do modelo.
+
+
+Haverá um resíduo $\hat{\epsilon}_i = y_i - \hat{y}_i = y_i - (\hat{\beta}_0 + \hat{\beta}_1x_{1,i} + \hat{\beta}_2x_{2,i} + \dots + \hat{\beta}_px_{p,n})$, onde $\hat{y}_i$ é a estimativa de $y_i$ e $\hat{\beta_i}$ o coeficiente $\beta_i$ estimado, com $i = 0,1,\dots , p$. O vetor de resíduos $\underline{\hat{\epsilon}} = \textbf{Y} - \textbf{X}\hat{\theta}$ contém informação sobre o parâmetro desconhecido $\sigma^2$. Estima-se os parâmetros $\beta_0,\beta_1,\dots,\beta_p$ de modo a minimizar a soma dos quadrados dos erros, dada por:
+
+$$SQR = \sum_{i=1}^n \hat{\epsilon}^2_i = \sum_{n=1}^n (y_i- \hat{\beta_0} - \hat{\beta}_1x_{1,i} - \hat{\beta}_2x_{2,i}- \dots - \hat{\beta}_px_{p,i})^2.$$
+
+
+
+Assumindo que a matriz $X^TX$ é não singular, a solução do sistema é:
+
+$$
+\hat{\beta}
+=
+\begin{bmatrix}
+\hat{\beta_0} \\
+\hat{\beta_1} \\
+\vdots \\
+\hat{\beta_p}
+\end{bmatrix}
+=
+(X^TX)^{-1}X^TY
+$$
+
+que é estimativa para:
+
+$$
+\beta =
+\begin{bmatrix}
+\beta_0 \\
+\beta_1 \\
+\vdots \\
+\beta_p
+\end{bmatrix}
+$$
+
+A medida $R^2$ de bondade de ajuste é baseada na soma dos quadrados total ($SQT$) e na soma dos quadradros dos resíduos ($SQR$), que pode ser interpretada como o percentual de variabilidade que o modelo explica, definida como:
+
+$$
+R^2 = 1-\frac{SQR}{SQT}
+$$
+
+\noindent onde, $SQT=\sum_{i=1}^n(y_i-\bar{y})$, e $\bar{y}$ é a média amostral de $y_i$, .
+
+No presente trabalho foi utilizada a técnica de regressão linear múltipla para ajustar um modelo de previsão em que a variável resposta é o valor da diária da propriedade. Para tal, utilizamos diversas técnicas para atingir os pressupostos do modelo, além de deixá-lo mais parcimonioso com um menor erro de predição, como é no caso da regressão de LASSO detalhada mais a frente.
+
+#### Transformação Box-Cox
+
+Conforme já foi visto, o modelo linear clássico é válido sob as seguintes pressuposições:
+
+\begin{enumerate}[label=(\roman*)]
+\item simplicidade de estrutura para o valor esperado da variável resposta (aditividade do modelo);
+\item independência e homogeneidade dos erros;
+\item normalidade dos erros.
+\end{enumerate}
+
+Se não for possível satisfazer a esses requisitos na escala original dos dados, pode ser que uma transformação não linear dos dados possa produzir homogeneidade de variâncias e distribuição aproximadamente normal. Em simples palavras, significa que precisamos montar um gráfico com os dados para verificar o comportamento da distribuição subjacente. Com o gráfico, às vezes também descobrimos que uma pequena transformação resulta em um comportamento aproximado de uma distribuição normal. Isso significa que as transformações de dados podem simplificar nossa vida e nos permitem usar medidas estatísticas destinadas a dados normalmente distribuídos.
+
+@box1964analysis propuseram uma família de transformações dada por:
+
+$$Y(\lambda)
+= \left\{ \begin{array}{rll}
+\frac{Y^{\lambda}-1}{\lambda} & \hbox{se} & \lambda \neq 0 \\
+\log(Y) & \hbox{se} & \lambda = 0
+\end{array}\right.$$
+
+\noindent onde $\lambda$ o parâmetro da transformação e Y uma variável aleatória. Na ausência de uma transformação, $\lambda$= 1.
+
+O objetivo da transformação é determinar $\lambda$ (ou uma escala para Y), tal que sejam verdadeiras as pressuposições citadas no inicio desta seção.
+
+Cabe ressaltar que tal transformação não se limita à variável resposta, porém neste trabalho foi utilizada para contornar o problema de distribuição assimétrica da variável resposta.
+
+#### Regularização
+
+Segundo @friedman2001elements, a seleção de um subconjuto de variáveis produz um modelo que é interpretável e, possivelmente, possui um erro de previsão menor do que o modelo completo. Quando se tem muitas variáveis explicativas, faz-se necessário selecionar as que resultariam em um modelo útil e parcimonioso. Uma solução para isso pode ser utilizar a técnica de regularização LASSO, método pelo qual as estimativas dos coeficientes menos relacionados a variável resposta tendem a zero, o que implica que apenas as variáveis que afetam significativamente a variação em Y sejam consideradas no modelo. Os métodos de regularização mais comuns são LASSO ($\ell_1$), Ridge ($\ell_2$) e a mistura dos dois (*elastic net*).
+
+O LASSO é indiferente quanto aos regressores correlacionados e tenderá a escolher um e ignorar os demais, enquanto o Ridge reduz os coeficientes regressores relacionados uns em relação aos outros, ambos impondo diferentes penalidades em seu tamanho. LASSO também é amplamente utilizado para seleção de variáveis.
+
+##### Regressão LASSO
+
+O LASSO é uma metodologia proposta por  @tibshirani1996regression, cujo significado é *Least Absolute Shrinkage and Selection* (“menor encolhimento absoluto e seleção”). Os estimadores dos parâmetros do LASSO são dados pela resolução do seguinte problema:
+
+$$
+\hat{\beta}^{LASSO} =\underset{\beta}{argmin}  \sum_{i=1}^N \left( y_i-\beta_0 -\sum_{j=1}^p x_{ij} \beta_j\right)^2 \hbox{sujeito a } \sum_{j=1}^p|\beta_j|\leq t,
+$$
+
+\noindent no qual $\hat{\beta}^{LASSO}$ é o vetor de coeficientes de regressão associados às variáveis (incluindo o intercepto $\beta_0$). O parâmetro $t\geq0$ controla o encolhimento (redução) do modelo, isto é, reduzindo o número de variáveis regressoras ao qual o $\hat{\beta_i}$ associado é zero.
+
+Também pode-se escrever o problema do LASSO na forma de Lagrange:
+
+$$\hat{\beta}^{LASSO}=\underset{\beta}{argmin} \left\{ \frac{1}{2} \sum_{i=1}^N \left( y_i-\beta_o-\sum_{j=1}^px_{ij}\beta_j \right)^2 + \lambda\sum_{j=1}^p|\beta_j| \right\},$$
+
+\noindent onde $\lambda$, de forma similar a $t$, controla o encolhimento (redução) do modelo.
+
+O parâmetro $\lambda$ controla a força da penalização, onde torná-lo suficientemente grande faz com que mais coeficientes sejam reduzidos a zero, utilizando $\lambda=0$ temos a regressão linear multipla padrão, sem penalização. O valor de $\lambda$ deve ser escolhido de forma adaptativa para minimizar uma estimativa de erro esperado de previsão. O autor propõe que se utilize de métodos de validação cruzada para escolher o parâmetro $\lambda$, consistindo em uma aproximação linear do LASSO, com detalhes em @friedman2001elements.

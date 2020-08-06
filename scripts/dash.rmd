@@ -1,0 +1,289 @@
+---
+title: "Precificação da Diária"
+runtime: shiny
+output: 
+  flexdashboard::flex_dashboard:
+    # logo: https://w7.pngwing.com/pngs/763/992/png-transparent-airbnb-business-san-francisco-logo-startup-company-business-text-people-logo.png
+    orientation: rows
+    vertical_layout: fill
+    theme: united
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(magrittr)
+library(ranger)
+
+model =  readRDS('../output/model.rds')
+inverse_bc = function(x, lambda = -0.02020202){
+  (x*lambda+1)^(1/lambda)
+}
+
+df_latlong = readRDS('../output/df_latlong.rds')
+bairros = readRDS('../output/bairros_fim.rds') #%>% dplyr::select(bairro, cluster)
+map = sf::read_sf('../output/neighbourhoods.geojson') %>% 
+  dplyr::left_join(bairros, by = c('neighbourhood'='bairro')) %>% 
+  sf::st_zm() %>% sf::as_Spatial()
+
+dist = function(x1,x2,y1,y2){
+  sqrt((x1-x2)^2+(y1-y2)^2)
+}
+
+df_dist = shiny::reactive({
+  df_latlong %>% 
+    dplyr::mutate(
+      dist = dist(latitude, input$lat, longitude, input$long)
+    ) %>% dplyr::arrange(dist)
+})
+
+cluster = shiny::reactive({df_dist() %>% dplyr::slice(1)})
+
+df_near = shiny::reactive({
+  df_dist() %>% 
+    dplyr::filter(cluster == cluster()$cluster) %>% 
+    dplyr::top_n(15, wt = dplyr::desc(dist)) 
+})
+
+
+df_model = shiny::reactive({
+  df_near() %>% dplyr::summarise(
+    price_near = median(price),
+    bedrooms_near = median(bedrooms),
+    beds_near = median(beds),
+    bathrooms_near = median(bathrooms)
+  ) %>% 
+  dplyr::mutate(
+    neighbourhood_cleansed = cluster()$neighbourhood_cleansed
+  ) %>% 
+  dplyr::left_join(
+    bairros %>% dplyr::select(renda_per_capita, bairro, subprefeitura), 
+    by=c("neighbourhood_cleansed" = "bairro")
+  ) %>% 
+  dplyr::transmute(
+    host_is_superhost = input$host_is_superhost,
+    host_has_profile_pic = input$host_has_profile_pic,
+    host_identity_verified = input$host_identity_verified,
+    latitude = input$lat,
+    property_type = input$property_type,
+    room_type = input$room_type,
+    accommodates = input$accommodates,
+    bathrooms = input$bathrooms,
+    bedrooms = input$bedrooms,
+    beds = input$beds,
+    guests_included = input$guests_included,
+    cancellation_policy = input$cancellation_policy,
+    subprefeitura,
+    renda_per_capita,
+    fl_extra_people = dplyr::if_else(input$fl_extra_people, 1, 0),
+    cluster_4 = dplyr::if_else(cluster()$cluster == 4, 1, 0),
+    price_near,
+    bedrooms_near,
+    beds_near,
+    bathrooms_near,
+    fl_mais_banheiros = dplyr::if_else(bathrooms >= bathrooms_near, 1, 0),
+    fl_mais_quartos = dplyr::if_else(bedrooms >= bedrooms_near, 1, 0),
+    fl_mais_camas = dplyr::if_else(beds >= beds_near, 1, 0),
+    fl_periodo_longo = dplyr::if_else(input$fl_periodolongo, 1, 0)
+  ) 
+})
+
+```
+
+Definição das Variáveis
+=======================================================================
+
+Row {.sidebar data-width=200}
+-----------------------------------------------------------------------
+
+Inicialmente será nescessário a definição das variáveis referentes ao local.
+
+Para definição da latitude e longitude é possível interagir pelo mapa ou definido os valores pelos seletores abaixo.
+
+```{r}
+# downloadButton('downloadData','Download Result Set')
+# 
+# downloadHandler(filename = function() {
+#      paste('resultset-', Sys.Date(), '.csv', sep='')
+#    },
+#      content = function(file) {
+#      write.csv(df_model(), file, row.names = FALSE)
+#      }
+# )
+
+numericInput("lat", "Latitude:", min = -23.0734, max = -22.75038, value = -22.91189, step = 0.008)
+numericInput("long", "Longitude:", min = -43.73709, max = -43.10462, value = -43.4154, step = 0.008)
+
+checkboxInput("host_is_superhost", label = "É Super Host", value = TRUE)
+checkboxInput("host_has_profile_pic", label = "Possui foto de perfil", value = TRUE)
+checkboxInput("host_identity_verified", label = "Possui identidade verificada", value = TRUE)
+selectInput("property_type", label = "Tipo de Propriedade", 
+    choices = list("Apartamento" = "Apartment", "Casa" = "House", "Condominio" = "Condominium", "Outros" = "Other"), 
+    selected = 1)
+selectInput("room_type", label = "Tipo de Quarto", 
+    choices = list("Espaço Inteiro" = "Entire home/apt", 
+                   "Quarto Privado" = "Private room", 
+                   "Quarto Compartilhado" = "Shared room", 
+                   "Quarto de Hotel" = "Hotel room"), 
+    selected = 1)
+numericInput("accommodates", "Acomoda:", min = 1, max = 16, value = 2, step = 1)
+numericInput("bathrooms", "Banheiros:", min = 1, max = 20, value = 1, step = 0.5)
+numericInput("bedrooms", "Quartos:", min = 1, max = 30, value = 1, step = 1)
+numericInput("beds", "Camas:", min = 1, max = 50, value = 1, step = 1)
+numericInput("guests_included", "Convidados Inclusos:", min = 1, max = 16, value = 1, step = 1)
+checkboxInput("fl_periodolongo", label = "Aluguel de Periodo Longo", value = FALSE)
+selectInput("cancellation_policy", label = "Política de Cancelamento", 
+    choices = list("Flexível" = "flexible", 
+                   "Moderada" = "moderate",
+                   "Estrita" = "strict"
+            ), 
+    selected = 1)
+checkboxInput("fl_extra_people", label = "Cobra por convidado a mais", value = FALSE)
+
+numericInput("zoom", "Zoom:", min = 0, max = 18, value = 11)
+```
+
+```{r}
+paleta = function(cluster){
+  dplyr::case_when(
+    cluster==1~"#F6766E",
+    cluster==2~"#7CAE00",
+    cluster==3~"#3FBFC4",
+    cluster==4~"#C77CFF",
+    TRUE~"#7F7F7F"
+  )
+}
+```
+
+
+Row
+-----------------------------------------------------------------------
+
+### Mapa
+
+```{r}
+shiny::observe({
+    shiny::updateNumericInput(session, 'lat', value = input$hover_coordinates[1])
+    shiny::updateNumericInput(session, 'long', value = input$hover_coordinates[2])
+    shiny::updateNumericInput(session, 'zoom', value = input$hover_coordinates[3])
+  })
+
+leaflet::renderLeaflet(
+  leaflet::leaflet() %>% 
+  leaflet::addTiles(urlTemplate = "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}") %>%
+  leaflet::addPolygons(
+    data=map, 
+    label=~paste("Cluster: ", cluster, "| Bairro:", neighbourhood), 
+    fillColor = ~paleta(cluster),
+    fillOpacity = .5, weight=1, color = "grey"
+  ) %>% 
+  leaflet::addCircleMarkers(
+    data = df_near() %>% dplyr::mutate(url = paste0('www.airbnb.com.br/rooms/', id)),
+    lng = ~longitude,
+    lat = ~latitude,
+    label=~paste(url, "| R$", price)
+  ) %>%
+  leaflet::addCircleMarkers(lng = input$long, lat = input$lat, color = 'red') %>% 
+  leaflet::setView(lng = input$long, lat = input$lat, zoom=input$zoom) %>% 
+  htmlwidgets::onRender(
+      "function(el,x){
+          this.on('click', function(e) {
+              var lat = e.latlng.lat;
+              var lng = e.latlng.lng;
+              var zoom = this.getZoom();
+              var coord = [lat, lng, zoom];
+              Shiny.onInputChange('hover_coordinates', coord)
+          });
+          this.on('mouseout', function(e) {
+              Shiny.onInputChange('hover_coordinates', null)
+          })
+      }"
+    )
+)
+```
+
+Row{data-height=10}
+-----------------------------------------------------------------------
+
+Aqui temos os 15 vizinhos mais próximos da latitude e longitude fornecida que sejam do mesmo cluster.
+
+Row{data-height=350}
+-----------------------------------------------------------------------
+
+### Vizinhos mais próximos
+
+```{r}
+shiny::renderTable(
+  df_near()%>% 
+    dplyr::transmute(
+      url = paste0('www.airbnb.com.br/rooms/', id), 
+      `Preço`=price, `Quartos` = bedrooms, 
+      Camas = beds, Banheiros= bathrooms
+    )
+)
+```
+
+<!-- Variáveis -->
+<!-- ======================================================================= -->
+
+<!-- ```{r} -->
+<!-- shiny::renderTable(df_model()) -->
+<!-- ``` -->
+
+Preço Proposto
+=======================================================================
+
+
+Row {.sidebar data-width=100}
+-----------------------------------------------------------------------
+
+Com a descrição da casa na primeira página, clique no botão abaixo para realizar a previsão do preço
+
+```{r}
+actionButton("previsao", label = "Preveja!")
+```
+
+
+Row{data-height=150}
+-----------------------------------------------------------------------
+
+### Preço Prosposto
+
+```{r}
+shiny::renderTable(
+  prediction() %>% dplyr::summarise(
+    `Média das previsões` = mean(pred),
+    `Mediana das previsões` = median(pred)
+  )
+)
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Boxplot do preço proposto
+
+```{r}
+prediction = shiny::eventReactive(input$previsao, {
+  dplyr::tibble(pred = inverse_bc(dplyr::as_tibble(predict(model, df_model(), predict.all=T)$predictions)) %>% unlist())
+})
+
+shiny::renderPlot(
+    ggplot2::ggplot(prediction()) + ggplot2::geom_boxplot(ggplot2::aes(x=pred)) + ggplot2::labs(x="Preço Proposto")
+)
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Histograma do preço proposto
+
+```{r}
+prediction = shiny::eventReactive(input$previsao, {
+  dplyr::tibble(pred = inverse_bc(dplyr::as_tibble(predict(model, df_model(), predict.all=T)$predictions)) %>% unlist())
+})
+
+shiny::renderPlot(
+    ggplot2::ggplot(prediction()) + ggplot2::geom_histogram(ggplot2::aes(x=pred)) + ggplot2::labs(x="Preço Proposto", y="Quantidade")
+)
+```
+

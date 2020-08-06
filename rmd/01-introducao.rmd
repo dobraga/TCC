@@ -1,0 +1,32 @@
+# Introdução
+
+Nos últimos anos, um novo modelo de negócios conhecido como “economia compartilhada” surgiu no setor de turismo e hospitalidade [@gansky2010mesh; @cohen2015self]. Economia compartilhada é um conceito extenso, em que uma de suas definições é de que se trata de um ambiente no qual pessoas podem alugar ou emprestar bens que não estão sendo utilizados para outros, com uma recompensa financeira. Este modelo, não se limita apenas ao turismo, envolve diversas atividades econômicas, sendo o turismo uma das mais relevantes [@loboeconomia]. O Airbnb foi precursor no uso desse modelo de negócios para conectar pessoas que possuem ativos ociosos de acomodação (como casas ou apartamentos) com quem precisa de acomodação temporária (como turistas) por meio de plataformas digitais [@botsman2011meu].
+
+O crescimento exponencial da economia compartilhada envolvendo hospedagem foi atribuído ao fornecimento de uma ampla variedade de preços e características de propriedades, bem como uma experiência mais diversificada do que a acomodação em um hotel tradicional [@guttentag2015airbnb; @pesonen2017peer].
+O preço é amplamente reconhecido como um dos principais e mais críticos fatores que determinam o sucesso em longo prazo da hospedagem [@hung2010pricing]. Muitos estudos foram realizados em estratégias de preços no setor de hospitalidade, tanto da demanda [@becerra2013being; @chen2010application; @hung2010pricing] quanto da oferta [@huse2006estimaccao; @masiero2015demand]. Além de oferecer produtos e serviços de qualidade com preços que o consumidor esteja favorável a pagar, os preços devem ser suficientes para cobrir todas as despesas. 
+Pesquisadores anteriores ajudaram a melhorar as práticas no setor de hospitalidade, identificando fatores determinantes das tarifas dos quartos de hotel que influenciam na disposição dos hóspedes, e os efeitos de diferentes estratégias de preços nas percepções e na satisfação dos clientes [@hung2010pricing]. No entanto, apenas alguns pesquisadores investigaram os fatores que determinam o preço de compartilhar acomodações baseadas na economia compartilhada [@gutt2015sharing; @li2015agent].
+
+Com isso, o objetivo deste trabalho é aplicar modelos para compreender o valor da diária a partir de dados da Airbnb no Rio de Janeiro. Esta plataforma tem alcançado imensa expressividade em diversos destinos turísticos mundiais. Com isso, houve o interesse em investigar quais fatores influenciam nos preços de diárias de diversas propriedades, utilizando disso para que haja uma previsão do preço final da acomodação. Foi utilizada uma amostra de 35.793 acomodações e 116 variáveis.
+
+No auxílio do objetivo geral, pretende-se com os objetivos específicos:
+
+1)	Examinar os dados dispostos do Airbnb;
+
+2)	Verificar as variáveis significativas para o julgamento do preço final; 
+
+3)	Ajustar um modelo de regressão linear múltipla para predição do preço final da diária;
+
+4)	Ajustar um modelo de aprendizagem de máquina para predição do preço final da diária;
+
+5)	Comparar os modelos e verificar qual se ajusta melhor aos dados.
+
+
+Este trabalho está organizado da seguinte forma: 
+
+- Capítulo 1: introdução ao tema.
+- Capítulo 2: revisão bibliográfica do tema.
+- Capítulo 3: metodologia de coleta e informações gerais das bases de dados.
+- Capítulo 4: metodologia utilizada no trabalho.
+- Capítulo 5: resultados.
+
+Por fim, no apêndice é apresentado todo o script utilizado no software estatístico para manipulação, tratamento e análise dos dados.

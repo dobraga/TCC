@@ -1,9 +1,0 @@
-# Introdução
-
-A violência praticada por menores de idade é, hoje, um problema para a sociedade brasileira. Estas crianças e jovens, em conflito com a lei, são constantemente internados ou detidos em instituições para a promoção de ações socioeducativas, possibilitando-os que, após esta medida, retornem à sociedade para viverem em harmonia de acordo com o imposto pela lei. 
-
-Porém os programas e possibilidades de ressocialização podem não ser suficientes, passando a ser reincidente – trata-se de “reincidência quando o agente comete novo crime, depois de transitar em julgado a sentença que, no País ou no estrangeiro, o tenha condenado por crime anterior" (Art. 63 do Código Penal - Decreto Lei 2848/40).
-
-O estudo tem como objetivo principal utilizar variáveis sociodemográficas, socioeconômicas e criminais para realizar a predição da probabilidade de reincidência juvenil. Para isto, será utilizado um método que tem como objetivo fazer a junção de várias árvores de decisão conhecido como *boosting* que é uma das técnicas mais poderosas desenvolvidas nos últimos vinte anos.^[@friedman2001elements] Porém o ponto negativo dessa técnica é que, como a maioria dos modelos de Machine Learning, nescessita da inputação de diversos parâmetros que não são otimizados no treinamento, também conhecidos como hiperparâmetros.
-
-Não existe uma combinação perfeita de hiperparâmetros e como não existe uma função que relacione os hiperparâmetros com uma função de erro não conseguimos utilizar as técnicas mais conhecidas no ramo da otimização, neste trabalho serão abordados alguns métodos de otimização hiperparamétrica.

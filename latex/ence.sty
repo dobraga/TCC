@@ -1,5 +1,16 @@
 \ProvidesPackage{ence}[]
 
+\newcommand{\nosemic}{\renewcommand{\@endalgocfline}{\relax}}% Drop semi-colon ;
+\newcommand{\dosemic}{\renewcommand{\@endalgocfline}{\algocf@endline}}% Reinstate semi-colon ;
+\newcommand{\pushline}{\Indp}% Indent
+\newcommand{\popline}{\Indm\dosemic}% Undent
+
+\renewcommand{\algorithmcfname}{Algoritmo}%
+\renewcommand{\algorithmautorefname}{algoritmo}%
+\SetKwFor{Para}{para}{fa\c{c}a:}{fim para}%
+\SetKw{Return}{retorna}%
+
+
 % ----------------------------
 % Alterações da classe ABNTEX2
 \renewcommand{\orientadorname}{Orientador(a):}
@@ -8,6 +19,15 @@
 \renewcommand{\ABNTEXchapterfontsize}{\bfseries\Large}
 \renewcommand{\ABNTEXsectionfontsize}{\large}
 \renewcommand{\ABNTEXsubsectionfontsize}{\normalsize}
+
+\providecommand{\imprimirleitor}{}
+\newcommand{\leitor}[1]{\renewcommand{\imprimirleitor}{#1}}
+
+\providecommand{\imprimirDetOrientador}{}
+\newcommand{\detorientador}[1]{\renewcommand{\imprimirDetOrientador}{#1}}
+
+\providecommand{\imprimirDetLeitor}{}
+\newcommand{\detleitor}[1]{\renewcommand{\imprimirDetLeitor}{#1}}
 
 % ---
 % Impressão da Capa
@@ -97,14 +117,14 @@
          \end{minipage}%
          \vspace*{\fill}
       }%
-  
-      Trabalho aprovado. \imprimirlocal, xx de agosto de 2020:
+
+      BANCA EXAMINADORA
       
-      \assinatura{\textbf{\imprimirorientador} \\ Orientador(a)}
+      \assinatura{\textbf{\imprimirorientador} \\ \imprimirDetOrientador}
       \abntex@ifnotempty{\imprimircoorientador}{%
         \assinatura{\textbf{\imprimircoorientador} \\ Coorientador(a)}
       }
-      \assinatura{\textbf{Professor} \\ Convidado 1}
+      \assinatura{\textbf{\imprimirleitor} \\ \imprimirDetLeitor}
       \vspace*{3cm}
       
       {\large\imprimirlocal}
