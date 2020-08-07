@@ -287,7 +287,10 @@ de Janeiro, bem como os fatores levados em conta na formação do preço, a
 fim de que o usuário possa verificar se há um preço justo na locação do
 estabelecimento. A estimação dos preços foi realizada por meio de
 aprendizado de máquina, com uma breve comparação a um modelo de
-regressão linear.
+regressão linear. Os melhores resultados de previsão foram utlizando o
+Random Forest com otimização, apresentando menores erros. Fatores
+relacionados ao tamanho da propriedade foram muito relevantes neste
+modelo.
 	\noindent
 	\\
 	\\
@@ -618,7 +621,7 @@ variáveis dependentes ou variáveis respostas \((Y_1,Y_2,Y_3,...)\)
 (Friedman, \protect\hyperlink{ref-friedman2001elements}{2001}). Este
 trabalho, por exemplo, tem como interesse utilizar como variáveis
 independentes algumas medidas de locações disponíveis no site Airbnb
-para predizer o preço da diária, sendo assim, tem-se como objetivo:
+para predizer o preço da diária, sendo assim, tem-se a equação:
 
 \[
 Y = f(\boldsymbol{X}) + \epsilon,
@@ -638,7 +641,7 @@ estimativa da função desconhecida \(f\).
 
 Para a definição da métrica de erro que será utilizada para a avaliação
 do modelo, primeiro é necessário definir o tipo de problema a ser
-resolvido, sendo um problema de regressão ou de classificação, essa
+resolvido, sendo um problema de regressão ou de classificação. Essa
 definição é feita por meio da observação da variável resposta. Tendo a
 métrica de erro definida, é possível realizar a estimativa da função
 \(f\) e encontrar uma estimativa da variável resposta
@@ -719,9 +722,10 @@ Como citado anteriormente, será utilizada a separação da base de dados
 para o treinamento e teste do modelo. Na maioria de modelos/algoritmos
 de aprendizagem de máquina, há parâmetros que precisam ser informados
 antes do treinamento. Essas informações são chamadas de hiperparâmetros.
-Com isso, a otimização de hiperparâmetros é o problema de escolher um
-conjunto de hiperparâmetros (detalhados posteriormente) ideais para um
-algoritmo de aprendizagem. Por isso é necessário uma otimização manual.
+Com isso, existe o problema de escolher um bom conjunto de
+hiperparâmetros para um algoritmo de aprendizagem, por isso é necessário
+uma otimização manual, onde busca-se otimização dos erros (detalhados
+posteriormente).
 
 Para isso, será utilizada a técnica de validação cruzada, que consiste
 em separar a base de treino em \(K\) partes, onde serão realizadas \(K\)
@@ -826,7 +830,7 @@ Além disso, têm-se as suposições:
 \item as variáveis explicativas $X_j$ são conhecidas;
 \item $E(\epsilon_i)$ = 0, ou seja, $E(\underline{ \epsilon}) = \textbf{0}$, sendo $\textbf{0}$ um vetor de zeros de dimensões $n \times 1$;
 \item os erros são homocedásticos, isto é, Var($\epsilon_i$) = E($\epsilon_i^2$) = $\sigma^2$;
-\item os erros são independentes, isto é, Cov($\epsilon_i,\epsilon_{j}$) = E($\epsilon_i \epsilon_{j}$) = 0, i $\neq$ j;
+\item os erros são independentes, isto é, Cov($\epsilon_i,\epsilon_{j}$) = E($\epsilon_i \epsilon_{j}^T$) = 0, i $\neq$ j;
 \item os erros têm distribuição normal.
 \end{enumerate}
 
@@ -1206,7 +1210,7 @@ variáveis independentes no crescimento de cada árvore. A função de
 previsão pode ser escrita da seguinte maneira:
 
 \[
-\hat{f}_{RF}(x) = \frac{1}{B}\sum_{b=1}^MT_b(x)
+\hat{f}_{RF}(x) = \frac{1}{B}\sum_{b=1}^BT_b(x)
 \]
 
 \noindent onde \(T_b\) é a estimativa da função da b-ésima árvore.
@@ -1757,18 +1761,13 @@ fazem sentido no contexto do fenômeno estudado, que pode ser feito
 através do teste t de Student como será apresentado na análise dos
 resultados (Werkema, \protect\hyperlink{ref-werkema1996analise}{1996}).
 Utilizando um nível de significância de 5\%, verifica-se pela Figura
-\ref{significancia_ml} a significância de cada variável, onde os pontos
-cinzas relacionadas ao coeficientes das variáveis não relevantes serão
-removidas pelo teste de significância, os pontos azuis são relacionadas
-aos coeficientes das variáveis que possuem efeitos positivos (afetam
-positivamente no preço previsto) e as vermelhos são aquelas que possuem
-coeficientes negativos (afetam negativamente no preço previsto).
-
-As variáveis relacionadas aos pontos coloridos que estão com p-valor
-acima do nível de significância foram mantidas, pois trata-se de
-categorias significativas de algumas variáveis categóricas. Sendo assim,
-foi decidido que haveria boa relevância para os modelos e, com isso, não
-seriam removidas.
+\ref{significancia_ml} as variáveis com o p-valor acima dos 5\%. As
+variáveis relacionadas aos pontos coloridos (vermelho ou azul) que,
+mesmo com o p-valor acima do nível de significância escolhido, foram
+mantidas, pois trata-se de categorias significativas de algumas
+variáveis categóricas, influenciando na predição do valor de forma
+negativa e positiva, respectivamente. Sendo assim, foi decidido que
+haveria boa relevância para o modelo e, com isso, não serão removidas.
 
 \begin{figure}
 \centering
@@ -1904,7 +1903,7 @@ erro médio na base de teste esteja dentro do intervalo de um desvio
 padrão. O valor encontrado é 0,0066053.
 
 Com a regressão de LASSO, os coeficientes de regressão para variáveis
-sem importância são reduzidos a zero, o que efetivamente as remove do
+sem importância são reduzidos a zero, o que efetivamente os remove do
 modelo e produz um modelo mais simples que seleciona apenas os
 preditores mais importantes. Conforme Figura \ref{significancia_lasso},
 as variáveis removidas estão sinalizadas com pontos cinzas, enquanto os
@@ -2032,16 +2031,17 @@ Teste & R2 & 0,31\\
 
 Comparando a distribuição dos resíduos do modelos linear utilizando as
 variáveis selecionadas manualmente e via LASSO pelas Figura
-\ref{resid_ml_inv} e \ref{resid_lasso_inv} é possível notar grande
-semelhança, para uma melhor comparação, também pode-se comparar as
+\ref{resid_ml_inv} e \ref{resid_lasso_inv}, é possível notar grande
+semelhança. Para uma melhor comparação, também pode-se utilizar as
 métricas dos erros disponíveis nas Tabelas \ref{tab:lm_metricas} e
-\ref{tab:lasso_metricas}, também possível notar grande similaridade.
+\ref{tab:lasso_metricas}, confirmando a similaridade dos modelos
+lineares.
 
-Visto isso, a regressão LASSO se mostrou muito efetiva para contornar
-problemas de multicolinearidade, como pode ser visto na Tabela
-\ref{tab:vif_lasso}, e remoção de variáveis não significativas, para que
-seja e utilizado um modelo mais parcimonioso possível sem perder tanto
-poder preditivo (aumento dos erros).
+A regressão linear utilizando LASSO se mostrou muito efetiva para
+contornar problemas de multicolinearidade, (Tabela \ref{tab:vif_lasso})
+e remoção de variáveis não significativas. Trata-se de um método que
+torna o modelo parcimonioso sem perder tanto poder preditivo (aumento
+dos erros).
 
 \hypertarget{random-forest}{%
 \subsection{Random Forest}\label{random-forest}}
@@ -2059,7 +2059,7 @@ Para efeitos de comparação, o treinamento do modelo base levou
 aproximadamente 13 segundos e a predição da base de treino levou 1,28
 segundos, aproximadamente.
 
-Na Tabela \ref{tab:rf0_metricas} é possível notar que há um ajuste em
+Na Tabela \ref{tab:rf0_metricas}, é possível notar que há um ajuste em
 excesso no conjunto de dados de treino (menores erros) comparado ao
 conjunto de dados de teste (maiores erros), podendo por isso ter um mau
 desempenho preditivo quando aplicados a novos dados, dando indícios de
@@ -2116,8 +2116,8 @@ de árvores implica na melhora (diminuição) das métricas de erro.
 \caption{\label{qtd_arvores}Teste de quantidade de árvores}
 \end{figure}
 
-Pela Figura \ref{qtd_arvores_zoom} temos o zoom a partir de 20 árvores
-para se ter uma ideia melhor de como os erros se comportam. Nesta
+Na Figura \ref{qtd_arvores_zoom} temos o zoom a partir de 20 árvores,
+para se ter um melhor discernimento de como os erros se comportam. Nesta
 figura, a linha azul representa o erro da maior árvore (1000 árvores). É
 possível notar que a partir de 400 árvores os erros parecem apresentar
 uma certa estabilidade. Em ambas imagens, a área sombreada representa um
@@ -2150,7 +2150,7 @@ Será definida que a quantidade de árvores poderá variar entre 1 e 2000
 árvores, a profundidade máxima poderá variar entre 0 (sem limite) e 30
 nós, a quantidade de elementos mínimos no nó pode variar entre 0 (sem
 limite) e 100. Considerando todos esses intervalos, temos 6.262.000
-combinações possíveis de hiperparâmetros a serem testados e por isso
+combinações possíveis de hiperparâmetros a serem testados e, por isso,
 será utilizado o Algoritmo \ref{alg:hiper}, que se encontra no apêndice,
 para encontrar um bom conjunto de hiperparâmetros. O algoritmo tem como
 ideia principal dois pontos: a exploração (rodadas aleatórias) e a
@@ -2168,10 +2168,10 @@ há ganho na performance do modelo.
 \caption{\label{otimizacao}Otimização dos hiperparâmetros}
 \end{figure}
 
-Com a otimização foi encontrado que a combinação de 50 árvores, com uma
-profundidade máxima de 18 e uma quantidade mínima de 33 observações é um
-bom conjunto de hiperparâmetros. Comparando os erros do modelo base
-(Tabela \ref{tab:rf0_metricas}) com os erros do modelo otimizado (Tabela
+Com a otimização, optou-se por 50 árvores, com uma profundidade máxima
+de 18 e uma quantidade mínima de 33 observações como uma quantidade
+ótima de hiperparâmetros. Comparando os erros do modelo base (Tabela
+\ref{tab:rf0_metricas}) com os erros do modelo otimizado (Tabela
 \ref{tab:rf1_metricas}), pode-se notar que esse conjunto apresenta um
 resultado bem próximo do modelo \emph{default} na base de teste, porém
 sendo muito mais simples e com resultados mais próximos entre as bases
@@ -2247,8 +2247,8 @@ Inversa}
 \end{figure}
 
 Nas análises seguintes, será utilizada a métrica Erro Percentual
-Absoluto Médio (EPAM) por representar o percentual de erro que é
-invariante quanto a escala.
+Absoluto Médio (EPAM) por representar o percentual de erro, invariante
+quanto a escala.
 
 De acordo com a Tabela \ref{tab:erro_test} aproximadamente 30\% das
 previsões tiveram menos de R\$50 de erro e portanto, algumas
@@ -2296,12 +2296,12 @@ Nas Figuras \ref{graf_resid_rf_acom}, \ref{graf_resid_rf_quartos} e
 \ref{graf_resid_rf_tp_quarto} é feita uma análise mais detalhada quanto
 ao resíduo do modelo na base de teste, onde é apresentado o erro,
 separado pelas variáveis mais relevantes (Número máximo de hóspedes,
-Quantidade de Quartos e Tipo de Quarto) pelas quebras de preço, e com
-isso, é possível notar que as propriedades pequenas e com preço baixo
-(\(\leq\) R\$151) apresentam um alto erro, comparadas a propriedades
-maiores e de preço mais elevado. É possível notar que o modelo, para
-esse caso tende a sugerir preços mais altos que os escolhidos pelo
-proprietário, dando a entender que o imóvel esteja ``barato''.
+Quantidade de Quartos e Tipo de Quarto) pelas faixas de preço. É
+possível notar que as propriedades pequenas e com preço baixo (\(\leq\)
+R\$151) apresentam um alto erro, comparadas a propriedades maiores e de
+preço mais elevado. É possível notar que o modelo, para estes casos,
+tende a sugerir preços mais altos que os escolhidos pelo proprietário,
+dando a entender que o imóvel esteja ``barato''.
 
 \begin{figure}
 \centering
@@ -2401,7 +2401,7 @@ Random Forest Otimizado & 161,34 & 50,90 & 0,38 & 246,58\\
 
 Com uma breve comparação das variáveis de acordo com a importância, o
 \emph{tipo de quarto}, seja considerando a variável toda ou alguma
-categoria, mostrou-se relevantes para todos os modelos utilizados no
+categoria, mostrou-se relevante para todos os modelos utilizados no
 trabalho, independente do modo de seleção. Variáveis que dimensionam o
 tamanho da propriedade como, por exemplo, quantidade de quartos,
 quantidade de banheiros e capacidade de pessoas acomodadas, foram bem
@@ -2409,7 +2409,7 @@ presentes nos modelos de Regressão Linear e Random Forest. Já no modelo
 de Random Forest com otimização dos parâmetros, variáveis utilizadas
 para complementar o trabalho, como latitude e renda per capita, foram
 relevantes, nos dando a ideia de que, dependendo do bairro, há uma
-influencia no valor da propriedade oferecida.
+influência no valor da propriedade oferecida.
 
 Os resultados obtidos colocam como melhor modelo o Random Forest sem
 otimização dos hiperparâmetros para a previsão da base de dados
@@ -2417,10 +2417,10 @@ utilizada, dado que se trata de um modelo não-paramétrico, e por isso,
 dentre os modelos utilizados, é o que mais se adequa aos dados
 fornecidos. Porém, analisando as métricas de erro e comparando os
 resultados entre treino e teste, é possível notar grande discrepância de
-erro entre as bases teste e treino, e por isso, será utilizado o modelo
-otimizado sendo o melhor, por apresentar um menor grau de sobreajuste e
-com uma maior estabilidade. Os modelos baseados em Random Forest
-apresentam um erro relativamente menor comparado aos modelos lineares.
+erro entre as bases teste e treino, e por isso, será considerado o
+modelo otimizado, por apresentar um menor grau de sobreajuste e com uma
+maior estabilidade. Os modelos baseados em Random Forest apresentam um
+erro relativamente menor comparado aos modelos lineares.
 
 \hypertarget{conclusuxe3o}{%
 \chapter{Conclusão}\label{conclusuxe3o}}
@@ -2458,29 +2458,35 @@ a possibilidade de estudar outros métodos de tratamento de dados que
 possibilitariam obter resultados melhores com os algoritmos utilizados
 e, comparar os mesmos algoritmos com outras métricas de avaliação.
 
-Com a utilização da tecnologia como o HTML, criou-se uma interface
-intuitiva e de fácil acesso. Nessa interface, por exemplo, o usuário
-consegue manipular as características dos imóveis (como quantidade de
-quartos,quantidade de pessoas,\ldots) e principalmente o local do mesmo,
-como podemos verificar na Figura \ref{fig:dash}. Após seleção das
-características e do local, pode-se verificar a distribuição das 50
-árvores de decisão como sugestão de preço, utilizando tanto a média
-quanto a mediana, baseado no modelo Random Forest com otimização.
-
-Todo o código utilizado para o trabalho, inclusive para a criação do
-dashboard se encontra em um repositório aberto no github
+O trabalho foi desenvolvido utilizando a linguagem de programação R e
+está disponível em um repositório aberto no github
 \footnote{\url{https://github.com/dobraga/TCC}}.
 
-O trabalho foi desenvolvido utilizando a linguagem de programação R e
-está disponível para o leitor, caso seja de interesse do mesmo. A
-comparação dos modelos preditivos proposta foi finalizada atendendo ao
-objetivo geral.
+Foi utilizada a tecnologia shiny, que tem como o objetivo a criação de
+aplicações web na liguagem R. Criou-se uma interface intuitiva e de
+fácil acesso. Nesta interface, o usuário consegue manipular as
+características dos imóveis (como quantidade de quartos,quantidade de
+pessoas,\ldots) e principalmente o local do mesmo, como podemos
+verificar na Figura \ref{fig:dash1}. Após seleção das características e
+do local, entrando na aba ``Preço Proposto'', representada na Figura
+\ref{fig:dash2}, podemos clicar no botão ``Preve-ja'', para termos as
+sugestões, considerando a média e a mediana das previsões das árvores e
+sua respectiva distribuição.
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth,height=0.3\textheight]{../fig/dash.png}
-\caption{Dashboard\label{fig:dash}}
+\includegraphics[width=\textwidth,height=0.3\textheight]{../fig/dash1.png}
+\caption{Dashboard - Definição das Variáveis\label{fig:dash1}}
 \end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth,height=0.3\textheight]{../fig/dash2.png}
+\caption{Dashboard - Preço Proposto\label{fig:dash2}}
+\end{figure}
+
+A comparação dos modelos preditivos proposta foi finalizada atendendo ao
+objetivo geral.
 
 \newpage
 

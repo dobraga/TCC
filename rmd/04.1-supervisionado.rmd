@@ -2,7 +2,7 @@ Neste capítulo são descritos aspectos metodológicos para a realização do tr
 
 ## Aprendizado Supervisionado
 
-O método de aprendizado supervisionado necessita de um conjunto de variáveis independentes $(X_1, X_2, X_3, ...)$, que devem possuir alguma influência em uma ou mais variáveis que podem ser chamadas de variáveis dependentes ou variáveis respostas $(Y_1,Y_2,Y_3,...)$ [@friedman2001elements]. Este trabalho, por exemplo, tem como interesse utilizar como variáveis independentes algumas medidas de locações disponíveis no site Airbnb para predizer o preço da diária, sendo assim, tem-se como objetivo:
+O método de aprendizado supervisionado necessita de um conjunto de variáveis independentes $(X_1, X_2, X_3, ...)$, que devem possuir alguma influência em uma ou mais variáveis que podem ser chamadas de variáveis dependentes ou variáveis respostas $(Y_1,Y_2,Y_3,...)$ [@friedman2001elements]. Este trabalho, por exemplo, tem como interesse utilizar como variáveis independentes algumas medidas de locações disponíveis no site Airbnb para predizer o preço da diária, sendo assim, tem-se a equação:
 
 $$
 Y = f(\boldsymbol{X}) + \epsilon,
@@ -14,7 +14,7 @@ Os modelos supervisionados têm como objetivo utilizar uma amostra de $\boldsymb
 
 ### Avaliação de Modelos
 
-Para a definição da métrica de erro que será utilizada para a avaliação do modelo, primeiro é necessário definir o tipo de problema a ser resolvido, sendo um problema de regressão ou de classificação, essa definição é feita por meio da observação da variável resposta. Tendo a métrica de erro definida, é possível realizar a estimativa da função $f$ e encontrar uma estimativa da variável resposta $\hat{Y} = \hat{f}(\boldsymbol{X})$ e com isso mensurar o erro do modelo.
+Para a definição da métrica de erro que será utilizada para a avaliação do modelo, primeiro é necessário definir o tipo de problema a ser resolvido, sendo um problema de regressão ou de classificação. Essa definição é feita por meio da observação da variável resposta. Tendo a métrica de erro definida, é possível realizar a estimativa da função $f$ e encontrar uma estimativa da variável resposta $\hat{Y} = \hat{f}(\boldsymbol{X})$ e com isso mensurar o erro do modelo.
 
 Este trabalho será baseado em um problema do tipo regressão, onde $Y$ é uma variável contínua.
 
@@ -49,7 +49,7 @@ $$EPAM =  \frac{1}{n} \sum_{i=1}^n \left| \frac{Y_i - \hat{Y}_i}{Y_i} \right|.$$
 
 ### Validação cruzada
 
-Como citado anteriormente, será utilizada a separação da base de dados para o treinamento e teste do modelo. Na maioria de modelos/algoritmos de aprendizagem de máquina, há parâmetros que precisam ser informados antes do treinamento. Essas informações são chamadas de hiperparâmetros. Com isso, a otimização de hiperparâmetros é o problema de escolher um conjunto de hiperparâmetros (detalhados posteriormente) ideais para um algoritmo de aprendizagem. Por isso é necessário uma otimização manual.
+Como citado anteriormente, será utilizada a separação da base de dados para o treinamento e teste do modelo. Na maioria de modelos/algoritmos de aprendizagem de máquina, há parâmetros que precisam ser informados antes do treinamento. Essas informações são chamadas de hiperparâmetros. Com isso, existe o problema de escolher um bom conjunto de hiperparâmetros para um algoritmo de aprendizagem, por isso é necessário uma otimização manual, onde busca-se otimização dos erros (detalhados posteriormente).
 
 Para isso, será utilizada a técnica de validação cruzada, que consiste em separar a base de treino em $K$ partes, onde serão realizadas $K$ rodadas, onde na rodada $T$ a parte $T$ será utilizada para testar o modelo e as demais partes serão utilizadas para o treinamento de um modelo, esse algoritmo é representado na Figura \ref{img:kfold}.
 

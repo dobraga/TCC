@@ -28,7 +28,19 @@ instituicao: |
 title: "Precificação da diária de propriedades da plataforma Airbnb na cidade do Rio de Janeiro"
 
 resumo: |
-  A acomodação em um estabelecimento de hospedagem pode abranger uma gama de inúmeros elementos, tais como limpeza, recepção, localização, preço e outros. Como cada item não é comercializado separadamente no mercado, torna-se mais complexo saber o real valor que cada um entrega ao consumidor. Com isso, a forma de pensar e agir na definição do preço da diária desses empreendimentos pode ter enfoque em diversas variáveis. Esta pesquisa teve como objetivo comparar métodos de custeio do preço de diária do site Airbnb, dos estabelecimentos localizados na cidade do Rio de Janeiro, bem como os fatores levados em conta na formação do preço, a fim de que o usuário possa verificar se há um preço justo na locação do estabelecimento. A estimação dos preços foi realizada por meio de aprendizado de máquina, com uma breve comparação a um modelo de regressão linear.
+  A acomodação em um estabelecimento de hospedagem pode abranger uma gama de inúmeros elementos, 
+  tais como limpeza, recepção, localização, preço e outros. Como cada item não é comercializado 
+  separadamente no mercado, torna-se mais complexo saber o real valor que cada um entrega ao consumidor.
+  Com isso, a forma de pensar e agir na definição do preço da diária desses empreendimentos pode ter
+  enfoque em diversas variáveis. Esta pesquisa teve como objetivo comparar métodos de custeio do preço 
+  de diária do site Airbnb, dos estabelecimentos localizados na cidade do Rio de Janeiro, bem como os fatores
+  levados em conta na formação do preço, a fim de que o usuário possa verificar se há um preço justo na
+  locação do estabelecimento. A estimação dos preços foi realizada por meio de aprendizado de máquina, 
+  com uma breve comparação a um modelo de regressão linear. Os melhores resultados de previsão foram utlizando o
+  Random Forest com otimização, apresentando menores erros. Fatores relacionados ao tamanho da propriedade
+  foram muito relevantes neste modelo.
+
+
 keywords: Machine Learning. Precificação. Hospedagem
 agradecimento: |
   Agradecemos aos nossos familiares que nos apoiaram até aqui e que foram a nossa fonte de inspiração. Somos gratos aos colegas de turma que lutaram junto conosco todos os dias. Aos amigos que nunca negaram palavras de força, incentivo e otimismo ao longo da jornada acadêmica. Aos nossos mestres que acompanharam toda a nossa trajetória dentro do curso de estatística. Ao nosso orientador Gustavo Rocha que foi incansável em suas orientações, pesquisas e revisões. Nosso muito obrigado à Escola Nacional de Ciências Estatísticas\footnote{\url{http://www.ence.ibge.gov.br/}} por nos proporcionar o melhor ambiente educacional.

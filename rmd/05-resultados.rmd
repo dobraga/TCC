@@ -542,11 +542,9 @@ baseline_metricas = metricas(modelo_base_train, modelo_base_test, truth = price_
 
 ### Modelos Lineares
 
-Encontradas as estimativas dos coeficientes $\beta$'s, é necessário validar o modelo de regressão, que consiste em verificar se as variáveis fazem sentido no contexto do fenômeno estudado, que pode ser feito através do teste t de Student como será apresentado na análise dos resultados [@werkema1996analise]. Utilizando um nível de significância de 5%, verifica-se pela Figura \ref{significancia_ml} a significância de cada variável, onde os pontos cinzas relacionadas ao coeficientes das variáveis não relevantes serão removidas pelo teste de significância, os pontos azuis são relacionadas aos coeficientes das variáveis que possuem efeitos positivos (afetam positivamente no preço previsto) e as vermelhos são aquelas que possuem coeficientes negativos (afetam negativamente no preço previsto).
+Encontradas as estimativas dos coeficientes $\beta$'s, é necessário validar o modelo de regressão, que consiste em verificar se as variáveis fazem sentido no contexto do fenômeno estudado, que pode ser feito através do teste t de Student como será apresentado na análise dos resultados [@werkema1996analise]. Utilizando um nível de significância de 5%, verifica-se pela Figura \ref{significancia_ml} as variáveis com o p-valor acima dos 5%. As variáveis relacionadas aos pontos coloridos (vermelho ou azul) que, mesmo com o p-valor acima do nível de significância escolhido, foram mantidas, pois trata-se de categorias significativas de algumas variáveis categóricas, influenciando na predição do valor de forma negativa e positiva, respectivamente. Sendo assim, foi decidido que haveria boa relevância para o modelo e, com isso, não serão removidas.
 
-As variáveis relacionadas aos pontos coloridos que estão com p-valor acima do nível de significância foram mantidas, pois trata-se de categorias significativas de algumas variáveis categóricas. Sendo assim, foi decidido que haveria boa relevância para os modelos e, com isso, não seriam removidas.
-
-```{r significancia_ml, include = T, fig.cap="\\label{significancia_ml}Significância das variáveis no modelo linear"}
+```{r significancia_ml, include = T, fig.cap="\\label{significancia_ml}Significância das variáveis no modelo linear", fig.height = 3, fig.width = 10}
 lm0 = lm(
   price~., 
   train_ %>% 
@@ -559,22 +557,23 @@ lm0 = lm(
 lm_coef = summary(lm0)$coefficients 
 rownames(lm_coef) = rename_(rownames(lm_coef))
 
-sum_lm0 = summary(lm0) %>%
-  tidy() %>%
+sum_lm0 = summary(lm0)$coefficients  %>%
+  as.data.frame() %>% tibble(term = rownames(.), .) %>% 
   filter(term != "(Intercept)") %>%
   mutate(
     color = if_else(
       term %in% c("bathrooms_near", "bedrooms_near", "fl_mais_banheiros", "fl_mais_quartos"), "grey", 
-      if_else(estimate > 0, "#00BFC4", "#F8766D")
+      if_else(Estimate > 0, "#00BFC4", "#F8766D")
     )
   ) 
 
 
 sum_lm0 %>% 
+  filter(`Pr(>|t|)` >= 5/100) %>% 
   ggplot() +
   geom_point(
     aes(
-      p.value, reorder(rename_(term), p.value), 
+      `Pr(>|t|)`, reorder(rename_(term), `Pr(>|t|)`), 
       colour = color
     ), show.legend = FALSE
   ) +
@@ -737,11 +736,11 @@ net = glmnet::glmnet(X, y, alpha = alpha, lambda = netcv$lambda.1se)
 ```
 
 ```{r, warning=F}
-net_coef = tidy(as.matrix(coef(net)))
+net_coef = as.matrix(coef(net)) %>% tibble(.rownames = rownames(.), s0=.[,1])
 rm_lasso = paste(rename_(net_coef[net_coef$s0 == 0,]$.rownames), collapse = ", ") %>% stringi::stri_replace_last(., ' e', fixed=',')
 ```
 
-Com a regressão de LASSO, os coeficientes de regressão para variáveis sem importância são reduzidos a zero, o que efetivamente as remove do modelo e produz um modelo mais simples que seleciona apenas os preditores mais importantes. Conforme Figura \ref{significancia_lasso}, as variáveis removidas estão sinalizadas com pontos cinzas, enquanto os pontos azuis e vermelhos continuam no modelo, impactando no valor da diária de forma positiva e negativa, respectivamente.
+Com a regressão de LASSO, os coeficientes de regressão para variáveis sem importância são reduzidos a zero, o que efetivamente os remove do modelo e produz um modelo mais simples que seleciona apenas os preditores mais importantes. Conforme Figura \ref{significancia_lasso}, as variáveis removidas estão sinalizadas com pontos cinzas, enquanto os pontos azuis e vermelhos continuam no modelo, impactando no valor da diária de forma positiva e negativa, respectivamente.
 
 ```{r}
 rm_multicolinearidade = paste(
@@ -800,7 +799,8 @@ lm1 = lm(
     )
 ) 
 
-vif1 = car::vif(lm1) %>% tidy()
+vif1 = car::vif(lm1) 
+vif1 = as_tibble(vif1) %>% bind_cols(tibble(.rownames = rownames(vif1)))
 vif1$Variavel = rename_(vif1$.rownames)
 ```
 
@@ -880,9 +880,9 @@ lasso_metricas = metricas(lasso_train, lasso_test)
 lasso_metricas %>% kable(caption = "Estimativa do erro destransformado para o LASSO")
 ```
 
-Comparando a distribuição dos resíduos do modelos linear utilizando as variáveis selecionadas manualmente e via LASSO pelas Figura \ref{resid_ml_inv} e \ref{resid_lasso_inv} é possível notar grande semelhança, para uma melhor comparação, também pode-se comparar as métricas dos erros disponíveis nas Tabelas \ref{tab:lm_metricas} e \ref{tab:lasso_metricas}, também possível notar grande similaridade.
+Comparando a distribuição dos resíduos do modelos linear utilizando as variáveis selecionadas manualmente e via LASSO pelas Figura \ref{resid_ml_inv} e \ref{resid_lasso_inv}, é possível notar grande semelhança. Para uma melhor comparação, também pode-se utilizar as métricas dos erros disponíveis nas Tabelas \ref{tab:lm_metricas} e \ref{tab:lasso_metricas}, confirmando a similaridade dos modelos lineares.
 
-Visto isso, a regressão LASSO se mostrou muito efetiva para contornar problemas de multicolinearidade, como pode ser visto na Tabela \ref{tab:vif_lasso}, e remoção de variáveis não significativas, para que seja e utilizado um modelo mais parcimonioso possível sem perder tanto poder preditivo (aumento dos erros).
+A regressão linear utilizando LASSO se mostrou muito efetiva para contornar problemas de multicolinearidade,  (Tabela \ref{tab:vif_lasso}) e remoção de variáveis não significativas. Trata-se de um método que torna o modelo parcimonioso sem perder tanto poder preditivo (aumento dos erros).
 
 
 ### Random Forest
@@ -916,7 +916,7 @@ rf_train0 = testa_modelo(juice(rec), rf0)
 rf_test0 = testa_modelo(bake(rec, test), rf0)
 ```
 
-Na Tabela \ref{tab:rf0_metricas} é possível notar que há um ajuste em excesso no conjunto de dados de treino (menores erros) comparado ao conjunto de dados de teste (maiores erros), podendo por isso ter um mau desempenho preditivo quando aplicados a novos dados, dando indícios de sobreajuste do modelo.
+Na Tabela \ref{tab:rf0_metricas}, é possível notar que há um ajuste em excesso no conjunto de dados de treino (menores erros) comparado ao conjunto de dados de teste (maiores erros), podendo por isso ter um mau desempenho preditivo quando aplicados a novos dados, dando indícios de sobreajuste do modelo.
 
 ```{r rf0_metricas, include=T}
 rf_base_metricas = metricas(rf_train0, rf_test0) 
@@ -951,10 +951,10 @@ df_metric %>%
   geom_ribbon(aes(ymin = LI, ymax = LS), fill = "grey70") + 
   geom_line(aes(y=.estimate)) +
   facet_wrap(~.metric, scales = "free_y") +
-  labs(x = "", y = "Erro") 
+  labs(x = "Quantidade de Árvores", y = "Erro") 
 ```
 
-Pela Figura \ref{qtd_arvores_zoom} temos o zoom a partir de 20 árvores para se ter uma ideia melhor de como os erros se comportam. Nesta figura, a linha azul representa o erro da maior árvore (1000 árvores). É possível notar que a partir de 400 árvores os erros parecem apresentar uma certa estabilidade. Em ambas imagens, a área sombreada representa um desvio padrão acima e abaixo da média do zero. 
+Na Figura \ref{qtd_arvores_zoom} temos o zoom a partir de 20 árvores, para se ter um melhor discernimento de como os erros se comportam. Nesta figura, a linha azul representa o erro da maior árvore (1000 árvores). É possível notar que a partir de 400 árvores os erros parecem apresentar uma certa estabilidade. Em ambas imagens, a área sombreada representa um desvio padrão acima e abaixo da média do zero. 
 
 ```{r qtd_arvores_zoom, include = T, fig.cap="\\label{qtd_arvores_zoom}Acima de 100 árvores"}
 df_metric %>%
@@ -997,7 +997,7 @@ Como comentado anteriormente é necessário realizar uma otimização dos hiperp
 df_hiper = readr::read_csv("../output/hiper-metricas.csv", col_types = readr::cols())
 ```
 
-Será definida que a quantidade de árvores poderá variar entre 1 e 2000 árvores, a profundidade máxima poderá variar entre 0 (sem limite) e 30 nós, a quantidade de elementos mínimos no nó pode variar entre 0 (sem limite) e 100. Considerando todos esses intervalos, temos 6.262.000 combinações possíveis de hiperparâmetros a serem testados e por isso será utilizado o Algoritmo \ref{alg:hiper}, que se encontra no apêndice, para encontrar um bom conjunto de hiperparâmetros. O algoritmo tem como ideia principal dois pontos: a exploração (rodadas aleatórias) e a otimização (rodadas utilizando o modelo).
+Será definida que a quantidade de árvores poderá variar entre 1 e 2000 árvores, a profundidade máxima poderá variar entre 0 (sem limite) e 30 nós, a quantidade de elementos mínimos no nó pode variar entre 0 (sem limite) e 100. Considerando todos esses intervalos, temos 6.262.000 combinações possíveis de hiperparâmetros a serem testados e, por isso, será utilizado o Algoritmo \ref{alg:hiper}, que se encontra no apêndice, para encontrar um bom conjunto de hiperparâmetros. O algoritmo tem como ideia principal dois pontos: a exploração (rodadas aleatórias) e a otimização (rodadas utilizando o modelo).
 
 Com isso, foram testados um total de `r nrow(df_hiper)` combinações de hiperparâmetros, aproximadamente 0,08% das possibilidades. Na Figura \ref{otimizacao} é possível verificar a evolução do erro em cada rodada do algoritmo, e com isso, é possível notar que a partir da rodada 60 não há ganho na performance do modelo.
 
@@ -1047,7 +1047,7 @@ max.depth = hiper_rmse[1,]$max.depth
 min.node.size = hiper_rmse[1,]$min.node
 ```
 
-Com a otimização foi encontrado que a combinação de `r num.trees` árvores, com uma profundidade máxima de `r max.depth` e uma quantidade mínima de `r min.node.size` observações é um bom conjunto de hiperparâmetros. Comparando os erros do modelo base (Tabela \ref{tab:rf0_metricas}) com os erros do modelo otimizado (Tabela \ref{tab:rf1_metricas}), pode-se notar que esse conjunto apresenta um resultado bem próximo do modelo *default* na base de teste, porém sendo muito mais simples e com resultados mais próximos entre as bases de treino e teste, que é um bom indicativo que o modelo não está com sobreajuste.
+Com a otimização, optou-se por `r num.trees` árvores, com uma profundidade máxima de `r max.depth` e uma quantidade mínima de `r min.node.size` observações como uma quantidade ótima de hiperparâmetros. Comparando os erros do modelo base (Tabela \ref{tab:rf0_metricas}) com os erros do modelo otimizado (Tabela \ref{tab:rf1_metricas}), pode-se notar que esse conjunto apresenta um resultado bem próximo do modelo *default* na base de teste, porém sendo muito mais simples e com resultados mais próximos entre as bases de treino e teste, que é um bom indicativo que o modelo não está com sobreajuste.
 
 ```{r}
 rf1 = ranger(
@@ -1169,7 +1169,7 @@ g2 = rf_test1 %>%
 (g1|g2)
 ```
 
-Nas análises seguintes, será utilizada a métrica Erro Percentual Absoluto Médio (EPAM) por representar o percentual de erro que é invariante quanto a escala.
+Nas análises seguintes, será utilizada a métrica Erro Percentual Absoluto Médio (EPAM) por representar o percentual de erro, invariante quanto a escala.
 
 De acordo com a Tabela \ref{tab:erro_test} aproximadamente 30% das previsões tiveram menos de R$50 de erro e portanto, algumas propriedades são fáceis de prever, enquanto outras são um pouco mais difíceis.
 
@@ -1227,7 +1227,7 @@ rf_test1 %>%
   kable(caption = "Descrição do erro na base de teste", align=c("l", "r", "r", "r", "r"))
 ```
 
-Nas Figuras \ref{graf_resid_rf_acom}, \ref{graf_resid_rf_quartos} e \ref{graf_resid_rf_tp_quarto} é feita uma análise mais detalhada quanto ao resíduo do modelo na base de teste, onde é apresentado o erro, separado pelas variáveis mais relevantes (Número máximo de hóspedes, Quantidade de Quartos e Tipo de Quarto) pelas quebras de preço, e com isso, é possível notar que as propriedades pequenas e com preço baixo ($\leq$ R$151) apresentam um alto erro, comparadas a propriedades maiores e de preço mais elevado. É possível notar que o modelo, para esse caso tende a sugerir preços mais altos que os escolhidos pelo proprietário, dando a entender que o imóvel esteja "barato". 
+Nas Figuras \ref{graf_resid_rf_acom}, \ref{graf_resid_rf_quartos} e \ref{graf_resid_rf_tp_quarto} é feita uma análise mais detalhada quanto ao resíduo do modelo na base de teste, onde é apresentado o erro, separado pelas variáveis mais relevantes (Número máximo de hóspedes, Quantidade de Quartos e Tipo de Quarto) pelas faixas de preço. É possível notar que as propriedades pequenas e com preço baixo ($\leq$ R$151) apresentam um alto erro, comparadas a propriedades maiores e de preço mais elevado. É possível notar que o modelo, para estes casos, tende a sugerir preços mais altos que os escolhidos pelo proprietário, dando a entender que o imóvel esteja "barato". 
 
 ```{r graf_resid_rf_acom, include = T, warning=F, message=F, fig.cap="\\label{graf_resid_rf_acom}Distribuição dos Resíduos do Random Forest por quantidade de hóspedes"}
 aux <- test %>% 
@@ -1322,11 +1322,11 @@ comparativo %>%
   filter(Base == "Teste") %>% select(-Base) %>% 
   kable(caption = "Comparativo de erro entre os modelos na base de teste")
 ```
-Com uma breve comparação das variáveis de acordo com a importância, o *tipo de quarto*, seja considerando a variável toda ou alguma categoria,  mostrou-se relevantes para todos os modelos utilizados no trabalho, independente do modo de seleção. Variáveis que dimensionam o tamanho da propriedade como, por
+Com uma breve comparação das variáveis de acordo com a importância, o *tipo de quarto*, seja considerando a variável toda ou alguma categoria,  mostrou-se relevante para todos os modelos utilizados no trabalho, independente do modo de seleção. Variáveis que dimensionam o tamanho da propriedade como, por
 exemplo, quantidade de quartos, quantidade de banheiros e capacidade de pessoas acomodadas, foram bem presentes nos modelos de Regressão Linear e  Random Forest.
-Já no modelo de Random Forest com otimização dos parâmetros, variáveis utilizadas para complementar o trabalho, como latitude e renda per capita, foram relevantes, nos dando a ideia de que, dependendo do bairro, há uma influencia no valor da propriedade oferecida.
+Já no modelo de Random Forest com otimização dos parâmetros, variáveis utilizadas para complementar o trabalho, como latitude e renda per capita, foram relevantes, nos dando a ideia de que, dependendo do bairro, há uma influência no valor da propriedade oferecida.
 
-Os resultados obtidos colocam como melhor modelo o Random Forest sem otimização dos hiperparâmetros para a previsão da base de dados utilizada, dado que se trata de um modelo não-paramétrico, e por isso, dentre os modelos utilizados, é o que mais se adequa aos dados fornecidos. Porém, analisando as métricas de erro e comparando os resultados entre treino e teste, é possível notar grande discrepância de erro entre as bases teste e treino, e por isso, será utilizado o modelo otimizado sendo o melhor, por apresentar um menor grau de sobreajuste e com uma maior estabilidade. Os modelos baseados em Random Forest apresentam um erro relativamente menor comparado aos modelos lineares. 
+Os resultados obtidos colocam como melhor modelo o Random Forest sem otimização dos hiperparâmetros para a previsão da base de dados utilizada, dado que se trata de um modelo não-paramétrico, e por isso, dentre os modelos utilizados, é o que mais se adequa aos dados fornecidos. Porém, analisando as métricas de erro e comparando os resultados entre treino e teste, é possível notar grande discrepância de erro entre as bases teste e treino, e por isso, será considerado o modelo otimizado, por apresentar um menor grau de sobreajuste e com uma maior estabilidade. Os modelos baseados em Random Forest apresentam um erro relativamente menor comparado aos modelos lineares. 
 
 # Conclusão
 
@@ -1338,10 +1338,38 @@ Quanto aos métodos de seleção de variáveis, não houveram mudanças signific
 
 Como sugestão de trabalhos futuros, pode-se analisar a quantidade de dados que cada algoritmo suporta até que ocorra o sobreajuste. Também há a possibilidade de estudar outros métodos de tratamento de dados que possibilitariam obter resultados melhores com os algoritmos utilizados e, comparar os mesmos algoritmos com outras métricas de avaliação.
 
-Com a utilização da tecnologia como o HTML, criou-se uma interface intuitiva e de fácil acesso. Nessa interface, por exemplo,  o usuário consegue manipular as características dos imóveis (como quantidade de quartos,quantidade de pessoas,...) e principalmente o local do mesmo, como podemos verificar na Figura \ref{fig:dash}. Após seleção das características e do local, pode-se verificar a distribuição das 50 árvores de decisão como sugestão de preço, utilizando tanto a média quanto a mediana, baseado no modelo Random Forest com otimização.
+O trabalho foi desenvolvido utilizando a linguagem de programação R e está disponível em um repositório aberto no github \footnote{\url{https://github.com/dobraga/TCC}}. 
 
-Todo o código utilizado para o trabalho, inclusive para a criação do dashboard se encontra em um repositório aberto no github \footnote{\url{https://github.com/dobraga/TCC}}.
+Foi utilizada a tecnologia shiny, que tem como o objetivo a criação de aplicações web na liguagem R. Criou-se uma interface intuitiva e de fácil acesso. Nesta interface,  o usuário consegue manipular as características dos imóveis (como quantidade de quartos,quantidade de pessoas,...) e principalmente o local do mesmo, como podemos verificar na Figura \ref{fig:dash1}. Após seleção das características e do local, entrando na aba "Preço Proposto", representada na Figura \ref{fig:dash2}, podemos clicar no botão "Preve-ja", para termos as sugestões, considerando a média e a mediana das previsões das árvores e sua respectiva distribuição. 
 
-O trabalho foi desenvolvido utilizando a linguagem de programação R e está disponível para o leitor, caso seja de interesse do mesmo. A comparação dos modelos preditivos proposta foi finalizada atendendo ao objetivo geral.
+<!-- latitude: -22.9860434863823 -->
+<!-- longitude: -43.2137877800599 -->
+<!-- Apartamento -->
+<!-- Espaço Inteiro -->
+<!-- acomoda: 4 -->
+<!-- banheiros: 2 -->
+<!-- quartos: 2 -->
+<!-- camas: 2 -->
+<!-- convidados: 4 -->
+<!-- nao é periodo longo -->
+<!-- flexivel -->
+<!-- nao cobra mais -->
 
-![Dashboard\label{fig:dash}](../fig/dash.png){height=30%}
+
+
+![Dashboard - Definição das Variáveis\label{fig:dash1}](../fig/dash1.png){height=30%}
+
+
+![Dashboard - Preço Proposto\label{fig:dash2}](../fig/dash2.png){height=30%}
+
+
+A comparação dos modelos preditivos proposta foi finalizada atendendo ao objetivo geral.
+
+
+
+
+
+
+
+
+

@@ -3,7 +3,6 @@ title: "Precificação da Diária"
 runtime: shiny
 output: 
   flexdashboard::flex_dashboard:
-    # logo: https://w7.pngwing.com/pngs/763/992/png-transparent-airbnb-business-san-francisco-logo-startup-company-business-text-people-logo.png
     orientation: rows
     vertical_layout: fill
     theme: united
@@ -86,7 +85,6 @@ df_model = shiny::reactive({
     fl_periodo_longo = dplyr::if_else(input$fl_periodolongo, 1, 0)
   ) 
 })
-
 ```
 
 Definição das Variáveis
@@ -159,6 +157,16 @@ Row
 -----------------------------------------------------------------------
 
 ### Mapa
+
+```{r}
+observe({
+    query <- shiny::parseQueryString(session$clientData$url_search)
+    if (!is.null(query[['bins']])) {
+        #updateSliderInput(session, "bins", value = query[['bins']])
+    }
+})
+```
+
 
 ```{r}
 shiny::observe({

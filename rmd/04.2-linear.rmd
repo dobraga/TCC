@@ -70,7 +70,7 @@ Além disso, têm-se as suposições:
 \item as variáveis explicativas $X_j$ são conhecidas;
 \item $E(\epsilon_i)$ = 0, ou seja, $E(\underline{ \epsilon}) = \textbf{0}$, sendo $\textbf{0}$ um vetor de zeros de dimensões $n \times 1$;
 \item os erros são homocedásticos, isto é, Var($\epsilon_i$) = E($\epsilon_i^2$) = $\sigma^2$;
-\item os erros são independentes, isto é, Cov($\epsilon_i,\epsilon_{j}$) = E($\epsilon_i \epsilon_{j}$) = 0, i $\neq$ j;
+\item os erros são independentes, isto é, Cov($\epsilon_i,\epsilon_{j}$) = E($\epsilon_i \epsilon_{j}^T$) = 0, i $\neq$ j;
 \item os erros têm distribuição normal.
 \end{enumerate}
 

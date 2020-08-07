@@ -82,7 +82,7 @@ As árvores de decisão estão na base de muitos algoritmos modernos e de ponta,
 Segundo @breiman2001random, o método de Florestas Aleatórias (Random Forest) consiste em criar B árvores distintas (obtidas de B amostras bootstraps da amostra original) e combinar seus resultados para melhorar o poder preditivo de cada árvore individual. É um algoritmo de Machine Learning amplamente utilizado, que tem os algoritmos *bagging* e *CART* como base. Porém, o problema de utilizar o método bootstrap para a aplicação das árvores de decisão é que possivelmente serão escolhidas as mesmas variáveis e as previsões acabariam altamente correlacionadas [@murphy2012probabilistic]. Por isso, além da reamostragem de observações, também é realizado a amostragem de variáveis independentes no crescimento de cada árvore. A função de previsão pode ser escrita da seguinte maneira:
 
 $$
-\hat{f}_{RF}(x) = \frac{1}{B}\sum_{b=1}^MT_b(x)
+\hat{f}_{RF}(x) = \frac{1}{B}\sum_{b=1}^BT_b(x)
 $$
 
 \noindent onde $T_b$ é a estimativa da função da b-ésima árvore.
