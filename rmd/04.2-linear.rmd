@@ -1,7 +1,7 @@
 ### Regressão Linear Múltipla
 
 Tem-se uma regressão linear múltipla quando se admite que a variável resposta (Y) é função de duas ou mais variáveis explicativas (regressoras). 
-Sejam $X_1$,$X_2$, $\dots$ , $X_p$ as p variáveis explicativas relacionadas à variável resposta Y e $x_{n,1}$, $x_{n,2}$, $\dots$, $x_{n,p}$  valores observados das variáveis explicativas (constantes conhecidas) [@neter1989applied]. Especificamente, o modelo de regressão linear com uma única resposta fica na forma:
+Sejam $X_1$,$X_2$, $\dots$ , $X_p$ as p variáveis explicativas relacionadas à variável resposta Y e $x_{n,1}$, $x_{n,2}$, $\dots$, $x_{n,p}$  valores observados das variáveis explicativas (constantes conhecidas) [@neter1989applied]. Especificamente, o modelo de regressão linear fica na forma:
 
 $$
 Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2}+\dots + \beta_p X_{ip} + \epsilon_i
@@ -111,7 +111,7 @@ $$
 \end{bmatrix}
 $$
 
-A medida $R^2$ de bondade de ajuste é baseada na soma dos quadrados total ($SQT$) e na soma dos quadradros dos resíduos ($SQR$), que pode ser interpretada como o percentual de variabilidade que o modelo explica, definida como:
+A medida $R^2$ de ajuste é baseada na soma dos quadrados total ($SQT$) e na soma dos quadrados dos resíduos ($SQR$), que pode ser interpretada como o percentual de variabilidade que o modelo explica, definida como:
 
 $$
 R^2 = 1-\frac{SQR}{SQT}
@@ -149,7 +149,7 @@ Cabe ressaltar que tal transformação não se limita à variável resposta, por
 
 #### Regularização
 
-Segundo @friedman2001elements, a seleção de um subconjuto de variáveis produz um modelo que é interpretável e, possivelmente, possui um erro de previsão menor do que o modelo completo. Quando se tem muitas variáveis explicativas, faz-se necessário selecionar as que resultariam em um modelo útil e parcimonioso. Uma solução para isso pode ser utilizar a técnica de regularização LASSO, método pelo qual as estimativas dos coeficientes menos relacionados a variável resposta tendem a zero, o que implica que apenas as variáveis que afetam significativamente a variação em Y sejam consideradas no modelo. Os métodos de regularização mais comuns são LASSO ($\ell_1$), Ridge ($\ell_2$) e a mistura dos dois (*elastic net*).
+Segundo @friedman2001elements, a seleção de um subconjunto de variáveis produz um modelo que é interpretável e, possivelmente, possui um erro de previsão menor do que o modelo completo. Quando se tem muitas variáveis explicativas, faz-se necessário selecionar as que resultariam em um modelo útil e parcimonioso. Uma solução para isso pode ser utilizar a técnica de regularização LASSO, método pelo qual as estimativas dos coeficientes menos relacionados a variável resposta tendem a zero, o que implica que apenas as variáveis que afetam significativamente a variação em Y sejam consideradas no modelo. Os métodos de regularização mais comuns são LASSO ($\ell_1$), Ridge ($\ell_2$) e a mistura dos dois (*elastic net*).
 
 O LASSO é indiferente quanto aos regressores correlacionados e tenderá a escolher um e ignorar os demais, enquanto o Ridge reduz os coeficientes regressores relacionados uns em relação aos outros, ambos impondo diferentes penalidades em seu tamanho. LASSO também é amplamente utilizado para seleção de variáveis.
 
@@ -169,4 +169,4 @@ $$\hat{\beta}^{LASSO}=\underset{\beta}{argmin} \left\{ \frac{1}{2} \sum_{i=1}^N 
 
 \noindent onde $\lambda$, de forma similar a $t$, controla o encolhimento (redução) do modelo.
 
-O parâmetro $\lambda$ controla a força da penalização, onde torná-lo suficientemente grande faz com que mais coeficientes sejam reduzidos a zero, utilizando $\lambda=0$ temos a regressão linear multipla padrão, sem penalização. O valor de $\lambda$ deve ser escolhido de forma adaptativa para minimizar uma estimativa de erro esperado de previsão. O autor propõe que se utilize de métodos de validação cruzada para escolher o parâmetro $\lambda$, consistindo em uma aproximação linear do LASSO, com detalhes em @friedman2001elements.
+O parâmetro $\lambda$ controla a força da penalização, onde torná-lo suficientemente grande faz com que mais coeficientes sejam reduzidos a zero, utilizando $\lambda=0$ temos a regressão linear múltipla padrão, sem penalização. O valor de $\lambda$ deve ser escolhido de forma adaptativa para minimizar uma estimativa de erro esperado de previsão. O autor propõe que se utilize de métodos de validação cruzada para escolher o parâmetro $\lambda$, consistindo em uma aproximação linear do LASSO, com detalhes em @friedman2001elements.

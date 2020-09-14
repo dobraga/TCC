@@ -67,6 +67,8 @@
 \usepackage{microtype} 			% para melhorias de justificação
 % ---
 
+\usepackage{pdfpages}
+
 % ---
 % Pacotes para algoritmos
 % ---
@@ -94,8 +96,8 @@
 % Pacote para que imagens e tabelas não mudem de lugar
 % ---
 \usepackage{float}
-\floatplacement{figure}{H}
-\floatplacement{table}{H}
+\floatplacement{figure}{!ht}
+\floatplacement{table}{!ht}
 
 \usepackage{../latex/ence}
 
@@ -241,7 +243,9 @@
 % ------------------
 % Folha de aprovação
 %-------------------
-\imprimitfolhadeaprovacao
+\includepdf[pages={1}]{catalografica.pdf}
+\includepdf[pages={1}]{FolhaAssinaturas.pdf}
+%\imprimitfolhadeaprovacao
 
 % ---
 % Agradecimentos

@@ -67,6 +67,8 @@
 \usepackage{microtype} 			% para melhorias de justificação
 % ---
 
+\usepackage{pdfpages}
+
 % ---
 % Pacotes para algoritmos
 % ---
@@ -94,8 +96,8 @@
 % Pacote para que imagens e tabelas não mudem de lugar
 % ---
 \usepackage{float}
-\floatplacement{figure}{H}
-\floatplacement{table}{H}
+\floatplacement{figure}{!ht}
+\floatplacement{table}{!ht}
 
 \usepackage{../latex/ence}
 
@@ -249,7 +251,9 @@ obtenção do título de Bacharel em Estatística.}
 % ------------------
 % Folha de aprovação
 %-------------------
-\imprimitfolhadeaprovacao
+\includepdf[pages={1}]{catalografica.pdf}
+\includepdf[pages={1}]{FolhaAssinaturas.pdf}
+%\imprimitfolhadeaprovacao
 
 % ---
 % Agradecimentos
@@ -758,7 +762,7 @@ explicativas relacionadas à variável resposta Y e \(x_{n,1}\),
 \(x_{n,2}\), \(\dots\), \(x_{n,p}\) valores observados das variáveis
 explicativas (constantes conhecidas) (Neter,
 \protect\hyperlink{ref-neter1989applied}{1989}). Especificamente, o
-modelo de regressão linear com uma única resposta fica na forma:
+modelo de regressão linear fica na forma:
 
 \[
 Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2}+\dots + \beta_p X_{ip} + \epsilon_i
@@ -884,10 +888,10 @@ que é estimativa para:
 \end{bmatrix}
 \]
 
-A medida \(R^2\) de bondade de ajuste é baseada na soma dos quadrados
-total (\(SQT\)) e na soma dos quadradros dos resíduos (\(SQR\)), que
-pode ser interpretada como o percentual de variabilidade que o modelo
-explica, definida como:
+A medida \(R^2\) de ajuste é baseada na soma dos quadrados total
+(\(SQT\)) e na soma dos quadrados dos resíduos (\(SQR\)), que pode ser
+interpretada como o percentual de variabilidade que o modelo explica,
+definida como:
 
 \[
 R^2 = 1-\frac{SQR}{SQT}
@@ -951,7 +955,7 @@ distribuição assimétrica da variável resposta.
 \subsubsection{Regularização}\label{regularizauxe7uxe3o}}
 
 Segundo Friedman (\protect\hyperlink{ref-friedman2001elements}{2001}), a
-seleção de um subconjuto de variáveis produz um modelo que é
+seleção de um subconjunto de variáveis produz um modelo que é
 interpretável e, possivelmente, possui um erro de previsão menor do que
 o modelo completo. Quando se tem muitas variáveis explicativas, faz-se
 necessário selecionar as que resultariam em um modelo útil e
@@ -997,7 +1001,7 @@ encolhimento (redução) do modelo.
 
 O parâmetro \(\lambda\) controla a força da penalização, onde torná-lo
 suficientemente grande faz com que mais coeficientes sejam reduzidos a
-zero, utilizando \(\lambda=0\) temos a regressão linear multipla padrão,
+zero, utilizando \(\lambda=0\) temos a regressão linear múltipla padrão,
 sem penalização. O valor de \(\lambda\) deve ser escolhido de forma
 adaptativa para minimizar uma estimativa de erro esperado de previsão. O
 autor propõe que se utilize de métodos de validação cruzada para
@@ -1017,7 +1021,7 @@ e \emph{boosting} (Schapire,
 \protect\hyperlink{ref-schapire1999brief}{1999}). Ambos os algoritmos
 utilizam um modelo base como regressão logistica (Friedman,
 \protect\hyperlink{ref-friedman2000additive}{2000}), árvores de decisão,
-redes neurais (Martı́nez-Muñoz,
+redes neurais (Martínez-Muñoz,
 \protect\hyperlink{ref-martinez2019sequential}{2019}), e qualquer outro
 modelo de aprendizagem supervisionada.
 
@@ -1035,6 +1039,12 @@ estimativa de um parâmetro da população como pode ser visto na Figura
 \ref{fig:bootstrap}. O procedimento é útil nos casos em que o estimador
 é uma função complexa dos parâmetros verdadeiros (Murphy,
 \protect\hyperlink{ref-murphy2012probabilistic}{2012}).
+
+Numa análise, normalmente, temos uma amostra de uma população do
+interesse no estudo. A análise é realizada nesta amostra. Utilizando o
+bootstrap, é feito uma amostragem aleatória com reposição dessa amostra
+e simulando diversas outras possíveis amostras que poderiam ser
+retiradas da população.
 
 \begin{figure}
 \centering
@@ -1115,7 +1125,7 @@ escrita da seguinte maneira:
 \]
 
 \noindent onde \(I(x \in R_m)\) denota a função indicadora para o evento
-\{\$x \in R\_m\}
+\({x \in R_m}\)
 
 Ao adotarmos como critério a minimização da soma dos quadrados
 \(\sum (y_i - f(x_i))^2\), o melhor \(w_m\) será apenas a média de
@@ -1143,7 +1153,7 @@ tem-se:
 Em seguida, busca-se a variável de divisão \(X_j\) e os pontos de
 divisão t que resolvem:
 
-\[\hat{i}(t) = \underset{j,t}{\min} \left[ \underset{w_1}{\min} \sum_{x_i \in R_1 (j,t)} (y_i - w_1)^2 + \underset{w_2}{\min}  \sum_{x_i \in R_2 (j,t)} (y_i - w_2)^2   \right]\]
+\[\hat{i}(j,t) = \underset{j,t}{\min} \left[ \underset{w_1}{\min} \sum_{x_i \in R_1 (j,t)} (y_i - w_1)^2 + \underset{w_2}{\min}  \sum_{x_i \in R_2 (j,t)} (y_i - w_2)^2   \right]\]
 
 Para qualquer opção j e t, a minimização é resolvida por:
 
@@ -1179,15 +1189,15 @@ poderia muito bem não ter sido incluída. Para uma decisão simples de uma
 seguinte cálculo para a importância das variáveis:
 
 \[
-\Upsilon(X_i, T)= \sum_{t=1}^{J-1} \hat{i}(t) I(X_i=\iota_t),
+\Upsilon(X_j, T)= \sum_{n=1}^{J-1} \hat{i}_n(j,t) I(X_j=\iota_n),
 \]
 
-\noindent onde \(\Upsilon(X_i, T)\) é uma medida de relevância para cada
-variável preditora \(X_i\) referente a árvore \(T\), \(\iota_t\) é a
-variável utilizada para realizar a partição das regiões do nó \(t\),
-\(\hat{i}(t)\) é a minimização realizada para seleção do ponto de
-divisão, com isso, é realizada a soma em todos os nós internos para os
-quais foi escolhido como a variável de divisão.
+\noindent onde \(\Upsilon(X_j, T)\) é uma medida de relevância para cada
+variável preditora \(X_j\) referente a árvore \(T\), \(\iota_n\) é a
+variável utilizada para realizar a partição das regiões do nó \(n\),
+\(\hat{i}(j, t)\) é a minimização realizada para seleção do ponto de
+divisão no nó \(n\), com isso, é realizada a soma em todos os nós
+internos para os quais foi escolhido como a variável de divisão.
 
 As árvores de decisão estão na base de muitos algoritmos modernos e de
 ponta, incluindo o Random Forest, ao qual utilizaremos neste trabalho.
@@ -1198,15 +1208,15 @@ ponta, incluindo o Random Forest, ao qual utilizaremos neste trabalho.
 Segundo Breiman (\protect\hyperlink{ref-breiman2001random}{2001}), o
 método de Florestas Aleatórias (Random Forest) consiste em criar B
 árvores distintas (obtidas de B amostras bootstraps da amostra original)
-e combinar seus resultados para melhorar o poder preditivo de cada
-árvore individual. É um algoritmo de Machine Learning amplamente
-utilizado, que tem os algoritmos \emph{bagging} e \emph{CART} como base.
-Porém, o problema de utilizar o método bootstrap para a aplicação das
-árvores de decisão é que possivelmente serão escolhidas as mesmas
-variáveis e as previsões acabariam altamente correlacionadas (Murphy,
+e combinar seus resultados para melhorar o poder preditivo. É um
+algoritmo de Machine Learning amplamente utilizado, que tem os
+algoritmos \emph{bagging} e \emph{CART} como base. Porém, o problema de
+utilizar o método bootstrap para a aplicação das árvores de decisão é
+que possivelmente serão escolhidas as mesmas variáveis e as previsões
+acabariam altamente correlacionadas (Murphy,
 \protect\hyperlink{ref-murphy2012probabilistic}{2012}). Por isso, além
-da reamostragem de observações, também é realizado a amostragem de
-variáveis independentes no crescimento de cada árvore. A função de
+da reamostragem de observações, também é realizado a amostragem
+aleatória de variáveis no crescimento de cada árvore. A função de
 previsão pode ser escrita da seguinte maneira:
 
 \[
@@ -1235,7 +1245,7 @@ de decisão e a adição de mais alguns. Os principais são:
   variáveis totais da base;
 \item
   Proporção de reamostragem das observações. Por padrão é reamostrada
-  uma base do mesmo tamanho com replicação de observações.
+  uma base do mesmo tamanho, via amostragem aleatória com reposição.
 \end{itemize}
 
 Os valores padrões descrito acima são os definidos pelo pacote Ranger
@@ -1265,7 +1275,6 @@ O Erro Fora da Amostra (ou \emph{out-of-bag}(OOB)) é uma das
 características do próprio algoritmo, visto que, as observações são
 reamostradas em cada treinamento de cada árvore. Então é possível
 utilizar as observações não utilizadas na criação da árvore como teste.
-
 Como as árvores utilizadas neste trabalho são árvores regressoras, o
 erro utilizado é o Erro Quadrático Médio (EQM).
 
@@ -1274,13 +1283,13 @@ em forma de árvores como na Figura \ref{fig:tree}, porém, quando se tem
 um conjunto dessas árvores perdemos essa representação em forma de
 árvore. Com isso, é necessário utilizar o cálculo de relevância que foi
 comentado anteriormente, onde a relevância das variáveis em uma única
-árvore de decisão (T) é representada por \(\Upsilon(X_i, T)\), por se
+árvore de decisão (T) é representada por \(\Upsilon(X_j, T)\), por se
 tratar de um conjunto de B árvores. Essa medida é facilmente expandida
 para o caso de múltiplas árvores como uma média da importância para cada
 árvore:
 
 \[
-\Upsilon(X_i, T_e) = \frac{1}{B} \sum^{B}_{b=1}\Upsilon(X_i, T_b). 
+\Upsilon(X_j, T_e) = \frac{1}{B} \sum^{B}_{b=1}\Upsilon(X_j, T_b). 
 \]
 
 \hypertarget{aprendizado-nuxe3o-supervisionado}{%
@@ -1426,27 +1435,13 @@ Quantil 75\% + 1.5(Quantil 75\% - Quantil 25\%)).
 
 \caption{\label{tab:preco_com_outlier}Distribuição da variável preço}
 \centering
-\begin{tabular}[t]{l|r}
+\begin{tabular}[t]{r|r|r|r|r|r}
 \hline
-Média & R\$     795,62\\
+Quantil 25\% & Quantil 50\% & Quantil 75\% & Média & Máximo & Limite Superior\\
 \hline
-Quantil 5\% & R\$     299,00\\
+R\$     159,00 & R\$     299,00 & R\$     649,00 & R\$     795,62 & R\$ 138.288,00 & R\$   1.384,00\\
 \hline
-Quantil 25\% & R\$     159,00\\
-\hline
-Quantil 75\% & R\$     649,00\\
-\hline
-Quantil 90\% & R\$   1.499,00\\
-\hline
-Quantil 95\% & R\$   2.501,00\\
-\hline
-Quantil 99\% & R\$   9.001,20\\
-\hline
-Quantil 100\% & R\$ 138.288,00\\
-\hline
-Limite Superior & R\$   1.384,00\\
-\hline
-\multicolumn{2}{l}{\textit{Fonte: } O próprio autor}\\
+\multicolumn{6}{l}{\textit{Fonte: } O próprio autor}\\
 \end{tabular}
 \end{table}
 
@@ -1463,7 +1458,8 @@ de valores pequenos e poucos casos com valores elevados. Medidas como
 correlação e média podem ser bastante influenciadas por valores extremos
 e outliers. Para contornar essa influencia foi utilizada a transformação
 de Box-Cox para que a distribuição da variável em análise seja simétrica
-e por consequência mais próxima da distribuição normal.
+e por consequência mais próxima da distribuição normal, onde o valor de
+\(\lambda\) ótimo encontrado foi -0.020202.
 
 \begin{figure}
 \centering
@@ -1478,9 +1474,10 @@ Com base na variação total dentro do cluster e utilizando o método
 quinto, o ganho de performance é relativamente pequeno como pode ser
 visto na Figura \ref{wss}. Verificou-se que bairros com melhores índices
 relacionados a educação e economia estão no primeiro cluster, declinando
-até o quarto. A lista detalhada dos bairros por clusters se encontra no
-apêndice na Tabela \ref{tab:cluster_bairros}, mas para uma melhor
-representação, podemos verifica-los geograficamente na Figura
+até o quarto. A média de cada variável por cluster se encontra na Tabela
+\ref{tab:descritiva_cluster}. A lista detalhada dos bairros por clusters
+se encontra no apêndice na Tabela \ref{tab:cluster_bairros}, mas para
+uma melhor representação, podemos verifica-los geograficamente na Figura
 \ref{clusters_bairros}.
 
 \begin{figure}
@@ -1488,6 +1485,51 @@ representação, podemos verifica-los geograficamente na Figura
 \includegraphics{00-TCC_files/figure-latex/wss-1.pdf}
 \caption{\label{wss}Variação total dentro do cluster}
 \end{figure}
+
+\begin{table}
+
+\caption{\label{tab:descritiva_cluster}Descritiva dos clusters}
+\centering
+\begin{tabular}[t]{l|r|r|r|r}
+\hline
+Variável & Cluster 1 & Cluster 2 & Cluster 3 & Cluster 4\\
+\hline
+IDH Longevidade & 0,89 & 0,86 & 0,81 & 0,74\\
+\hline
+IDH & 0,96 & 0,93 & 0,87 & 0,79\\
+\hline
+IDH Educação & 0,99 & 0,98 & 0,96 & 0,90\\
+\hline
+IDH Renda & 1,00 & 0,97 & 0,84 & 0,72\\
+\hline
+Esperança de Vida & 78,58 & 76,32 & 73,70 & 69,27\\
+\hline
+Taxa de Alfabetização Adulta & 98,97 & 97,82 & 96,98 & 94,48\\
+\hline
+Taxa de Frequência Escolar & 110,23 & 106,69 & 94,66 & 82,42\\
+\hline
+Renda per Capita & 2.418,75 & 1.346,02 & 597,95 & 309,33\\
+\hline
+\multicolumn{5}{l}{\textit{Fonte: } O próprio autor}\\
+\end{tabular}
+\end{table}
+
+O primeiro cluster é constituído pelos bairros que apresentam os
+melhores índices socioeconômicos são, também, os principais pontos
+turísticos que consistem em regiões próximas de praias. São eles: Gávea,
+Ipanema, Jardim Botânico, Lagoa, Leblon, Barra da Tijuca e Joá. No
+cluster 2 estão os bairros de Botafogo, Copacabana, Flamengo, Glória,
+Humaitá, Laranjeiras, Leme, São Conrado, Urca, Vidigal, Grumari, Recreio
+dos Bandeirantes, Alto da Boa Vista, Grajaú, Maracanã, Tijuca, Méier,
+Jardim Guanabara. Bairros também próximos da praia e com características
+parecidas com o primeiro cluster, o bairro Vidigal, apesar de ser uma
+favela, é uma área de turismo e vem entrando no roteiro principal de
+quem quer fazer um tour pela cidade do Rio de Janeiro, por conter uma
+das vistas mais bonitas da cidade, valorizando o bairro.
+\footnote{\url{https://www.dicasdeviagem.com/morro-do-vidigal-nova-paixao-turistica-do-rio-de-janeiro/}}
+No cluster 3 estão bairros próximos do centro da cidade. O quarto
+apresenta bairros mais afastados das áreas turísticas e com relação aos
+índices socioeconômicos, são menos qualificados.
 
 \begin{figure}
 \centering
@@ -1499,17 +1541,19 @@ Há uma maior distribuição da quantidade de locações pelas zonas sul e
 central, com um maior preço mediano também (Figura
 \ref{dist_preco_espaco}). Podemos notar pela Figura
 \ref{boxplot_cluster} que a distribuição dos preços por clusters, de
-acordo com o bloxplot, decaem com relação à ``qualificação'' de cada
+acordo com o boxplot, decaem com relação à ``qualificação'' de cada
 cluster, exceto para o último cluster. Com uma análise mais precisa, com
-auxílio da Tabela \ref{tab:resumo_cluster} e da Tabela
-\ref{tab:cluster_bairros}, notou-se que se trata de um cluster com o
-maior número de bairros. Além disso, por ser tratar de um cluster menos
-``qualificado'' de acordo com os índices já citados, esperávamos que
-houvesse propriedades com valores menores que os demais clusters. Porém
-o comportamento não foi o esperado, já que os valores de quartis
-(primeiro e terceiro) e limites (inferior e superior) foram maiores que
-alguns clusters mais desenvolvidos. Apesar de haver uma grande
-quantidade de bairros, o quarto cluster tem o menor número de
+auxílio da Tabela \ref{tab:resumo_cluster}, que apresenta a quantidade
+de propriedades, preço mediano, preço médio e a média das variáveis
+quantidade máxima de hóspedes, quantidade de banheiros, quartos e camas,
+e da Tabela \ref{tab:cluster_bairros}, notou-se que se trata de um
+cluster com o maior número de bairros. Além disso, por ser tratar de um
+cluster menos ``qualificado'' de acordo com os índices já citados,
+esperávamos que houvesse propriedades com valores menores que os demais
+clusters. Porém o comportamento não foi o esperado, já que os valores de
+quartis (primeiro e terceiro) e limites (inferior e superior) foram
+maiores que alguns clusters mais desenvolvidos. Apesar de haver uma
+grande quantidade de bairros, o quarto cluster tem o menor número de
 observações (locações) na base estudada (aproximadamente 11\%), o que
 pode ter influenciado por valores extremos o ``mal'' comportamento em
 relação aos outros grupos. Como o quarto cluster possui uma distribuição
@@ -1569,7 +1613,7 @@ modelos.
 \hline
 Mediana & 2\\
 \hline
-Quantil 99.9\% & 365\\
+Quantil 99,9\% & 365\\
 \hline
 Máximo & 1.123\\
 \hline
@@ -1827,27 +1871,15 @@ Inversa}
 
 \caption{\label{tab:lm_metricas}Estimativa do erro destransformado para o Modelo Linear}
 \centering
-\begin{tabular}[t]{l|l|r}
+\begin{tabular}[t]{l|r|r|r|r}
 \hline
-Base & Métrica & Estimativa\\
+Base & REQM & EAM & EPAM & R2\\
 \hline
-Treino & REQM & 251,93\\
+Treino & 251,93 & 166,80 & 54,23 & 0,32\\
 \hline
-Treino & EAM & 166,80\\
+Teste & 254,49 & 169,16 & 55,66 & 0,32\\
 \hline
-Treino & EPAM & 54,23\\
-\hline
-Treino & R2 & 0,32\\
-\hline
-Teste & REQM & 254,52\\
-\hline
-Teste & EAM & 169,17\\
-\hline
-Teste & EPAM & 55,65\\
-\hline
-Teste & R2 & 0,32\\
-\hline
-\multicolumn{3}{l}{\textit{Fonte: } O próprio autor}\\
+\multicolumn{5}{l}{\textit{Fonte: } O próprio autor}\\
 \end{tabular}
 \end{table}
 
@@ -1899,8 +1931,9 @@ selecionadas pelo algoritmo LASSO.
 Foi considerado o maior valor de \(\lambda\), de modo que o erro esteja
 dentro de um erro padrão do mínimo, ou seja, será selecionado o
 \(\lambda\) que apresente a quantidade mínima de variáveis de modo que o
-erro médio na base de teste esteja dentro do intervalo de um desvio
-padrão. O valor encontrado é 0,0066053.
+erro médio na bases de teste (da validação cruzada) esteja dentro do
+intervalo de um desvio padrão. O valor de \(\lambda\) encontrado foi
+0,0066053.
 
 Com a regressão de LASSO, os coeficientes de regressão para variáveis
 sem importância são reduzidos a zero, o que efetivamente os remove do
@@ -2005,27 +2038,15 @@ Transformação Inversa}
 
 \caption{\label{tab:lasso_metricas}Estimativa do erro destransformado para o LASSO}
 \centering
-\begin{tabular}[t]{l|l|r}
+\begin{tabular}[t]{l|r|r|r|r}
 \hline
-Base & Métrica & Estimativa\\
+Base & REQM & EAM & EPAM & R2\\
 \hline
-Treino & REQM & 253,79\\
+Treino & 253,79 & 167,52 & 54,46 & 0,31\\
 \hline
-Treino & EAM & 167,52\\
+Teste & 256,35 & 169,83 & 55,95 & 0,31\\
 \hline
-Treino & EPAM & 54,46\\
-\hline
-Treino & R2 & 0,31\\
-\hline
-Teste & REQM & 256,37\\
-\hline
-Teste & EAM & 169,85\\
-\hline
-Teste & EPAM & 55,95\\
-\hline
-Teste & R2 & 0,31\\
-\hline
-\multicolumn{3}{l}{\textit{Fonte: } O próprio autor}\\
+\multicolumn{5}{l}{\textit{Fonte: } O próprio autor}\\
 \end{tabular}
 \end{table}
 
@@ -2069,27 +2090,15 @@ sobreajuste do modelo.
 
 \caption{\label{tab:rf0_metricas}Estimativa do erro destransformado para o random forest base}
 \centering
-\begin{tabular}[t]{l|l|r}
+\begin{tabular}[t]{l|r|r|r|r}
 \hline
-Base & Métrica & Estimativa\\
+Base & REQM & EAM & EPAM & R2\\
 \hline
-Treino & REQM & 148,54\\
+Treino & 148,54 & 87,83 & 23,98 & 0,84\\
 \hline
-Treino & EAM & 87,83\\
+Teste & 243,83 & 159,41 & 50,10 & 0,39\\
 \hline
-Treino & EPAM & 23,98\\
-\hline
-Treino & R2 & 0,84\\
-\hline
-Teste & REQM & 243,83\\
-\hline
-Teste & EAM & 159,44\\
-\hline
-Teste & EPAM & 50,11\\
-\hline
-Teste & R2 & 0,39\\
-\hline
-\multicolumn{3}{l}{\textit{Fonte: } O próprio autor}\\
+\multicolumn{5}{l}{\textit{Fonte: } O próprio autor}\\
 \end{tabular}
 \end{table}
 
@@ -2108,7 +2117,8 @@ lenta. Então é interessante encontrar um meio termo: um erro baixo com
 uma quantidade de árvores não tão alta.
 
 Como pode ser visto na Figura \ref{qtd_arvores}, o aumento na quantidade
-de árvores implica na melhora (diminuição) das métricas de erro.
+de árvores e mantendo os demais parâmetros sem alteração, implica na
+melhora (diminuição) das métricas de erro.
 
 \begin{figure}
 \centering
@@ -2118,15 +2128,16 @@ de árvores implica na melhora (diminuição) das métricas de erro.
 
 Na Figura \ref{qtd_arvores_zoom} temos o zoom a partir de 20 árvores,
 para se ter um melhor discernimento de como os erros se comportam. Nesta
-figura, a linha azul representa o erro da maior árvore (1000 árvores). É
-possível notar que a partir de 400 árvores os erros parecem apresentar
+figura, a linha azul representa o erro da maior floresta (1000 árvores).
+É possível notar que a partir de 400 árvores os erros parecem apresentar
 uma certa estabilidade. Em ambas imagens, a área sombreada representa um
 desvio padrão acima e abaixo da média do zero.
 
 \begin{figure}
 \centering
 \includegraphics{00-TCC_files/figure-latex/qtd_arvores_zoom-1.pdf}
-\caption{\label{qtd_arvores_zoom}Acima de 100 árvores}
+\caption{\label{qtd_arvores_zoom}Teste de quantidade de árvores - Acima
+de 100 árvores}
 \end{figure}
 
 De maneira contrária, permitir árvores mais profundas ou com nós com uma
@@ -2146,15 +2157,25 @@ Como comentado anteriormente é necessário realizar uma otimização dos
 hiperparâmetros do modelo. Para testar tal otimização, será utilizada a
 validação cruzada, onde a base de treino será separada em 10 partes.
 
-Será definida que a quantidade de árvores poderá variar entre 1 e 2000
+Será definida que a quantidade de árvores poderá variar entre 1 e 2.000
 árvores, a profundidade máxima poderá variar entre 0 (sem limite) e 30
 nós, a quantidade de elementos mínimos no nó pode variar entre 0 (sem
 limite) e 100. Considerando todos esses intervalos, temos 6.262.000
 combinações possíveis de hiperparâmetros a serem testados e, por isso,
 será utilizado o Algoritmo \ref{alg:hiper}, que se encontra no apêndice,
 para encontrar um bom conjunto de hiperparâmetros. O algoritmo tem como
-ideia principal dois pontos: a exploração (rodadas aleatórias) e a
-otimização (rodadas utilizando o modelo).
+ideia principal dois pontos:
+
+\begin{itemize}
+\item
+  A exploração: é realizada uma amostra aleatória de tamanho 10 do
+  conjuntos de hiperparâmetros não testados;
+\item
+  A otimização: com o histórico dos hiperparâmetros testados e do erro
+  encontrado, é treinado um modelo de Random Forest e feita a previsão
+  de 10 pontos com menores erros, após isso é feita a avaliação desses
+  10 pontos.
+\end{itemize}
 
 Com isso, foram testados um total de 4872 combinações de
 hiperparâmetros, aproximadamente 0,08\% das possibilidades. Na Figura
@@ -2195,7 +2216,7 @@ aproximadamente 0,13 segundos. Com a otimização, foi significativa a
 redução da velocidade para a compilação do modelo.
 
 Utilizando-se do modelo Random Forest com 50 árvores, haverá então 50
-previsões para cada propriedade, resultado de cada árvode de decisão.
+previsões para cada propriedade, resultado de cada árvore de decisão.
 Como podemos verificar na Figura \ref{exemplo_pred}, há uma distribuição
 das previsões de cada árvore para uma única propriedade, cujo valor real
 de diária é de R\$105,00.
@@ -2215,27 +2236,15 @@ para cada propriedade, conforme Figura \ref{resid_rf_inv}.
 
 \caption{\label{tab:rf1_metricas}Estimativa do erro destransformado para o random forest otimizado}
 \centering
-\begin{tabular}[t]{l|l|r}
+\begin{tabular}[t]{l|r|r|r|r}
 \hline
-Base & Métrica & Estimativa\\
+Base & REQM & EAM & EPAM & R2\\
 \hline
-Treino & REQM & 211,31\\
+Treino & 211,31 & 134,11 & 40,29 & 0,58\\
 \hline
-Treino & EAM & 134,11\\
+Teste & 246,58 & 161,32 & 50,88 & 0,38\\
 \hline
-Treino & EPAM & 40,29\\
-\hline
-Treino & R2 & 0,58\\
-\hline
-Teste & REQM & 246,58\\
-\hline
-Teste & EAM & 161,34\\
-\hline
-Teste & EPAM & 50,90\\
-\hline
-Teste & R2 & 0,38\\
-\hline
-\multicolumn{3}{l}{\textit{Fonte: } O próprio autor}\\
+\multicolumn{5}{l}{\textit{Fonte: } O próprio autor}\\
 \end{tabular}
 \end{table}
 
@@ -2274,15 +2283,15 @@ Forest}
 \hline
 Erro Absoluto & Quantidade & Preço Mediano & Proporção & Proporção Acumulada\\
 \hline
-(0,25] & 1.366 & R\$   199,00 & 14,24 & 14,24\\
+(0,25] & 1.366 & R\$   199,00 & 14,25 & 14,25\\
 \hline
-(25,50] & 1.450 & R\$   188,00 & 15,12 & 29,36\\
+(25,50] & 1.450 & R\$   188,00 & 15,12 & 29,37\\
 \hline
-(50,100] & 2.251 & R\$   183,00 & 23,47 & 52,84\\
+(50,100] & 2.251 & R\$   183,00 & 23,48 & 52,85\\
 \hline
-(100,200] & 2.142 & R\$   297,00 & 22,34 & 75,17\\
+(100,200] & 2.140 & R\$   298,00 & 22,32 & 75,17\\
 \hline
-(200,400] & 1.346 & R\$   502,00 & 14,04 & 89,21\\
+(200,400] & 1.345 & R\$   502,00 & 14,03 & 89,20\\
 \hline
 (400,800] & 893 & R\$   999,00 & 9,31 & 98,52\\
 \hline
@@ -2318,7 +2327,7 @@ quartos (de 5 a 10 quartos por propriedade).
 
 \begin{figure}
 \centering
-\includegraphics{00-TCC_files/figure-latex/unnamed-chunk-42-1.pdf}
+\includegraphics{00-TCC_files/figure-latex/unnamed-chunk-43-1.pdf}
 \caption{\label{graf_resid_rf_quartos}Distribuição dos Resíduos do
 Random Forest por quartos}
 \end{figure}
@@ -2326,7 +2335,7 @@ Random Forest por quartos}
 De acordo com a Figura \ref{graf_resid_rf_tp_quarto}, a variável
 \emph{Tipo de Quarto} também não se relaciona bem com as pequenas faixas
 de preço. Além disso, a categoria ``Entire home/apt'' (Casa/Apartamento
-Inteito) apresenta um erro destoante das demais para as propriedades
+Inteiro) apresenta um erro destoante das demais para as propriedades
 mais baratas, o que pode ser uma dificuldade do modelo ao identifica-la
 ou uma classificação errada na base de dados.
 
@@ -2385,15 +2394,15 @@ Random Forest Otimizado & 134,11 & 40,29 & 0,58 & 211,31\\
 \hline
 Modelo & EAM & EPAM & R2 & REQM\\
 \hline
-Modelo Baseline & 210,20 & 74,18 & 0,06 & 306,75\\
+Modelo Baseline & 210,21 & 74,18 & 0,06 & 306,77\\
 \hline
-Seleção Manual & 169,17 & 55,65 & 0,32 & 254,52\\
+Seleção Manual & 169,16 & 55,66 & 0,32 & 254,49\\
 \hline
-LASSO & 169,85 & 55,95 & 0,31 & 256,37\\
+LASSO & 169,83 & 55,95 & 0,31 & 256,35\\
 \hline
-Random Forest Base & 159,44 & 50,11 & 0,39 & 243,83\\
+Random Forest Base & 159,41 & 50,10 & 0,39 & 243,83\\
 \hline
-Random Forest Otimizado & 161,34 & 50,90 & 0,38 & 246,58\\
+Random Forest Otimizado & 161,32 & 50,88 & 0,38 & 246,58\\
 \hline
 \multicolumn{5}{l}{\textit{Fonte: } O próprio autor}\\
 \end{tabular}
@@ -2452,21 +2461,24 @@ para bases com muitas variáveis. Sendo assim, a técnica apresentou bons
 resultados, sendo muito eficaz para seleção de variáveis e resolvendo
 problemas de multicolinearidade.
 
-Como sugestão de trabalhos futuros, pode-se analisar a quantidade de
-dados que cada algoritmo suporta até que ocorra o sobreajuste. Também há
-a possibilidade de estudar outros métodos de tratamento de dados que
-possibilitariam obter resultados melhores com os algoritmos utilizados
-e, comparar os mesmos algoritmos com outras métricas de avaliação.
+Como sugestão de trabalhos futuros, há a possibilidade de estudar sobre
+a criação de novas variáveis, como, por exemplo, a distância até a praia
+mais próxima, utilizando uma base de dados disponibilizada pelo
+INEA\footnote{\url{http://www.inea.rj.gov.br/wp-content/uploads/2018/12/Coordenadas-Geogr\%C3\%A1ficas-das-Esta\%C3\%A7\%C3\%B5es-de-Amostragem-Praias.pdf}}.
+Além de testar modelos estatísticos mais adequados como os Modelos
+Lineares Generalizados, outros algoritmos de aprendizagem supervisionado
+como o booting e fazer uma análise mais profunda com relação ao erro de
+classificação das propriedades.
 
 O trabalho foi desenvolvido utilizando a linguagem de programação R e
-está disponível em um repositório aberto no github
-\footnote{\url{https://github.com/dobraga/TCC}}.
+está disponível em um repositório aberto no
+github.\footnote{\url{https://github.com/dobraga/TCC}}
 
 Foi utilizada a tecnologia shiny, que tem como o objetivo a criação de
-aplicações web na liguagem R. Criou-se uma interface intuitiva e de
+aplicações web na linguagem R. Criou-se uma interface intuitiva e de
 fácil acesso. Nesta interface, o usuário consegue manipular as
 características dos imóveis (como quantidade de quartos,quantidade de
-pessoas,\ldots) e principalmente o local do mesmo, como podemos
+pessoas,\ldots{}) e principalmente o local do mesmo, como podemos
 verificar na Figura \ref{fig:dash1}. Após seleção das características e
 do local, entrando na aba ``Preço Proposto'', representada na Figura
 \ref{fig:dash2}, podemos clicar no botão ``Preve-ja'', para termos as
@@ -2497,18 +2509,14 @@ objetivo geral.
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-airbnbperiodolongo}{}%
 AIRBNB. \textbf{Quais as diferenças entre as hospedagens de longo e
-curto
-prazo?}\url{https://www.airbnb.com.br/help/article/1354/quais-as-diferen\%C3\%A7as-entre-as-hospedagens-de-longo-e-curto-prazo},,
-2018.
+curto prazo?}, 2018.
 
 \leavevmode\hypertarget{ref-inside}{}%
 \_\_\_. \textbf{Inside
 Airbnb}\url{http://insideairbnb.com/get-the-data.html},, 2020a.
 
 \leavevmode\hypertarget{ref-precoairbnb}{}%
-\_\_\_. \textbf{Como devo escolher o preço do meu
-anúncio?}\url{https://www.airbnb.com.br/help/article/1354/quais-as-diferen\%C3\%A7as-entre-as-hospedagens-de-longo-e-curto-prazo},,
-2020b.
+\_\_\_. \textbf{Como devo escolher o preço do meu anúncio?}, 2020b.
 
 \leavevmode\hypertarget{ref-baker2005administraccao}{}%
 BAKER, A. S., Michel e Marques. \textbf{Administração de marketing}.
@@ -2572,9 +2580,7 @@ p. 116, 2015.
 \leavevmode\hypertarget{ref-datario}{}%
 DATA.RIO. \textbf{Índice de Desenvolvimento Humano (IDH) Municipal, por
 ordem de IDH, segundo os Bairros ou grupo de Bairros, no Município do
-Rio de Janeiro em
-1991/2000}\url{http://www.data.rio/datasets/\%C3\%ADndice-de-desenvolvimento-humano-idh-municipal-por-ordem-de-idh-segundo-os-bairros-ou-grupo-de-bairros-no-munic\%C3\%ADpio-do-rio-de-janeiro-em-1991-2000-},,
-2020.
+Rio de Janeiro em 1991/2000}, 2020.
 
 \leavevmode\hypertarget{ref-eckhardt2015sharing}{}%
 ECKHARDT, F., Giana M e Bardhi. The sharing economy isn't about sharing
@@ -2639,7 +2645,7 @@ regulação econômica}, 2006.
 IKKALA, A., Tapio e Lampinen. \textbf{Defining the price of hospitality:
 networked hospitality exchange via Airbnb}Proceedings of the companion
 publication of the 17th ACM conference on Computer supported cooperative
-work \& social computing. \textbf{Anais}\ldots2014
+work \& social computing. \textbf{Anais}\ldots{}2014
 
 \leavevmode\hypertarget{ref-jain1999data}{}%
 JAIN, M. N. E F., Anil K e Murty. Data clustering: a review. \textbf{ACM
@@ -2655,7 +2661,7 @@ KARLSSON, S. E OUTROS, Logi e Dolnicar. Someone's been sleeping in my
 bed. \textbf{Annals of Tourism Research}, v. 58, p. 159--162, 2016.
 
 \leavevmode\hypertarget{ref-kotler2007principios}{}%
-KOTLER, G., Philip e Armstrong. \textbf{Princı́pios de marketing}.
+KOTLER, G., Philip e Armstrong. \textbf{Princípios de marketing}.
 Traducao. {[}s.l.{]} Pearson Prentice Hall, 2007.
 
 \leavevmode\hypertarget{ref-lavaquial2015cocriando}{}%
@@ -2669,11 +2675,11 @@ Evidence from Airbnb. \textbf{Ross School of Business Working Paper
 Series}, v. 1298, p. 2015, 2015.
 
 \leavevmode\hypertarget{ref-loboeconomia}{}%
-LOBO, Y. S. Economia colaborativa e Airbnb: reflexões urbano-turı́sticas
+LOBO, Y. S. Economia colaborativa e Airbnb: reflexões urbano-turísticas
 a partir de São Paulo e Rio de Janeiro. 2018.
 
 \leavevmode\hypertarget{ref-martinez2019sequential}{}%
-MARTÍNEZ-MUÑOZ, G. Sequential Training of Neural Networks with Gradient
+MARTÍNEZ-MUÑOZ, G. Sequential Training of Neural Networks with Gradient
 Boosting. \textbf{arXiv preprint arXiv:1909.12098}, 2019.
 
 \leavevmode\hypertarget{ref-masiero2015demand}{}%
@@ -2715,7 +2721,7 @@ ROBERT, C. \textbf{Machine learning, a probabilistic perspective}Taylor
 
 \leavevmode\hypertarget{ref-schapire1999brief}{}%
 SCHAPIRE, R. E. \textbf{A brief introduction to boosting}Ijcai.
-\textbf{Anais}\ldots1999
+\textbf{Anais}\ldots{}1999
 
 \leavevmode\hypertarget{ref-sundararajan2014peer}{}%
 SUNDARARAJAN, A. Peer-to-peer businesses and the sharing (collaborative)

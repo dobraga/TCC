@@ -56,7 +56,7 @@ wss = purrr::map_dbl(
   geom_point(aes(x=1:10, y=Withinss)) +
   geom_line(aes(x=1:10, y=Withinss))+
   scale_x_continuous(breaks = 1:10)+
-  labs(x="Quantidade de Clusters", y="Variação Total Dentro do Cluster")
+  labs(x="Quantidade de Clusters", y="WSS")
 ```
 
 ```{r le_ajusta_base, warning=F, message=F}
@@ -99,21 +99,15 @@ Pelas estatísticas descritivas da variável preço na Tabela \ref{tab:preco_com
 df_ %>% 
   # group_by(cluster) %>% 
   summarise(
-    `Média` = mean(price), 
-    `Quantil 5%` = quantile(price, .5),
-    `Quantil 25%` = quantile(price, .25), 
+    `Quantil 25%` = quantile(price, .25),
+    `Quantil 50%` = quantile(price, .5),
     `Quantil 75%` = quantile(price, .75), 
-    `Quantil 90%` = quantile(price, .9), 
-    `Quantil 95%` = quantile(price, .95), 
-    `Quantil 99%` = quantile(price, .99), 
-    `Quantil 100%` = quantile(price, 1),
+    `Média` = mean(price), 
+    `Máximo` = quantile(price, 1),
     `Limite Superior` = `Quantil 75%` + 1.5 * (`Quantil 75%` - `Quantil 25%`)
   ) %>% mutate_all(~format_money(.x, 11)) %>% 
-  t() %>%
   kable(caption = "Distribuição da variável preço", align = c("r"))
 ```
-
-Para avaliar a distribuição da variável resposta (preço da diária), utilizou-se um histograma e um gráfico conhecido como QQplot, onde são comparados os quantis da variável com os quantis teóricos de uma distribuição, que neste caso será a distribuição normal, por se tratar de uma distribuição simétrica, além da haver a suposição de normalidade dos erros, uma combinação linear da variável resposta. Com auxilio da Figura \ref{dist_preco}, mesmo removendo as propriedades acima do limite superior, ainda é possível notar uma assimetria. Como em todas as variáveis relacionadas a preço, é comum que possua uma grande quantidade de valores pequenos e poucos casos com valores elevados. Medidas como correlação e média podem ser bastante influenciadas por valores extremos e outliers. Para contornar essa influencia foi utilizada a transformação de Box-Cox para que a distribuição da variável em análise seja simétrica e por consequência mais próxima da distribuição normal.
 
 ```{r}
 bc = MASS::boxcox(price~1, data=df)
@@ -128,6 +122,8 @@ bc$inverse = function(x){
 # saveRDS(bc, "../output/bc.rds")
 ```
 
+Para avaliar a distribuição da variável resposta (preço da diária), utilizou-se um histograma e um gráfico conhecido como QQplot, onde são comparados os quantis da variável com os quantis teóricos de uma distribuição, que neste caso será a distribuição normal, por se tratar de uma distribuição simétrica, além da haver a suposição de normalidade dos erros, uma combinação linear da variável resposta. Com auxilio da Figura \ref{dist_preco}, mesmo removendo as propriedades acima do limite superior, ainda é possível notar uma assimetria. Como em todas as variáveis relacionadas a preço, é comum que possua uma grande quantidade de valores pequenos e poucos casos com valores elevados. Medidas como correlação e média podem ser bastante influenciadas por valores extremos e outliers. Para contornar essa influencia foi utilizada a transformação de Box-Cox para que a distribuição da variável em análise seja simétrica e por consequência mais próxima da distribuição normal, onde o valor de $\lambda$ ótimo encontrado foi `r bc$lambda`.
+
 ```{r dist_preco, include = T, fig.cap="\\label{dist_preco}Distribuição dos preços"}
 g1 = ggplot(df, aes(x=price)) + geom_histogram() + labs(x="Preço", y="Quantidade") #+ ggtitle("Distribuição do preço") 
 g2 = ggplot(df, aes(sample=price)) + stat_qq() + stat_qq_line() + labs(x="Quantil teórico", y="Quantil da amostra") #+ ggtitle("QQPlot")
@@ -138,11 +134,44 @@ g4 = ggplot(df, aes(sample=bc$transform(price))) + stat_qq() + stat_qq_line() + 
 (g1 | g2)/(g3 | g4)
 ```
 
-Com os dados extraídos do site Data Rio, foi utilizado o algoritmo k-means para separar os bairros de acordo com a similaridade entre eles. Com base na variação total dentro do cluster e utilizando o método “cotovelo”, foi definida a utilização de 4 clusters, pois a partir do quinto, o ganho de performance é relativamente pequeno como pode ser visto na Figura \ref{wss}. Verificou-se que bairros com melhores índices relacionados a educação e economia estão no primeiro cluster, declinando até o quarto. A lista detalhada dos bairros por clusters se encontra no apêndice na Tabela \ref{tab:cluster_bairros}, mas para uma melhor representação, podemos verifica-los geograficamente na Figura \ref{clusters_bairros}.
+Com os dados extraídos do site Data Rio, foi utilizado o algoritmo k-means para separar os bairros de acordo com a similaridade entre eles. Com base na variação total dentro do cluster e utilizando o método “cotovelo”, foi definida a utilização de 4 clusters, pois a partir do quinto, o ganho de performance é relativamente pequeno como pode ser visto na Figura \ref{wss}. Verificou-se que bairros com melhores índices relacionados a educação e economia estão no primeiro cluster, declinando até o quarto. A média de cada variável por cluster se encontra na Tabela \ref{tab:descritiva_cluster}. A lista detalhada dos bairros por clusters se encontra no apêndice na Tabela \ref{tab:cluster_bairros}, mas para uma melhor representação, podemos verifica-los geograficamente na Figura \ref{clusters_bairros}.
 
-```{r wss, include = T, fig.cap="\\label{wss}Variação total dentro do cluster", fig.height = 3, fig.width = 5}
+```{r wss, include = T, fig.cap="\\label{wss}Variação total dentro do cluster", fig.height = 2, fig.width = 5}
 wss
 ```
+
+```{r descritiva_cluster, include = T, message=FALSE}
+bairros %>% 
+  group_by(cluster) %>% 
+  summarise(across(esperanca_vida:idh, mean)) %>% 
+  `colnames<-`(
+    c("Cluster", "Esperança de Vida", "Taxa de Alfabetização Adulta",
+      "Taxa de Frequência Escolar", "Renda per Capita", "IDH Longevidade",
+      "IDH Educação", "IDH Renda", "IDH")
+  ) %>% t() %>% as.data.frame() %>% 
+  rownames_to_column() %>% 
+  filter(rowname != "Cluster") %>% 
+  `colnames<-`(
+    c("Variável", "Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4")
+  ) %>%  
+  arrange(`Cluster 1`) %>% 
+  kable(caption = "Descritiva dos clusters")
+```
+
+O primeiro cluster é constituído pelos bairros que apresentam os melhores 
+índices socioeconômicos são, também, os principais pontos turísticos que 
+consistem em regiões próximas de praias. São eles: Gávea, Ipanema, 
+Jardim Botânico, Lagoa, Leblon, Barra da Tijuca e Joá. No cluster 2 estão os 
+bairros de Botafogo, Copacabana, Flamengo, Glória, Humaitá, Laranjeiras, Leme, 
+São Conrado, Urca, Vidigal, Grumari, Recreio dos Bandeirantes, 
+Alto da Boa Vista, Grajaú, Maracanã, Tijuca, Méier, Jardim Guanabara. Bairros 
+também próximos da praia e com características parecidas com o primeiro cluster, 
+o bairro Vidigal, apesar de ser uma favela, é uma área de turismo e vem entrando 
+no roteiro principal de quem quer fazer um tour pela cidade do Rio de Janeiro, 
+por conter uma das vistas mais bonitas da cidade, valorizando o bairro. \footnote{\url{https://www.dicasdeviagem.com/morro-do-vidigal-nova-paixao-turistica-do-rio-de-janeiro/}}
+No cluster 3 estão bairros próximos do centro da cidade. O quarto apresenta 
+bairros mais afastados das áreas turísticas e com relação aos índices 
+socioeconômicos, são menos qualificados.
 
 ```{r clusters_bairros, include = T, fig.cap="\\label{clusters_bairros}Clusters dos bairros do Rio de Janeiro"}
 ggplot() + 
@@ -150,21 +179,21 @@ ggplot() +
           aes(fill=cluster))
 ```
 
-Há uma maior distribuição da quantidade de locações pelas zonas sul e central, com um maior preço mediano também (Figura \ref{dist_preco_espaco}). Podemos notar pela Figura \ref{boxplot_cluster} que a distribuição dos preços por clusters, de acordo com o bloxplot, decaem com relação à “qualificação” de cada cluster, exceto para o último cluster. Com uma análise mais precisa, com auxílio da Tabela \ref{tab:resumo_cluster} e da Tabela \ref{tab:cluster_bairros}, notou-se que se trata de um cluster com o maior número de bairros. Além disso, por ser tratar de um cluster menos "qualificado" de acordo com os índices já citados, esperávamos que houvesse propriedades com valores menores que os demais clusters. Porém o comportamento não foi o esperado, já que os valores de quartis (primeiro e terceiro) e limites (inferior e superior) foram maiores que alguns clusters mais desenvolvidos. Apesar de haver uma grande quantidade de bairros, o quarto cluster tem o menor número de observações (locações) na base estudada (aproximadamente 11%), o que pode ter influenciado por valores extremos o “mal” comportamento em relação aos outros grupos. Como o quarto cluster possui uma distribuição não esperada, será criado uma variável binária ao qual identifica os bairros pertencentes desse grupo.
+Há uma maior distribuição da quantidade de locações pelas zonas sul e central, com um maior preço mediano também (Figura \ref{dist_preco_espaco}). Podemos notar pela Figura \ref{boxplot_cluster} que a distribuição dos preços por clusters, de acordo com o boxplot, decaem com relação à “qualificação” de cada cluster, exceto para o último cluster. Com uma análise mais precisa, com auxílio da Tabela \ref{tab:resumo_cluster}, que apresenta a quantidade de propriedades, preço mediano, preço médio e a média das variáveis quantidade máxima de hóspedes, quantidade de banheiros, quartos e camas, e da Tabela \ref{tab:cluster_bairros}, notou-se que se trata de um cluster com o maior número de bairros. Além disso, por ser tratar de um cluster menos "qualificado" de acordo com os índices já citados, esperávamos que houvesse propriedades com valores menores que os demais clusters. Porém o comportamento não foi o esperado, já que os valores de quartis (primeiro e terceiro) e limites (inferior e superior) foram maiores que alguns clusters mais desenvolvidos. Apesar de haver uma grande quantidade de bairros, o quarto cluster tem o menor número de observações (locações) na base estudada (aproximadamente 11%), o que pode ter influenciado por valores extremos o “mal” comportamento em relação aos outros grupos. Como o quarto cluster possui uma distribuição não esperada, será criado uma variável binária ao qual identifica os bairros pertencentes desse grupo.
 
 ```{r dist_preco_espaco, include = T, fig.cap="\\label{dist_preco_espaco}Distribuição dos preços no espaço"}
 gg = df %>%
-  mutate(price = log(price)) %>%
+  mutate(price = bc$transform(price)) %>%
   ggplot() +
   geom_sf(data = map %>% mutate(cluster = as.factor(cluster)), fill = NA) +
   geom_point(aes(x = longitude, y = latitude, color = price), alpha=.3) +
   scale_color_gradient(low = "lightgreen", high = "black") +
-  labs(color = "Log(Preço)")
+  labs(color = "Preço Transf.")
 
 ggExtra::ggMarginal(gg, type = "histogram")
 ```
 
-```{r boxplot_cluster, include = T, fig.cap="\\label{boxplot_cluster}Distribuição dos preços por cluster", fig.height = 3, fig.width = 5}
+```{r boxplot_cluster, include = T, fig.cap="\\label{boxplot_cluster}Distribuição dos preços por cluster", fig.height = 2, fig.width = 5}
 calc_stat <- function(x) {
   stats <- quantile(x, probs = c(0.1, 0.25, 0.5, 0.75, 0.9))
   names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
@@ -257,7 +286,7 @@ df %>%
     # `Quantil 90%` = quantile(minimum_nights, .9),
     # `Quantil 95%` = quantile(minimum_nights, .95),
     # `Quantil 99%` = quantile(minimum_nights, .99),
-    `Quantil 99.9%` = quantile(minimum_nights, .999),
+    `Quantil 99,9%` = quantile(minimum_nights, .999),
     `Máximo` = max(minimum_nights)
   ) %>% t() %>% 
   kable(caption = "Quantis de quantidade mínima de dias")
@@ -544,7 +573,7 @@ baseline_metricas = metricas(modelo_base_train, modelo_base_test, truth = price_
 
 Encontradas as estimativas dos coeficientes $\beta$'s, é necessário validar o modelo de regressão, que consiste em verificar se as variáveis fazem sentido no contexto do fenômeno estudado, que pode ser feito através do teste t de Student como será apresentado na análise dos resultados [@werkema1996analise]. Utilizando um nível de significância de 5%, verifica-se pela Figura \ref{significancia_ml} as variáveis com o p-valor acima dos 5%. As variáveis relacionadas aos pontos coloridos (vermelho ou azul) que, mesmo com o p-valor acima do nível de significância escolhido, foram mantidas, pois trata-se de categorias significativas de algumas variáveis categóricas, influenciando na predição do valor de forma negativa e positiva, respectivamente. Sendo assim, foi decidido que haveria boa relevância para o modelo e, com isso, não serão removidas.
 
-```{r significancia_ml, include = T, fig.cap="\\label{significancia_ml}Significância das variáveis no modelo linear", fig.height = 3, fig.width = 10}
+```{r}
 lm0 = lm(
   price~., 
   train_ %>% 
@@ -553,10 +582,9 @@ lm0 = lm(
       -id, -neighbourhood_cleansed
     )
 )
+```
 
-lm_coef = summary(lm0)$coefficients 
-rownames(lm_coef) = rename_(rownames(lm_coef))
-
+```{r significancia_ml, include = T, fig.cap="\\label{significancia_ml}Significância das variáveis no modelo linear", fig.height = 3, fig.width = 10}
 sum_lm0 = summary(lm0)$coefficients  %>%
   as.data.frame() %>% tibble(term = rownames(.), .) %>% 
   filter(term != "(Intercept)") %>%
@@ -565,8 +593,7 @@ sum_lm0 = summary(lm0)$coefficients  %>%
       term %in% c("bathrooms_near", "bedrooms_near", "fl_mais_banheiros", "fl_mais_quartos"), "grey", 
       if_else(Estimate > 0, "#00BFC4", "#F8766D")
     )
-  ) 
-
+  )
 
 sum_lm0 %>% 
   filter(`Pr(>|t|)` >= 5/100) %>% 
@@ -590,7 +617,6 @@ lm0 = lm(
       -id, -neighbourhood_cleansed, -bathrooms_near, -bedrooms_near, -fl_mais_banheiros, -fl_mais_quartos
     )
 )
-
 ```
 
 Além da significância das variáveis comentadas anteriormente, é possível quantificar a importância de cada variável. Para isso, será utilizado o valor absoluto da estatística de teste utilizada para o teste de hipóteses da significância de cada variável. Verifica-se, com isso, as variáveis relevantes em ordem decrescente na Figura \ref{imp_ml}.
@@ -644,7 +670,11 @@ g2 = lm_test %>%
 
 ```{r lm_metricas, include=T}
 lm_metricas = metricas(lm_train, lm_test) 
-lm_metricas %>% kable(caption = "Estimativa do erro destransformado para o Modelo Linear")
+lm_metricas %>% 
+  pivot_wider(
+    names_from = `Métrica`, 
+    values_from = Estimativa
+  ) %>% kable(caption = "Estimativa do erro destransformado para o Modelo Linear")
 ```
 
 A Figura \ref{graf_resid_ml} é dividida em dois gráficos: o gráfico superior representa o EPAM para cada faixa de preço e a parte inferior representa a quantidade de propriedades também pela faixa de preço. Com isso, pode-se proferir que o método apresenta um nível não confiável para preços baixos ($\leq$ R$51,00), visto que seu EPAM foi de 239,5, ou seja, 239,5% de erro percentual. E não há uma relação entre a quantidade de propriedades com o EPAM, já que há grandes erros relacionados as faixas com muitas ou poucas propriedades, como por exemplo nas duas primeiras faixas de preço.
@@ -729,7 +759,7 @@ netcv <- glmnet::cv.glmnet(X, y, nfolds = nFolds, foldid = foldid, alpha=alpha, 
 plot(netcv, ylab='Erro Quadrático Médio')
 ```
 
-Foi considerado o maior valor de $\lambda$, de modo que o erro esteja dentro de um erro padrão do mínimo, ou seja, será selecionado o $\lambda$ que apresente a quantidade mínima de variáveis de modo que o erro médio na base de teste esteja dentro do intervalo de um desvio padrão. O valor encontrado é 0,0066053.
+Foi considerado o maior valor de $\lambda$, de modo que o erro esteja dentro de um erro padrão do mínimo, ou seja, será selecionado o $\lambda$ que apresente a quantidade mínima de variáveis de modo que o erro médio na bases de teste (da validação cruzada) esteja dentro do intervalo de um desvio padrão. O valor de $\lambda$ encontrado foi 0,0066053.
 
 ```{r}
 net = glmnet::glmnet(X, y, alpha = alpha, lambda = netcv$lambda.1se)
@@ -877,7 +907,11 @@ g2 = lasso_test %>%
 
 ```{r lasso_metricas, include=T}
 lasso_metricas = metricas(lasso_train, lasso_test) 
-lasso_metricas %>% kable(caption = "Estimativa do erro destransformado para o LASSO")
+lasso_metricas %>% 
+  pivot_wider(
+    names_from = `Métrica`, 
+    values_from = Estimativa
+  ) %>% kable(caption = "Estimativa do erro destransformado para o LASSO")
 ```
 
 Comparando a distribuição dos resíduos do modelos linear utilizando as variáveis selecionadas manualmente e via LASSO pelas Figura \ref{resid_ml_inv} e \ref{resid_lasso_inv}, é possível notar grande semelhança. Para uma melhor comparação, também pode-se utilizar as métricas dos erros disponíveis nas Tabelas \ref{tab:lm_metricas} e \ref{tab:lasso_metricas}, confirmando a similaridade dos modelos lineares.
@@ -920,7 +954,11 @@ Na Tabela \ref{tab:rf0_metricas}, é possível notar que há um ajuste em excess
 
 ```{r rf0_metricas, include=T}
 rf_base_metricas = metricas(rf_train0, rf_test0) 
-rf_base_metricas %>% kable(caption = "Estimativa do erro destransformado para o random forest base")
+rf_base_metricas %>% 
+  pivot_wider(
+    names_from = `Métrica`, 
+    values_from = Estimativa
+  ) %>% kable(caption = "Estimativa do erro destransformado para o random forest base")
 ```
 
 #### Hiperparâmetros
@@ -929,7 +967,7 @@ Como visto na seção anterior, o modelo *default* parece ter apresentado proble
 
 Em geral, uma quantidade elevada de árvores aumenta a performance e torna as predições mais estáveis, mas também torna a computação mais lenta. Então é interessante encontrar um meio termo: um erro baixo com uma quantidade de árvores não tão alta.
 
-Como pode ser visto na Figura \ref{qtd_arvores}, o aumento na quantidade de árvores implica na melhora (diminuição) das métricas de erro. 
+Como pode ser visto na Figura \ref{qtd_arvores}, o aumento na quantidade de árvores e mantendo os demais parâmetros sem alteração, implica na melhora (diminuição) das métricas de erro. 
 
 ```{r qtd_arvores, include = T, fig.cap="\\label{qtd_arvores}Teste de quantidade de árvores"}
 df_metric = readr::read_csv("../output/trees-metricas.csv", col_types = readr::cols()) %>% 
@@ -954,9 +992,9 @@ df_metric %>%
   labs(x = "Quantidade de Árvores", y = "Erro") 
 ```
 
-Na Figura \ref{qtd_arvores_zoom} temos o zoom a partir de 20 árvores, para se ter um melhor discernimento de como os erros se comportam. Nesta figura, a linha azul representa o erro da maior árvore (1000 árvores). É possível notar que a partir de 400 árvores os erros parecem apresentar uma certa estabilidade. Em ambas imagens, a área sombreada representa um desvio padrão acima e abaixo da média do zero. 
+Na Figura \ref{qtd_arvores_zoom} temos o zoom a partir de 20 árvores, para se ter um melhor discernimento de como os erros se comportam. Nesta figura, a linha azul representa o erro da maior floresta (1000 árvores). É possível notar que a partir de 400 árvores os erros parecem apresentar uma certa estabilidade. Em ambas imagens, a área sombreada representa um desvio padrão acima e abaixo da média do zero. 
 
-```{r qtd_arvores_zoom, include = T, fig.cap="\\label{qtd_arvores_zoom}Acima de 100 árvores"}
+```{r qtd_arvores_zoom, include = T, fig.cap="\\label{qtd_arvores_zoom}Teste de quantidade de árvores - Acima de 100 árvores"}
 df_metric %>%
   #filter(.metric %in% c("mae", "mape", "rmse")) %>%
   mutate(
@@ -997,7 +1035,11 @@ Como comentado anteriormente é necessário realizar uma otimização dos hiperp
 df_hiper = readr::read_csv("../output/hiper-metricas.csv", col_types = readr::cols())
 ```
 
-Será definida que a quantidade de árvores poderá variar entre 1 e 2000 árvores, a profundidade máxima poderá variar entre 0 (sem limite) e 30 nós, a quantidade de elementos mínimos no nó pode variar entre 0 (sem limite) e 100. Considerando todos esses intervalos, temos 6.262.000 combinações possíveis de hiperparâmetros a serem testados e, por isso, será utilizado o Algoritmo \ref{alg:hiper}, que se encontra no apêndice, para encontrar um bom conjunto de hiperparâmetros. O algoritmo tem como ideia principal dois pontos: a exploração (rodadas aleatórias) e a otimização (rodadas utilizando o modelo).
+Será definida que a quantidade de árvores poderá variar entre 1 e 2.000 árvores, a profundidade máxima poderá variar entre 0 (sem limite) e 30 nós, a quantidade de elementos mínimos no nó pode variar entre 0 (sem limite) e 100. Considerando todos esses intervalos, temos 6.262.000 combinações possíveis de hiperparâmetros a serem testados e, por isso, será utilizado o Algoritmo \ref{alg:hiper}, que se encontra no apêndice, para encontrar um bom conjunto de hiperparâmetros. O algoritmo tem como ideia principal dois pontos: 
+
+- A exploração: é realizada uma amostra aleatória de tamanho 10 do conjuntos de hiperparâmetros não testados;
+
+- A otimização: com o histórico dos hiperparâmetros testados e do erro encontrado, é treinado um modelo de Random Forest e feita a previsão de 10 pontos com menores erros, após isso é feita a avaliação desses 10 pontos. 
 
 Com isso, foram testados um total de `r nrow(df_hiper)` combinações de hiperparâmetros, aproximadamente 0,08% das possibilidades. Na Figura \ref{otimizacao} é possível verificar a evolução do erro em cada rodada do algoritmo, e com isso, é possível notar que a partir da rodada 60 não há ganho na performance do modelo.
 
@@ -1112,7 +1154,7 @@ end_time_pred_rf1 <- Sys.time()
 
 O modelo com os hiperparâmetros otimizados levou aproximadamente 1,17 segundos para treinar e a predição da base de treino levou aproximadamente 0,13 segundos. Com a otimização, foi significativa a redução da velocidade para a compilação do modelo.
 
-Utilizando-se do modelo Random Forest com `r num.trees` árvores, haverá então `r num.trees` previsões para cada propriedade, resultado de cada árvode de decisão. Como podemos verificar na Figura \ref{exemplo_pred}, há uma distribuição das previsões de cada árvore para uma única propriedade, cujo valor real de diária é de R$105,00.
+Utilizando-se do modelo Random Forest com `r num.trees` árvores, haverá então `r num.trees` previsões para cada propriedade, resultado de cada árvore de decisão. Como podemos verificar na Figura \ref{exemplo_pred}, há uma distribuição das previsões de cada árvore para uma única propriedade, cujo valor real de diária é de R$105,00.
 
 ```{r exemplo_pred, include = T, fig.cap="\\label{exemplo_pred}Exemplo de previsão", fig.height = 3, fig.width = 10}
 i = 700
@@ -1150,7 +1192,11 @@ Com isso, chegamos nos resíduos do Random Forest com Transformação Inversa, p
 
 ```{r rf1_metricas, include=T}
 rf_metricas = metricas(rf_train1, rf_test1)
-rf_metricas %>% kable(caption = "Estimativa do erro destransformado para o random forest otimizado")
+rf_metricas %>% 
+  pivot_wider(
+    names_from = `Métrica`, 
+    values_from = Estimativa
+  ) %>% kable(caption = "Estimativa do erro destransformado para o random forest otimizado")
 ```
 
 ```{r resid_rf_inv, include = T, fig.cap="\\label{resid_rf_inv}Resíduos do Random Forest com Transformação Inversa", fig.height = 3, fig.width = 10}
@@ -1273,7 +1319,7 @@ aux %>%
   ylab("EPAM") + xlab("Preço") + labs(size="Quantidade", color="Quartos")
 ```
 
-De acordo com a Figura \ref{graf_resid_rf_tp_quarto}, a variável *Tipo de Quarto* também não se relaciona bem com as pequenas faixas de preço.  Além disso, a categoria "Entire home/apt" (Casa/Apartamento Inteito) apresenta um erro destoante das demais para as propriedades mais baratas, o que pode ser uma dificuldade do modelo ao identifica-la ou uma classificação errada na base de dados.
+De acordo com a Figura \ref{graf_resid_rf_tp_quarto}, a variável *Tipo de Quarto* também não se relaciona bem com as pequenas faixas de preço.  Além disso, a categoria "Entire home/apt" (Casa/Apartamento Inteiro) apresenta um erro destoante das demais para as propriedades mais baratas, o que pode ser uma dificuldade do modelo ao identifica-la ou uma classificação errada na base de dados.
 
 ```{r graf_resid_rf_tp_quarto, include = T, warning=F, message=F, fig.cap="\\label{graf_resid_rf_tp_quarto}Distribuição dos Resíduos do Random Forest por tipo de quarto"}
 aux <- test %>% 
@@ -1322,6 +1368,7 @@ comparativo %>%
   filter(Base == "Teste") %>% select(-Base) %>% 
   kable(caption = "Comparativo de erro entre os modelos na base de teste")
 ```
+
 Com uma breve comparação das variáveis de acordo com a importância, o *tipo de quarto*, seja considerando a variável toda ou alguma categoria,  mostrou-se relevante para todos os modelos utilizados no trabalho, independente do modo de seleção. Variáveis que dimensionam o tamanho da propriedade como, por
 exemplo, quantidade de quartos, quantidade de banheiros e capacidade de pessoas acomodadas, foram bem presentes nos modelos de Regressão Linear e  Random Forest.
 Já no modelo de Random Forest com otimização dos parâmetros, variáveis utilizadas para complementar o trabalho, como latitude e renda per capita, foram relevantes, nos dando a ideia de que, dependendo do bairro, há uma influência no valor da propriedade oferecida.
@@ -1336,11 +1383,11 @@ Dentre as limitações encontradas nesse trabalho, há a carência de uma análi
 
 Quanto aos métodos de seleção de variáveis, não houveram mudanças significativas nas métricas dos erros, mas cabe ressaltar que a base de dados utilizada não possui uma grande quantidade de variáveis, e por isso foi possível fazer uma avaliação mais minuciosa sobre as variáveis que entrariam ou sairiam do modelo, sendo um trabalho altamente custoso para bases com muitas variáveis. Sendo assim, a técnica apresentou bons resultados, sendo muito eficaz para seleção de variáveis e resolvendo problemas de multicolinearidade.
 
-Como sugestão de trabalhos futuros, pode-se analisar a quantidade de dados que cada algoritmo suporta até que ocorra o sobreajuste. Também há a possibilidade de estudar outros métodos de tratamento de dados que possibilitariam obter resultados melhores com os algoritmos utilizados e, comparar os mesmos algoritmos com outras métricas de avaliação.
+Como sugestão de trabalhos futuros, há a possibilidade de estudar sobre a criação de novas variáveis, como, por exemplo, a distância até a praia mais próxima, utilizando uma base de dados disponibilizada pelo INEA^[http://www.inea.rj.gov.br/wp-content/uploads/2018/12/Coordenadas-Geogr%C3%A1ficas-das-Esta%C3%A7%C3%B5es-de-Amostragem-Praias.pdf]. Além de testar modelos estatísticos mais adequados como os Modelos Lineares Generalizados, outros algoritmos de aprendizagem supervisionado como o booting e fazer uma análise mais profunda com relação ao erro de classificação das propriedades.
 
-O trabalho foi desenvolvido utilizando a linguagem de programação R e está disponível em um repositório aberto no github \footnote{\url{https://github.com/dobraga/TCC}}. 
+O trabalho foi desenvolvido utilizando a linguagem de programação R e está disponível em um repositório aberto no github.\footnote{\url{https://github.com/dobraga/TCC}}
 
-Foi utilizada a tecnologia shiny, que tem como o objetivo a criação de aplicações web na liguagem R. Criou-se uma interface intuitiva e de fácil acesso. Nesta interface,  o usuário consegue manipular as características dos imóveis (como quantidade de quartos,quantidade de pessoas,...) e principalmente o local do mesmo, como podemos verificar na Figura \ref{fig:dash1}. Após seleção das características e do local, entrando na aba "Preço Proposto", representada na Figura \ref{fig:dash2}, podemos clicar no botão "Preve-ja", para termos as sugestões, considerando a média e a mediana das previsões das árvores e sua respectiva distribuição. 
+Foi utilizada a tecnologia shiny, que tem como o objetivo a criação de aplicações web na linguagem R. Criou-se uma interface intuitiva e de fácil acesso. Nesta interface,  o usuário consegue manipular as características dos imóveis (como quantidade de quartos,quantidade de pessoas,...) e principalmente o local do mesmo, como podemos verificar na Figura \ref{fig:dash1}. Após seleção das características e do local, entrando na aba "Preço Proposto", representada na Figura \ref{fig:dash2}, podemos clicar no botão "Preve-ja", para termos as sugestões, considerando a média e a mediana das previsões das árvores e sua respectiva distribuição. 
 
 <!-- latitude: -22.9860434863823 -->
 <!-- longitude: -43.2137877800599 -->

@@ -16,7 +16,7 @@ Porém, normalmente pressupõe-se que a função objetivo tem uma representaçã
 
 ### Otimização hiperparamétrica
 
-No campo da otimização, em sua maioria, a função a ser otimizada nescessita de forma fechada, possua derivadas, mas neste caso, não existe uma função que relacione os hiperparâmetros com uma função de erro, isto invalida a utilização de qualquer método que é commumente utilizado.
+No campo da otimização, em sua maioria, a função a ser otimizada necessita de forma fechada, possua derivadas, mas neste caso, não existe uma função que relacione os hiperparâmetros com uma função de erro, isto invalida a utilização de qualquer método que é comumente utilizado.
 
 Por isto, muitas vezes é utilizado busca aleatório de um conjunto de hiperparâmetros razoávelmente bom, mas por se tratar de um modelo recursivo, o treinamento deste modelo pode ser demorado, por isto será utilizado uma técnica conhecida como Optimização Bayesiana que tem como objetivo uma convergência em menos iterações na buscar de uma boa combinação de hiperparâmetros.
 

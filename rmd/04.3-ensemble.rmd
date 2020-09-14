@@ -7,6 +7,11 @@ Muitos pesquisadores buscam maneiras de combinar a previsão de diversos modelos
 O procedimento Bootstrap é uma técnica de reamostragem, bastante utilizada em diferentes situações estatísticas. A base da técnica é a obtenção de um “novo” conjunto de
 dados, por reamostragem do conjunto de dados original. O aumento de poder computacional estimulou o desenvolvimento de novos métodos estatísticos que são computacionalmente intensivos, como o próprio bootstrap introduzido por @efron1994introduction. O objetivo é a estimativa de um parâmetro da população como pode ser visto na Figura \ref{fig:bootstrap}. O procedimento é útil nos casos em que o estimador é uma função complexa dos parâmetros verdadeiros [@murphy2012probabilistic].
 
+Numa análise, normalmente, temos uma amostra de uma população do interesse no 
+estudo. A análise é realizada nesta amostra. Utilizando o bootstrap, é feito 
+uma amostragem aleatória com reposição dessa amostra e simulando diversas 
+outras possíveis amostras que poderiam ser retiradas da população.
+
 ![Exemplo de bootstrap.\label{fig:bootstrap}](../fig/bootstrap_traduzido.png){height=40%}
 
 #### Árvore de decisão
@@ -33,7 +38,7 @@ $$
 \hat{f}(x) = \sum^M_{m=1}w_m I(x \in R_m),
 $$
 
-\noindent onde $I(x \in R_m)$ denota a função indicadora para o evento {$x \in R_m}
+\noindent onde $I(x \in R_m)$ denota a função indicadora para o evento ${x \in R_m}$
 
 Ao adotarmos como critério a minimização da soma dos quadrados $\sum (y_i - f(x_i))^2$, o melhor $w_m$ será apenas a média de $y_i$ na região $R_m$:
 
@@ -51,7 +56,7 @@ $$R_1(j,t) = \left\{ X|X_j \in t \right\} \hbox{ e }  R_2(j,t) = \left\{X|X_j \n
 
 Em seguida, busca-se a variável de divisão $X_j$ e os pontos de divisão t que resolvem:
 
-$$\hat{i}(t) = \underset{j,t}{\min} \left[ \underset{w_1}{\min} \sum_{x_i \in R_1 (j,t)} (y_i - w_1)^2 + \underset{w_2}{\min}  \sum_{x_i \in R_2 (j,t)} (y_i - w_2)^2   \right]$$
+$$\hat{i}(j,t) = \underset{j,t}{\min} \left[ \underset{w_1}{\min} \sum_{x_i \in R_1 (j,t)} (y_i - w_1)^2 + \underset{w_2}{\min}  \sum_{x_i \in R_2 (j,t)} (y_i - w_2)^2   \right]$$
 
 Para qualquer opção j e t, a minimização é resolvida por:
 
@@ -70,16 +75,16 @@ Os principais hiperparâmetros do método são:
 As variáveis explicativas raramente são igualmente relevantes para a previsão e criação da árvore. Frequentemente, apenas algumas delas têm influência substancial na resposta. A grande maioria é irrelevante e poderia muito bem não ter sido incluída. Para uma decisão simples de uma árvore, @breiman1984j propôs o seguinte cálculo para a importância das variáveis:
 
 $$
-\Upsilon(X_i, T)= \sum_{t=1}^{J-1} \hat{i}(t) I(X_i=\iota_t),
+\Upsilon(X_j, T)= \sum_{n=1}^{J-1} \hat{i}_n(j,t) I(X_j=\iota_n),
 $$
 
-\noindent onde $\Upsilon(X_i, T)$ é uma medida de relevância para cada variável preditora $X_i$ referente a árvore $T$, $\iota_t$ é a variável utilizada para realizar a partição das regiões do nó $t$, $\hat{i}(t)$ é a minimização realizada para seleção do ponto de divisão, com isso, é realizada a soma em todos os nós internos para os quais foi escolhido como a variável de divisão.
+\noindent onde $\Upsilon(X_j, T)$ é uma medida de relevância para cada variável preditora $X_j$ referente a árvore $T$, $\iota_n$ é a variável utilizada para realizar a partição das regiões do nó $n$, $\hat{i}(j, t)$ é a minimização realizada para seleção do ponto de divisão no nó $n$, com isso, é realizada a soma em todos os nós internos para os quais foi escolhido como a variável de divisão.
 
 As árvores de decisão estão na base de muitos algoritmos modernos e de ponta, incluindo o Random Forest, ao qual utilizaremos neste trabalho.
 
 #### Floresta aleatória
 
-Segundo @breiman2001random, o método de Florestas Aleatórias (Random Forest) consiste em criar B árvores distintas (obtidas de B amostras bootstraps da amostra original) e combinar seus resultados para melhorar o poder preditivo de cada árvore individual. É um algoritmo de Machine Learning amplamente utilizado, que tem os algoritmos *bagging* e *CART* como base. Porém, o problema de utilizar o método bootstrap para a aplicação das árvores de decisão é que possivelmente serão escolhidas as mesmas variáveis e as previsões acabariam altamente correlacionadas [@murphy2012probabilistic]. Por isso, além da reamostragem de observações, também é realizado a amostragem de variáveis independentes no crescimento de cada árvore. A função de previsão pode ser escrita da seguinte maneira:
+Segundo @breiman2001random, o método de Florestas Aleatórias (Random Forest) consiste em criar B árvores distintas (obtidas de B amostras bootstraps da amostra original) e combinar seus resultados para melhorar o poder preditivo. É um algoritmo de Machine Learning amplamente utilizado, que tem os algoritmos *bagging* e *CART* como base. Porém, o problema de utilizar o método bootstrap para a aplicação das árvores de decisão é que possivelmente serão escolhidas as mesmas variáveis e as previsões acabariam altamente correlacionadas [@murphy2012probabilistic]. Por isso, além da reamostragem de observações, também é realizado a amostragem aleatória de variáveis no crescimento de cada árvore. A função de previsão pode ser escrita da seguinte maneira:
 
 $$
 \hat{f}_{RF}(x) = \frac{1}{B}\sum_{b=1}^BT_b(x)
@@ -95,7 +100,7 @@ Neste algoritmo tem-se os hiperparâmetros herdados do modelo de árvore de deci
 
 - Quantidade de variáveis que serão amostradas. Por padrão são amostradas $\sqrt{p}$ variáveis, onde $p$ é a quantidade de variáveis totais da base;
 
-- Proporção de reamostragem das observações. Por padrão é reamostrada uma base do mesmo tamanho com replicação de observações.
+- Proporção de reamostragem das observações. Por padrão é reamostrada uma base do mesmo tamanho, via amostragem aleatória com reposição.
 
 Os valores padrões descrito acima são os definidos pelo pacote Ranger [@wright2015ranger].
 
@@ -119,14 +124,12 @@ O algoritmo é descrito abaixo:
 
 \end{algorithm}
 
-O Erro Fora da Amostra (ou *out-of-bag*(OOB)) é uma das características do próprio algoritmo, visto que, as observações são reamostradas em cada treinamento de cada árvore. Então é possível utilizar as observações não utilizadas na criação da árvore como teste. 
+O Erro Fora da Amostra (ou *out-of-bag*(OOB)) é uma das características do próprio algoritmo, visto que, as observações são reamostradas em cada treinamento de cada árvore. Então é possível utilizar as observações não utilizadas na criação da árvore como teste. Como as árvores utilizadas neste trabalho são árvores regressoras, o erro utilizado é o Erro Quadrático Médio (EQM).
 
-Como as árvores utilizadas neste trabalho são árvores regressoras, o erro utilizado é o Erro Quadrático Médio (EQM).
-
-Árvores de decisão são facilmente interpretadas e podem ser visualizadas em forma de árvores como na Figura \ref{fig:tree}, porém, quando se tem um conjunto dessas árvores perdemos essa representação em forma de árvore. Com isso, é necessário utilizar o cálculo de relevância que foi comentado anteriormente, onde a relevância das variáveis em uma única árvore de decisão (T) é representada por $\Upsilon(X_i, T)$, por se tratar de um conjunto de B árvores. Essa medida é facilmente expandida para o caso de múltiplas árvores como uma média da importância para cada árvore:
+Árvores de decisão são facilmente interpretadas e podem ser visualizadas em forma de árvores como na Figura \ref{fig:tree}, porém, quando se tem um conjunto dessas árvores perdemos essa representação em forma de árvore. Com isso, é necessário utilizar o cálculo de relevância que foi comentado anteriormente, onde a relevância das variáveis em uma única árvore de decisão (T) é representada por $\Upsilon(X_j, T)$, por se tratar de um conjunto de B árvores. Essa medida é facilmente expandida para o caso de múltiplas árvores como uma média da importância para cada árvore:
 
 $$
-\Upsilon(X_i, T_e) = \frac{1}{B} \sum^{B}_{b=1}\Upsilon(X_i, T_b). 
+\Upsilon(X_j, T_e) = \frac{1}{B} \sum^{B}_{b=1}\Upsilon(X_j, T_b). 
 $$
 
 
